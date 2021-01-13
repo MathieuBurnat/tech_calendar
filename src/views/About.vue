@@ -1,12 +1,20 @@
 <template lang="jade">
-  myComponenent
+
+  {{ greeting }} World!
+  OtherComponent
 </template>
 
 <script>
-  import myComponenent from './Header.vue'
-  export default {
-    components: {
-      myComponenent
+import OtherComponent from './Header.vue'
+export default {
+  components: {
+    OtherComponent
+  },
+  data () {
+    return {
+      greeting: 'Hello'
     }
   }
+}
 </script>
+
