@@ -1,19 +1,17 @@
 <template lang="jade">
-
-  {{ greeting }} World!
-  OtherComponent
+  <Header/>
+    <h1> Section About </h1>
+  <Footer/>
 </template>
 
 <script>
-import OtherComponent from './Header.vue'
+import Header from './Header.vue'
+import Footer from './Footer.vue'
+
 export default {
   components: {
-    OtherComponent
-  },
-  data () {
-    return {
-      greeting: 'Hello'
-    }
+    Header,
+    Footer
   }
 }
 </script>

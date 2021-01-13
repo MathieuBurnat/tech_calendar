@@ -1,4 +1,3 @@
 <template>
-  <h1> *Send Help ? Hi ?</h1>
-  <h1> Is someone sees me ? :c </h1>
+  <h2> My beautiful header !</h2>
 </template>
