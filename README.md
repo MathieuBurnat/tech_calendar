@@ -13,6 +13,7 @@ Modules, like tags, are totally configurable. The difference is that the tags wi
 ## Technical description
 This project is using vue client 3 with mongodb as nosql database. 
 
+It's possible to obtain the project's progress via [trello](https://trello.com/b/3His3uPP/mytechcalendar).
 
 # Project setup
 ```
