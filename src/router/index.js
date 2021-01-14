@@ -3,6 +3,8 @@ import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
 import Help from "@/views/Help.vue";
 import PageNotFound from "@/views/errors/PageNotFound.vue";
+import TestData from "@/views/test-dataVue/TestData.vue";
+import New from "@/views/test-dataVue/New.vue";
 
 const routes = [
   {
@@ -23,6 +25,16 @@ const routes = [
   {
     path: "/:catchAll(.*)",
     component: PageNotFound,
+  },
+  {
+    path: "/test-data",
+    name: "testData",
+    component: TestData,
+  },
+  {
+    path: "/test-data/new",
+    name: "new-testData",
+    component: New,
   },
 ];
 
