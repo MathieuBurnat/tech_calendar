@@ -4,15 +4,15 @@
     <div class="topnav">
       <!-- Centered link -->
       <div class="topnav-centered">
-        <router-link class="active" to="/">My calendar</router-link>
+        <router-link class="active" to="/calendar">My calendar</router-link>
       </div>
       <!-- Left-aligned links (default) -->
       <div class="topnav-left">
-        <router-link to="/">Calendars</router-link>
+        <router-link to="/pickacalendar">Calendars</router-link>
       </div>
       <!-- Right-aligned links -->
       <div class="topnav-right">
-        <router-link to="/">Profil</router-link>
+        <router-link to="/profil">Profil</router-link>
       </div>
       
     </div>
