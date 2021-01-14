@@ -1,9 +1,20 @@
 <template>
   <body>
+    <!-- Top navigation -->
     <div class="topnav">
-      <router-link class="active" to="/">My calendar</router-link>
-      <router-link to="/">Calendars</router-link>
-      <router-link to="/">Profil</router-link>
+      <!-- Centered link -->
+      <div class="topnav-centered">
+        <router-link class="active" to="/">My calendar</router-link>
+      </div>
+      <!-- Left-aligned links (default) -->
+      <div class="topnav-left">
+        <router-link to="/">Calendars</router-link>
+      </div>
+      <!-- Right-aligned links -->
+      <div class="topnav-right">
+        <router-link to="/">Profil</router-link>
+      </div>
+      
     </div>
   </body>
 </template>
@@ -15,15 +26,16 @@ body {
 }
 
 .topnav {
+  position: relative;
   overflow: hidden;
-  background-color: #333;
+  background-color: #716e77;
 }
 
 .topnav a {
   float: left;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  padding: 30px 20px;
   text-decoration: none;
   font-size: 17px;
 }
@@ -34,7 +46,40 @@ body {
 }
 
 .topnav a.active {
-  background-color: #4CAF50;
+  background-color: #ecd6c7;
   color: white;
+}
+
+.topnav-centered a {
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.topnav-right {
+  float: right;
+  margin-right: 30px;
+}
+
+.topnav-left{
+  margin-left: 30px;
+}
+
+/* Responsive navigation menu (for mobile devices) */
+@media screen and (max-width: 600px) {
+  .topnav a, .topnav-right, .topnav-left {
+    float: none;
+    display: block;
+    margin: 0;
+  }
+  
+  .topnav-centered a {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
 }
 </style>
