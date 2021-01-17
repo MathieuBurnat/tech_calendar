@@ -1,7 +1,13 @@
 <template>
   <Header/>
     <h2> Test. Test. Test-Data !</h2>
-    <button onclick="connection()">Click me</button>
+    <button onclick="connection()">Connection</button>
+
+    <label for="ldata">Insert :</label><br>
+    <input type="data" id="data" name="data" value="my data"><br>
+    <button onclick="insert()">Insert</button>
+    
+    <button onclick="read()">Read values</button>
 
 </template>
 
