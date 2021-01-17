@@ -1,6 +1,8 @@
 <template>
   <Header/>
     <h2> Test. Test. Test-Data !</h2>
+    <button onclick="connection()">Click me</button>
+
 </template>
 
 <script>
