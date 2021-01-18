@@ -1,7 +1,9 @@
 <template>
     <Header/>
     
-    <h2> Test. Test. Test-Data !</h2>
+    <h1> Test. Test. Test-Data !</h1>
+
+    <h2> Insert Datas</h2>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h3 class="text-center">Create Calendar</h3>
@@ -27,6 +29,29 @@
             </form>
         </div>
     </div>
+
+    <h2> View Datas </h2>
+     <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="calendar in Calendars" :key="calendar._id">
+                        <td>{{ calendar.name }}</td>
+                        <td>{{ calendar.email }}</td>
+                        <td>{{ calendar.phone }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -41,8 +66,17 @@
                    name: '',
                    email: '',
                    phone: ''
-                }
+                },
+                Calendars: []
             }
+        },
+        created() {
+            let apiURL = 'http://localhost:4000/api';
+            axios.get(apiURL).then(res => {
+                this.Calendars = res.data;
+            }).catch(error => {
+                console.log(error)
+            });
         },
         methods: {
             handleSubmitForm() {
