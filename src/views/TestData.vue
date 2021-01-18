@@ -1,26 +1,56 @@
 <template>
-  <Header/>
-    <h2> Test. Test. Test-Data !</h2>
-    <button onclick="connection()">Connection</button>
-
-    <label for="ldata">Insert :</label><br>
-    <input type="data" id="data" name="data" value="my data"><br>
-    <button onclick="insert()">Insert</button>
+    <Header/>
     
-    <button onclick="read()">Read values</button>
+    <h2> Test. Test. Test-Data !</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h3 class="text-center">Create Student</h3>
+            <form @submit.prevent="handleSubmitForm">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" v-model="student.name" required>
+                </div>
 
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" v-model="student.email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" class="form-control" v-model="student.phone" required>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-danger btn-block">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
 
 <script>
   import Header from './Header.vue'
-
-  export default {
-    components: {
+    export default 
+    {
+        data() {
+            return {
+                student: {
+                   name: '',
+                   email: '',
+                   phone: ''
+                }
+            }
+        },
+        methods: {
+            handleSubmitForm() { }
+        },
+        components: {
       Header
+        }
     }
-  }
 
-
+/*
   function connection(){
     // getting-started.js
     const mongoose = require('mongoose');
@@ -31,5 +61,5 @@
     db.once('open', function() {
     // we're connected!
     });
-  }
+  }*/
 </script>
