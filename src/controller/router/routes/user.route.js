@@ -16,7 +16,18 @@ userRoute.route('/').get((req, res) => {
  })
 
  userRoute.route('/create-user').post((req, res, next) => {
-    req.body.password = Bcrypt.hashSync(req.body.password, 10);
+
+    userModel.find({name : req.body.name}, function (err, docs) {
+      if (docs.length){
+          cb('Name exists already',null);
+          console.log("Hey pony, this name is already taken :c");
+      }else{
+        console.log("Everything's fine, this name is not taken ;3");
+      }
+    });
+
+
+    req.body.password = Bcrypt.hashSync(req.body.password, 10); //hash the password
 
     userModel.create(req.body, (error, data) => {
     if (error) {
