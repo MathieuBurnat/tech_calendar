@@ -17,7 +17,7 @@ mongoose.connect(database.db, {
   }
 )
 
-const studentAPI = require('../controller/routes/calendar.route')
+const calendarAPI = require('../controller/routes/calendar.route')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 
 // API
-app.use('/api', studentAPI)
+app.use('/api', calendarAPI)
 
 // Create port
 const port = process.env.PORT || 4000;

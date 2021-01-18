@@ -1,11 +1,11 @@
 const express = require('express');
-const studentRoute = express.Router();
+const calendarRoute = express.Router();
 
-// Student model
-let StudentModel = require('../../model/calendar.js');
+// calendar model
+let calendarModel = require('../../model/calendar.js');
 
-studentRoute.route('/').get((req, res) => {
-    StudentModel.find((error, data) => {
+calendarRoute.route('/').get((req, res) => {
+    calendarModel.find((error, data) => {
      if (error) {
        return next(error)
      } else {
@@ -14,8 +14,8 @@ studentRoute.route('/').get((req, res) => {
    })
  })
 
- studentRoute.route('/create-student').post((req, res, next) => {
-    StudentModel.create(req.body, (error, data) => {
+ calendarRoute.route('/create-calendar').post((req, res, next) => {
+    calendarModel.create(req.body, (error, data) => {
     if (error) {
       return next(error)
     } else {
@@ -24,8 +24,8 @@ studentRoute.route('/').get((req, res) => {
   })
 });
 
-studentRoute.route('/edit-student/:id').get((req, res) => {
-   StudentModel.findById(req.params.id, (error, data) => {
+calendarRoute.route('/edit-calendar/:id').get((req, res) => {
+   calendarModel.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
     } else {
@@ -34,23 +34,23 @@ studentRoute.route('/edit-student/:id').get((req, res) => {
   })
 })
 
-// Update student
-studentRoute.route('/update-student/:id').post((req, res, next) => {
-  StudentModel.findByIdAndUpdate(req.params.id, {
+// Update calendar
+calendarRoute.route('/update-calendar/:id').post((req, res, next) => {
+  calendarModel.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, (error, data) => {
     if (error) {
       return next(error);
     } else {
       res.json(data)
-      console.log('Student successfully updated!')
+      console.log('calendar successfully updated!')
     }
   })
 })
 
-// Delete student
-studentRoute.route('/delete-student/:id').delete((req, res, next) => {
-  StudentModel.findByIdAndRemove(req.params.id, (error, data) => {
+// Delete calendar
+calendarRoute.route('/delete-calendar/:id').delete((req, res, next) => {
+  calendarModel.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -61,4 +61,4 @@ studentRoute.route('/delete-student/:id').delete((req, res, next) => {
   })
 })
 
-module.exports = studentRoute;
+module.exports = calendarRoute;
