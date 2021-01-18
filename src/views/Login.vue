@@ -3,13 +3,13 @@
     <h1> Se connecter </h1>
     <form @submit.prevent="login">
             <label>Name</label>
-            <input type="text" class="form-control" v-model="calendar.name" required>
+            <input type="text" class="form-control" v-model="user.name" required>
 
             <label>Email</label>
-            <input type="text" class="form-control" v-model="calendar.email" required>
+            <input type="text" class="form-control" v-model="user.email" required>
 
-            <label>Phone</label>
-            <input type="text" class="form-control" v-model="calendar.phone" required>
+            <label>Password</label>
+            <input type="text" class="form-control" v-model="user.password" required>
 
             <button class="btn btn-danger btn-block">Create</button>
 
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-        calendar: {
+        user: {
             name: '',
             email: '',
             phone: ''
@@ -38,10 +38,10 @@ export default {
   },
   methods:{
     login(){
-        let apiURL = 'http://localhost:4000/api/create-calendar';
-        axios.post(apiURL, this.calendar).then(() => {
+        let apiURL = 'http://localhost:4000/user/create-user';
+        axios.post(apiURL, this.user).then(() => {
           //this.$router.push('/view')
-          this.calendar = {
+          this.user = {
             name: '',
             email: '',
             phone: ''
