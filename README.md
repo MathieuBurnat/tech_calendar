@@ -21,9 +21,16 @@ npm install
 ```
 
 ## Compiles and hot-reloads for development
+### Launch project with Vue3
 ```
-npm run serve
+npm run serve 
 ```
+### Execute api's db
+
+```
+nodemon
+```
+
 
 ## Compiles and minifies for production
 ```
