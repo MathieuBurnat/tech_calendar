@@ -2,7 +2,7 @@ const express = require('express');
 const studentRoute = express.Router();
 
 // Student model
-let StudentModel = require('../model/Student');
+let StudentModel = require('../../model/calendar.js');
 
 studentRoute.route('/').get((req, res) => {
     StudentModel.find((error, data) => {
