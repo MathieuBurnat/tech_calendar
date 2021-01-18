@@ -34,7 +34,7 @@ export default {
   },
   methods:{
     login(){
-        let apiURL = 'http://localhost:4000/user/create-user';
+        let apiURL = 'http://localhost:4000/user/login';
         axios.post(apiURL, this.user).then(() => {
           //this.$router.push('/view')
           this.user = {
