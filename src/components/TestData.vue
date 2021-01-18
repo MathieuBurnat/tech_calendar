@@ -48,7 +48,7 @@
             handleSubmitForm() {
                 let apiURL = 'http://localhost:4000/api/create-student';
                 axios.post(apiURL, this.student).then(() => {
-                  this.$router.push('/view')
+                  //this.$router.push('/view')
                   this.student = {
                     name: '',
                     email: '',
