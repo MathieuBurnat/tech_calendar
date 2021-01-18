@@ -1,5 +1,6 @@
 const express = require('express');
 const userRoute = express.Router();
+const Bcrypt = require("bcryptjs");
 
 // user model
 let userModel = require('../../../model/user');
@@ -15,6 +16,8 @@ userRoute.route('/').get((req, res) => {
  })
 
  userRoute.route('/create-user').post((req, res, next) => {
+    req.body.password = Bcrypt.hashSync(req.body.password, 10);
+
     userModel.create(req.body, (error, data) => {
     if (error) {
       return next(error)

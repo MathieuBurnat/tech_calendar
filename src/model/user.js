@@ -11,6 +11,9 @@ let userSchema = new Schema({
   password: {
     type: String
   },
+  defaultCalendar: {
+    type: String
+  }
 }, {
   collection: 'users'
 })

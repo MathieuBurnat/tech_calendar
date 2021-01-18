@@ -9,7 +9,7 @@
             <input type="text" class="form-control" v-model="user.email" required>
 
             <label>Password</label>
-            <input type="text" class="form-control" v-model="user.password" required>
+            <input type="password" class="form-control" v-model="user.password" required>
 
             <button class="btn btn-danger btn-block">Create</button>
 
@@ -32,7 +32,7 @@ export default {
         user: {
             name: '',
             email: '',
-            phone: ''
+            password: ''
         },
     }
   },
@@ -44,7 +44,7 @@ export default {
           this.user = {
             name: '',
             email: '',
-            phone: ''
+            password: ''
           }
         }).catch(error => {
             console.log(error)
