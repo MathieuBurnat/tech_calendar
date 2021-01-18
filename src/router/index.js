@@ -11,7 +11,7 @@ import EditType from "@/views/EditType.vue";
 import About from "@/views/About.vue";
 import Header from "@/views/Header.vue";
 import Footer from "@/views/Footer.vue";
-import TestData from "@/views/TestData.vue";
+import TestData from "@/components/TestData.vue";
 
 const routes = [
   {
