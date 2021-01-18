@@ -14,7 +14,6 @@
             <button class="btn btn-danger btn-block">Create</button>
 
             ou <router-link class="active" to="/register">s'enregistrer</router-link>.
-
     </form>
   <Footer/>
 </template>
@@ -47,7 +46,7 @@ export default {
             password: ''
           }
         }).catch(error => {
-            console.log(error)
+            console.log(error);
         });
       },
   },

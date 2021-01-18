@@ -17,25 +17,21 @@ userRoute.route('/').get((req, res) => {
 
  userRoute.route('/create-user').post((req, res, next) => {
 
-    userModel.find({name : req.body.name}, function (err, docs) {
-      if (docs.length){
-          cb('Name exists already',null);
-          console.log("Hey pony, this name is already taken :c");
-      }else{
-        console.log("Everything's fine, this name is not taken ;3");
+    userModel.find({email : req.body.email}, function (err, docs) {
+      if (docs.length){ //The email is already taken... too bad.
+          console.log("This email is already taken :c");
+      }else{ //Fine. we can save user's datas
+        req.body.password = Bcrypt.hashSync(req.body.password, 10); //hash the password
+        userModel.create(req.body, (error, data) => {
+        if (error) {
+          return next(error);
+        } else {
+          res.json(data);
+          console.log("User created :D");
+        }
+      })
       }
     });
-
-
-    req.body.password = Bcrypt.hashSync(req.body.password, 10); //hash the password
-
-    userModel.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
 });
 
 userRoute.route('/edit-user/:id').get((req, res) => {
