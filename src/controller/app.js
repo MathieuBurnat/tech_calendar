@@ -17,7 +17,7 @@ mongoose.connect(database.db, {
   }
 )
 
-const calendarAPI = require('../controller/routes/calendar.route')
+const calendarAPI = require('./router/routes/calendar.route.js')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

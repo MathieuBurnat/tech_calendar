@@ -2,7 +2,7 @@ const express = require('express');
 const calendarRoute = express.Router();
 
 // calendar model
-let calendarModel = require('../../model/calendar.js');
+let calendarModel = require('../../../model/calendar');
 
 calendarRoute.route('/').get((req, res) => {
     calendarModel.find((error, data) => {
