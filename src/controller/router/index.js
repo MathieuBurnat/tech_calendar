@@ -11,7 +11,7 @@ import EditType from "@/views/EditType.vue";
 import About from "@/views/About.vue";
 import Header from "@/views/Header.vue";
 import Footer from "@/views/Footer.vue";
-
+import TestData from "@/components/TestData.vue";
 
 const routes = [
   {
@@ -59,15 +59,20 @@ const routes = [
     name: "EditType",
     component: EditType,
   },
-  { //dev-options
+  { //dev-options (go to the header)
     path: "/dev-header",
     name: "Header",
     component: Header,
   },
-  { //dev-options
+  { //dev-options (go to the footer)
     path: "/dev-footer",
     name: "Footer",
     component: Footer,
+  },
+  { //dev-options (go to a mongo test page)
+    path: "/dev-test-data",
+    name: "TestData",
+    component: TestData,
   },
   {
     path: "/:catchAll(.*)",
