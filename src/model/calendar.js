@@ -9,7 +9,7 @@ let studentSchema = new Schema({
     type: String
   },
   phone: {
-    type: Number
+    type: String
   },
 }, {
   collection: 'students'
