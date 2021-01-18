@@ -17,7 +17,7 @@ mongoose.connect(database.db, {
   }
 )
 
-const studentAPI = require('../backend/routes/student.route')
+const studentAPI = require('../controller/routes/calendar.route')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
