@@ -2,7 +2,7 @@
   "name": "tech_calendar",
   "version": "0.1.0",
   "private": true,
-  "main": "src/controller/app.js",
+  "main": "src/controller/db_manager.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
