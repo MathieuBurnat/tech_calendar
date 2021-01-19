@@ -104,7 +104,6 @@ function createToken(fk_user){ //....
       token: Bcrypt.hashSync((Math.floor(Math.random() * 100) + 1).toString(), 10),  // Hash an random integer created dynamically
     }
 
-
     authModel.create(token, (error, data) => {
       if (error) {
         return next(error)
@@ -114,6 +113,10 @@ function createToken(fk_user){ //....
     });
 
     return token;
+}
+
+function verifyToken(){
+  //...
 }
 
 module.exports = userRoute;
