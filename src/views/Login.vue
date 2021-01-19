@@ -1,6 +1,10 @@
 <template>
   <Header/>
-    <h1> Se connecter </h1>
+    <h1>Bienvenue ! </h1>
+    <p>Avant de pouvoir bénéficier des services de l'application et de façon à conserver vos calendriers de façon sécurisée, vous devez vous connecter. </p>
+
+    <h2> Se connecter </h2>
+
     <form @submit.prevent="login">
             <label>Adresse mail</label>
             <input type="text" class="form-control" v-model="user.email" required>
@@ -44,8 +48,8 @@ export default {
             //store the token (use_id with token) into "userInformations"
             localStorage.setItem('userInformations', JSON.stringify(res.data.token));
 
-            //redirect into the homepage or whatever.
-            this.$router.push('/')
+            //now the use will be able to pick a calendar.. 
+            this.$router.push('/pickacalendar')
           }
 
           this.user = {

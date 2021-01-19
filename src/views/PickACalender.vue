@@ -1,6 +1,23 @@
 <template>
   <Header/>
-    <h2> Welcome to the pickacalendar's section. </h2>
+  <h1> Pick a calendar ! </h1>
+
+  <label for="calendar-choice">calendars:</label>
+  <input list="calendar-list" id="calendar-choice" name="calendar-choice" />
+
+  <datalist id="calendar-list">
+  <option value="Chocolate"></option>
+  <option value="Coconut"></option>
+  <option value="Mint"></option>
+  <option value="Strawberry"></option>
+  <option value="Vanilla"></option>
+  </datalist>
+
+  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+  <label for="vehicle2"> Keep this calendar as default </label><br>
+  <input type="submit" value="Go">
+  <br/> ...ou créer un nouveau <router-link class="active" to="/newcalendar">calendrier</router-link>.
+
 </template>
 
 <script>
