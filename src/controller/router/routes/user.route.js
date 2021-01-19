@@ -5,6 +5,9 @@ const Bcrypt = require("bcryptjs");
 // user model
 let userModel = require('../../../model/user');
 
+// token model 
+let authModel = require('../../../model/token');
+
 userRoute.route('/').get((req, res) => {
     userModel.find((error, data) => {
      if (error) {
@@ -16,7 +19,6 @@ userRoute.route('/').get((req, res) => {
  })
 
  userRoute.route('/create-user').post((req, res, next) => {
-
     userModel.find({email : req.body.email}, function (err, docs) {
       if (docs.length){ //The email is already taken... too bad.
           console.log("This email is already taken :c");
@@ -36,18 +38,21 @@ userRoute.route('/').get((req, res) => {
 
 // Login 
 userRoute.post("/login", async (request, response) => {
+  var isPswrdMatches = false;
   try {
       var user = await userModel.findOne({ email: request.body.email }).exec();
       if(!user) {
-        console.log("The email does not exist");
-        return response.status(400).send({ message: "The email does not exist" });
+        return response.send({ message: "The email does not exist", isPswrdMatches });
       }
       if(!Bcrypt.compareSync(request.body.password, user.password)) {
-          console.log("The password is invalid");
-          return response.status(400).send({ message: "The password is invalid" });
+          return response.send({ message: "The password is invalid", isPswrdMatches  });
       }
-      console.log("The username and password combination is correct!");
-      response.send({ message: "The username and password combination is correct!" });
+      isPswrdMatches = true;
+
+      //The username matches with password, so we create a token.
+      var token = createToken(user._id);
+      
+      response.send({ message: "The username and password combination is correct!", isPswrdMatches, token});
   } catch (error) {
       response.status(500).send(error);
   }
@@ -89,5 +94,29 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
     }
   })
 })
+
+//Create token (it's possible to return it to store)
+function createToken(fk_user){ //....
+
+    //Create token
+    token = {
+      user : fk_user,
+      token: Bcrypt.hashSync((Math.floor(Math.random() * 100) + 1).toString(), 10),  // Hash an random integer created dynamically
+    }
+
+    authModel.create(token, (error, data) => {
+      if (error) {
+        return next(error)
+      } else {
+        console.log("Token created !");
+      }
+    });
+
+    return token;
+}
+
+function verifyToken(){
+  //...
+}
 
 module.exports = userRoute;
