@@ -101,16 +101,20 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
 })
 
 function CreateToken(fk_user){
-    console.log("Something here ? " + fk_user);
-  
-    /*
-    authModel.create(req.body, (error, data) => {
+
+    //Create token
+    token = {
+      user : fk_user,
+      token: Bcrypt.hashSync((Math.floor(Math.random() * 100) + 1).toString(), 10),  // Hash an random integer created dynamically
+    }
+
+    authModel.create(token, (error, data) => {
       if (error) {
         return next(error)
       } else {
-        res.json(data)
+        console.log("Token created !");
       }
-    });*/
+    });
 }
 
 module.exports = userRoute;
