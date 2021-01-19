@@ -38,7 +38,7 @@ export default {
       let authURL = 'http://localhost:4000/auth/verify-authenticity';
       axios.post(authURL, ui).then((res) => {
         
-        console.log("Message :" + res.data.message); //return message
+        console.log(res.data.message); //return message
 
       }).catch(error => {
           console.log(error);
