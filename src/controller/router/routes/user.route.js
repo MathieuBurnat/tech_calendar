@@ -34,6 +34,25 @@ userRoute.route('/').get((req, res) => {
     });
 });
 
+// Login 
+userRoute.post("/login", async (request, response) => {
+  try {
+      var user = await userModel.findOne({ email: request.body.email }).exec();
+      if(!user) {
+        console.log("The email does not exist");
+        return response.status(400).send({ message: "The email does not exist" });
+      }
+      if(!Bcrypt.compareSync(request.body.password, user.password)) {
+          console.log("The password is invalid");
+          return response.status(400).send({ message: "The password is invalid" });
+      }
+      console.log("The username and password combination is correct!");
+      response.send({ message: "The username and password combination is correct!" });
+  } catch (error) {
+      response.status(500).send(error);
+  }
+});
+
 userRoute.route('/edit-user/:id').get((req, res) => {
    userModel.findById(req.params.id, (error, data) => {
     if (error) {

@@ -2,16 +2,13 @@
   <Header/>
     <h1> Se connecter </h1>
     <form @submit.prevent="login">
-            <label>Name</label>
-            <input type="text" class="form-control" v-model="user.name" required>
-
-            <label>Email</label>
+            <label>Adresse mail</label>
             <input type="text" class="form-control" v-model="user.email" required>
 
-            <label>Password</label>
+            <label>Mot de passe</label>
             <input type="password" class="form-control" v-model="user.password" required>
 
-            <button class="btn btn-danger btn-block">Create</button>
+            <button class="btn btn-danger btn-block">Se connecter</button>
 
             ou <router-link class="active" to="/register">s'enregistrer</router-link>.
     </form>
@@ -37,7 +34,7 @@ export default {
   },
   methods:{
     login(){
-        let apiURL = 'http://localhost:4000/user/create-user';
+        let apiURL = 'http://localhost:4000/user/login';
         axios.post(apiURL, this.user).then(() => {
           //this.$router.push('/view')
           this.user = {
