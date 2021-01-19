@@ -17,7 +17,6 @@
 <script>
 import Header from './Header.vue'
 import axios from "axios";
-import { cube } from "../controller/authenticator.js";
 
 export default {
   components: {
@@ -33,22 +32,19 @@ export default {
   methods:{
     createCalendar(){
       
-        var caca = cube(2);
-        console.log("do u sleep ?" + caca);
+      // create the calendar with the text box name
+      let apiURL = 'http://localhost:4000/calendar/create-calendar';
+      axios.post(apiURL, this.calendar).then((res) => {
         
+        console.log(res.data.message); //return message
 
-        let apiURL = 'http://localhost:4000/calendar/create-calendar';
-        axios.post(apiURL, this.calendar).then(() => {
-          this.calendar = {
-            name: '',
-          }
-        }).catch(error => {
-            console.log(error);
-        });
+        this.calendar = {
+          name: '',
+        }
+      }).catch(error => {
+          console.log(error);
+      });
       },
     },
 }
-
-module.exports = cube;
-
 </script>
