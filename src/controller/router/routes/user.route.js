@@ -38,22 +38,21 @@ userRoute.route('/').get((req, res) => {
 
 // Login 
 userRoute.post("/login", async (request, response) => {
+  var isPswrdMatches = false;
   try {
       var user = await userModel.findOne({ email: request.body.email }).exec();
       if(!user) {
-        console.log("The email does not exist");
-        return response.status(400).send({ message: "The email does not exist" });
+        return response.send({ message: "The email does not exist", isPswrdMatches });
       }
       if(!Bcrypt.compareSync(request.body.password, user.password)) {
-          console.log("The password is invalid");
-          return response.status(400).send({ message: "The password is invalid" });
+          return response.send({ message: "The password is invalid", isPswrdMatches  });
       }
-      console.log("The username and password combination is correct!");
+      isPswrdMatches = true;
 
       //The username matches with password, so we create a token.
       var token = createToken(user._id);
       
-      response.send({ message: "The username and password combination is correct!", token});
+      response.send({ message: "The username and password combination is correct!", isPswrdMatches, token});
   } catch (error) {
       response.status(500).send(error);
   }
