@@ -5,6 +5,10 @@ const Bcrypt = require("bcryptjs");
 // user model
 let userModel = require('../../../model/user');
 
+// token model 
+let authModel = require('../../../model/token');
+
+
 userRoute.route('/').get((req, res) => {
     userModel.find((error, data) => {
      if (error) {
@@ -16,7 +20,6 @@ userRoute.route('/').get((req, res) => {
  })
 
  userRoute.route('/create-user').post((req, res, next) => {
-
     userModel.find({email : req.body.email}, function (err, docs) {
       if (docs.length){ //The email is already taken... too bad.
           console.log("This email is already taken :c");
@@ -47,7 +50,14 @@ userRoute.post("/login", async (request, response) => {
           return response.status(400).send({ message: "The password is invalid" });
       }
       console.log("The username and password combination is correct!");
+
+      //The username matches with password, so we create a token.
+      CreateToken(user._id);
+
       response.send({ message: "The username and password combination is correct!" });
+
+      
+
   } catch (error) {
       response.status(500).send(error);
   }
@@ -89,5 +99,18 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
     }
   })
 })
+
+function CreateToken(fk_user){
+    console.log("Something here ? " + fk_user);
+  
+    /*
+    authModel.create(req.body, (error, data) => {
+      if (error) {
+        return next(error)
+      } else {
+        res.json(data)
+      }
+    });*/
+}
 
 module.exports = userRoute;
