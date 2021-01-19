@@ -31,10 +31,23 @@ export default {
   },
   methods:{
     createCalendar(){
-      
+      //I wanna try if we are able to verify the authenticity of the user
+      var ui =  JSON.parse(localStorage.getItem("userInformations"));
+
+
+      let authURL = 'http://localhost:4000/auth/verify-authenticity';
+      axios.post(authURL, ui).then((res) => {
+        
+        console.log("Message :" + res.data.message); //return message
+
+      }).catch(error => {
+          console.log(error);
+      });
+
+
       // create the calendar with the text box name
-      let apiURL = 'http://localhost:4000/calendar/create-calendar';
-      axios.post(apiURL, this.calendar).then((res) => {
+      let calendarURL = 'http://localhost:4000/calendar/create-calendar';
+      axios.post(calendarURL, this.calendar).then((res) => {
         
         console.log(res.data.message); //return message
 
@@ -44,6 +57,8 @@ export default {
       }).catch(error => {
           console.log(error);
       });
+
+
       },
     },
 }

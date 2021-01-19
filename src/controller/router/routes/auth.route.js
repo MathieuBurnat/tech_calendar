@@ -15,6 +15,25 @@ authRoute.route('/').get((req, res) => {
    })
  })
 
+ authRoute.route('/verify-authenticity').post((req, res) => {
+
+  var ui = req.body;
+
+  console.log("user id :" + ui.user);
+  console.log("token :" + ui.token);
+
+  //if the token is find in table and matches with the user.
+  //if the token is not out of date.
+
+  authModel.find((error, data) => {
+   if (error) {
+     return next(error)
+   } else {
+     res.json(data)
+   }
+ })
+})
+
 // Delete auth
 authRoute.route('/delete-auth/:id').delete((req, res, next) => {
   authModel.findByIdAndRemove(req.params.id, (error, data) => {
