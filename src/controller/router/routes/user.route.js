@@ -8,7 +8,6 @@ let userModel = require('../../../model/user');
 // token model 
 let authModel = require('../../../model/token');
 
-
 userRoute.route('/').get((req, res) => {
     userModel.find((error, data) => {
      if (error) {
@@ -52,12 +51,9 @@ userRoute.post("/login", async (request, response) => {
       console.log("The username and password combination is correct!");
 
       //The username matches with password, so we create a token.
-      CreateToken(user._id);
-
-      response.send({ message: "The username and password combination is correct!" });
-
+      var token = createToken(user._id);
       
-
+      response.send({ message: "The username and password combination is correct!", token});
   } catch (error) {
       response.status(500).send(error);
   }
@@ -100,13 +96,15 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
   })
 })
 
-function CreateToken(fk_user){
+//Create token (it's possible to return it to store)
+function createToken(fk_user){ //....
 
     //Create token
     token = {
       user : fk_user,
       token: Bcrypt.hashSync((Math.floor(Math.random() * 100) + 1).toString(), 10),  // Hash an random integer created dynamically
     }
+
 
     authModel.create(token, (error, data) => {
       if (error) {
@@ -115,6 +113,8 @@ function CreateToken(fk_user){
         console.log("Token created !");
       }
     });
+
+    return token;
 }
 
 module.exports = userRoute;
