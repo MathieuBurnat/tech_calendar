@@ -12,7 +12,7 @@
 
             ou <router-link class="active" to="/register">s'enregistrer</router-link>.
     </form>
-  <Footer/>
+  <!--Footer/-->
 </template>
 
 <script>
@@ -35,8 +35,11 @@ export default {
   methods:{
     login(){
         let apiURL = 'http://localhost:4000/user/login';
-        axios.post(apiURL, this.user).then(() => {
-          //this.$router.push('/view')
+        axios.post(apiURL, this.user).then((res) => {
+          
+          //store token into "userInformations"
+          localStorage.setItem('userInformations', JSON.stringify(res.data.token));
+          
           this.user = {
             name: '',
             email: '',
