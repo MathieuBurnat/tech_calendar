@@ -5,10 +5,7 @@ let calendarSchema = new Schema({
   name: {
     type: String
   },
-  email: {
-    type: String
-  },
-  phone: {
+  author: {
     type: String
   },
 }, {
