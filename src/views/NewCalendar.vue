@@ -51,6 +51,9 @@ export default {
             this.calendar = {
               name: '',
             }
+
+            this.$router.push('/calendar')
+
           }).catch(error => {
               console.log(error);
           });

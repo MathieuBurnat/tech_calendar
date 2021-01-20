@@ -74,7 +74,7 @@
                   console.log(error);
             });
           }
-         
+         this.$router.push('/calendar')
         }else{
           this.$router.push('/logout')
         }

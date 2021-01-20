@@ -99,9 +99,6 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
   })
 }) 
 
-
-
-
 userRoute.post("/set-default-calendar", async (req, response) => {
   try {
       calendarName = req.body.name;
@@ -130,11 +127,6 @@ userRoute.post("/set-default-calendar", async (req, response) => {
       response.status(500).send(error);
   }
 });
-
-
-
-
-
 
 //Create token (it's possible to return it to store)
 function createToken(fk_user){ //....
