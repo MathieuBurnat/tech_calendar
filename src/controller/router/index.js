@@ -43,9 +43,9 @@ const routes = [
     path: "/pickacalendar",
     name: "PickACalender",
     component: PickACalender,
-  },
+  }, 
   {
-    path: "/calendar",
+    path: "/calendar:id",
     name: "Calendar",
     component: Calendar,
   },

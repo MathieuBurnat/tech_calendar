@@ -17,14 +17,17 @@ calendarRoute.route('/').get((req, res) => {
  calendarRoute.route('/create-calendar').post((req, response, next) => {
    var isCreated = false;
 
-    calendarModel.create(req.body, (error, data) => {
+    calendar = calendarModel.create(req.body, (error, data) => {
     if (error) {
       response.send({ message: "The calendar is not created !", isCreated });
 
       return next(error)
     } else {
       isCreated = true;
-      response.send({ message: "The calendar is created !", isCreated });
+
+      calendar_id = data._id;
+
+      response.send({ message: "The calendar is created !", isCreated, calendar_id });
     }
   })
 });

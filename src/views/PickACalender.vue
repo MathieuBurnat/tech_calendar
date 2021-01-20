@@ -74,7 +74,10 @@
                   console.log(error);
             });
           }
-         this.$router.push('/calendar')
+          this.$router.push({
+            name: 'Calendar',
+            params: { id: 12}
+          });
         }else{
           this.$router.push('/logout')
         }

@@ -52,7 +52,10 @@ export default {
               name: '',
             }
 
-            this.$router.push('/calendar')
+            this.$router.push({
+              name: 'Calendar',
+              params: { id: res.data.calendar_id}
+            });
 
           }).catch(error => {
               console.log(error);
