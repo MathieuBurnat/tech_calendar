@@ -102,7 +102,7 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
 userRoute.post("/set-default-calendar", async (req, response) => {
   try {
       calendarName = req.body.name;
-
+      var calendar_id = "0";
       //Find calendar id with it name
       var calendar = await calendarModel.findOne({ name: calendarName }).exec();
 
@@ -114,6 +114,8 @@ userRoute.post("/set-default-calendar", async (req, response) => {
       }
       
       console.log("calendar id : " + calendar._id);
+      calendar_id = calendar._id;
+
       console.log("user id : " + mongoose.Types.ObjectId(req.body.user_id));
 
       userModel.findByIdAndUpdate({_id: mongoose.Types.ObjectId(req.body.user_id)}, {
@@ -121,7 +123,8 @@ userRoute.post("/set-default-calendar", async (req, response) => {
       }, function(resp) {
         console.log(resp);
       })
-      console.log("here we go again..");
+      
+      return response.send({ message: "Default calender set !", calendar_id });
       
   } catch (error) {
       response.status(500).send(error);

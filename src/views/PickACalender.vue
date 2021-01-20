@@ -59,7 +59,7 @@
         var name = this.selectedOption;
         var ui =  JSON.parse(localStorage.getItem("userInformations"));
         var user_id = ui.user;
-
+        var calendar_id = 0;
         verifyAuthenticity();
         if(verifyAuthenticity){ //If the user is legit (it tokken is validate)
           
@@ -68,16 +68,21 @@
             var data = {name, user_id}
 
             let apiURL = 'http://localhost:4000/user/set-default-calendar';
-              axios.post(apiURL, data).then(() => {
+              
+            axios.post(apiURL, data).then((res) => {
+            calendar_id = res.body.calendar_id;
+            console.log("r u there ? " + res.body.calendar_id);
 
-              }).catch(error => {
-                  console.log(error);
+            this.$router.push({
+              name: 'Calendar',
+              params: { id: calendar_id}
+            });
+
+            }).catch(error => {
+                console.log(error);
             });
           }
-          this.$router.push({
-            name: 'Calendar',
-            params: { id: 12}
-          });
+
         }else{
           this.$router.push('/logout')
         }
