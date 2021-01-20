@@ -13,6 +13,11 @@
   <option value="Vanilla"></option>
   </datalist>
 
+  <tr v-for="(calendar, index) in calendars" :key="index">
+    <td>{{calendar.name}}</td>
+    <td>{{calendar.author}}</td>
+  </tr>
+
   <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
   <label for="vehicle2"> Keep this calendar as default </label><br>
   <input type="submit" value="Go">
@@ -21,11 +26,24 @@
 </template>
 
 <script>
+
   import Header from './Header.vue'
+  import axios from "axios";
 
   export default {
     components: {
       Header
-    }
+    }, 
+    setup(){
+      let apiURL = 'http://localhost:4000/calendar/';
+      axios.get(apiURL).then((res) => {
+        
+        console.log(JSON.stringify(res.data));
+        
+      }).catch(error => {
+          console.log(error);
+      });
+    },
   }
+
 </script>
