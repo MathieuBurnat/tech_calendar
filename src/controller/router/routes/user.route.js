@@ -8,6 +8,9 @@ let userModel = require('../../../model/user');
 // token model 
 let authModel = require('../../../model/token');
 
+// calendar model 
+let calendarModel = require('../../../model/calendar');
+
 userRoute.route('/').get((req, res) => {
     userModel.find((error, data) => {
      if (error) {
@@ -93,7 +96,48 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
       })
     }
   })
-})
+}) 
+
+
+
+
+userRoute.post("//set-default-calendar", async (req, response) => {
+  try {
+      console.log("here we go again..");
+      //Find calendar id with it name
+      var calendarName = req.body.name;
+      console.log("name ? " + calendarName);
+
+      var calendar = await calendarModel.findOne({ name: calendarName }).exec();
+
+      if(!calendar){
+        console.log("the calendar is invalid.");
+        return response.send({ message: "Calendar invalid. "});
+      }else{
+        console.log("calendar founded :D");
+      }
+      
+      
+      User.update({_id: mongoose.Types.ObjectId(req.body.ui.user)}, {
+        defaultCalendar: calendar._id
+      }, function(err, affected, resp) {
+        console.log(resp);
+      })
+      console.log("here we go again..");
+
+
+      
+      
+      response.send({ message: "The username and password combination is correct!", isPswrdMatches, token});
+  } catch (error) {
+      response.status(500).send(error);
+  }
+});
+
+
+
+
+
 
 //Create token (it's possible to return it to store)
 function createToken(fk_user){ //....

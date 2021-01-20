@@ -56,13 +56,24 @@
       goToCalendar(){
         //get datas
         var isChecked = this.shouldBeDefault;
-        var category = this.selectedOption;
+        var name = this.selectedOption;
+        var ui =  JSON.parse(localStorage.getItem("userInformations"));
 
         verifyAuthenticity();
         if(verifyAuthenticity){ //If the user is legit (it tokken is validate)
-          //throw them 
-          console.log("IsChecked : " + isChecked);
-          console.log("catogry : " + category);
+          
+          //if "chose this calendar as default is cheked"
+          if(isChecked){
+            var data = [{name, ui}]
+
+            let apiURL = 'http://localhost:4000/user/set-default-calendar';
+              axios.post(apiURL, data).then(() => {
+
+              }).catch(error => {
+                  console.log(error);
+            });
+          }
+         
         }else{
           this.$router.push('/logout')
         }
