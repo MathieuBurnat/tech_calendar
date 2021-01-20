@@ -33,8 +33,9 @@
 </template>
 
 <script>
-  import Header from './Header.vue'
+  import Header from './Header.vue';
   import axios from "axios";
+  import {verifyAuthenticity} from "@/components/auth.js";
 
   export default {
     components: {
@@ -60,6 +61,7 @@
         //throw them 
         console.log("IsChecked : " + isChecked);
         console.log("catogry : " + category);
+        verifyAuthenticity();
       }
     }
   }
