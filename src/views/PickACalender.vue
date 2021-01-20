@@ -13,6 +13,7 @@
   <option value="Vanilla"></option>
   </datalist>
 
+  <p> hey i'm a test {{calendar}} </p>
   <tr v-for="(calendar, index) in calendars" :key="index">
     <td>{{calendar.name}}</td>
     <td>{{calendar.author}}</td>
@@ -37,9 +38,16 @@
     setup(){
       let apiURL = 'http://localhost:4000/calendar/';
       axios.get(apiURL).then((res) => {
-        
-        console.log(JSON.stringify(res.data));
-        
+      
+      console.log(JSON.stringify(res.data));
+
+
+      const calendars = JSON.stringify(res.data);
+
+        return {
+            calendars
+        };
+
       }).catch(error => {
           console.log(error);
       });
