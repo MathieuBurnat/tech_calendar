@@ -11,19 +11,24 @@
     </div>
     <div v-else> 
       <label for="calendar-choice">calendars:</label>
-      <input type="text" v-model="calendar" list="calendars">
+      <input type="text" v-model="calendarSelected" list="calendars">
       <datalist id="calendars">
         <option v-for="calendar in calendars" :key="calendar.id">{{calendar.name}}</option>
       </datalist>
 
-      <input type="checkbox" id="isChecked" name="isChecked" value="isChecked">
-      <label for="isChecked"> Keep this calendar as default </label><br>
+      <div>
+        <input
+            type="checkbox"
+            v-model="calendarSelected.shouldBeDefault"
+            :value="1"
+            name="pets"
+          />
+        <label>Keep this calendar as default</label>
+      </div>
+
       <input type="submit" value="Go">
       <br/> ...ou créer un nouveau <router-link class="active" to="/newcalendar">calendrier</router-link>.
     </div>
-
-
-    
   </form>
 </template>
 
@@ -37,7 +42,7 @@
       Header
     },
     data() {
-      return { calendars: []}
+      return { calendars: [], calendarSelected: []}
     },
     mounted(){
       let apiURL = 'http://localhost:4000/calendar/';
@@ -49,7 +54,10 @@
     },
     methods:{
       goToCalendar(){
-        console.log("hello there");
+        var isChecked = this.calendarSelected.shouldBeDefault;
+        var category = this.calendarSelected.key;
+        console.log("IsChecked : " + isChecked);
+        console.log("catogry : " + category);
       }
     }
   }
