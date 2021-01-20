@@ -38,9 +38,9 @@
       Header
     },
     data() {
-      return { calendars}
+      return { calendars: []}
     },
-    setup(){
+    mounted(){
       let apiURL = 'http://localhost:4000/calendar/';
       axios.get(apiURL).then((res) => {
       
