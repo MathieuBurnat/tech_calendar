@@ -58,10 +58,14 @@
         var isChecked = this.shouldBeDefault;
         var category = this.selectedOption;
 
-        //throw them 
-        console.log("IsChecked : " + isChecked);
-        console.log("catogry : " + category);
         verifyAuthenticity();
+        if(verifyAuthenticity){ //If the user is legit (it tokken is validate)
+          //throw them 
+          console.log("IsChecked : " + isChecked);
+          console.log("catogry : " + category);
+        }else{
+          this.$router.push('/logout')
+        }
       }
     }
   }
