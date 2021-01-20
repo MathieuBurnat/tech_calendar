@@ -33,7 +33,6 @@
 </template>
 
 <script>
-
   import Header from './Header.vue'
   import axios from "axios";
 
@@ -54,12 +53,14 @@
     },
     methods:{
       goToCalendar(){
+        //get datas
         var isChecked = this.shouldBeDefault;
         var category = this.selectedOption;
+
+        //throw them 
         console.log("IsChecked : " + isChecked);
         console.log("catogry : " + category);
       }
     }
   }
-
 </script>
