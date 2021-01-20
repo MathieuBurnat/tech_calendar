@@ -4,30 +4,30 @@
 
   <form @submit.prevent="goToCalendar">
 
-
     <div v-if="!calendars.length"> <!-- If there isn't calendars. -->
       <p> Aucun calendrier n'existe pour le moment. </p>
       Créer en un nouveau <router-link class="active" to="/newcalendar">ici</router-link> !
     </div>
     <div v-else> 
-      <label for="calendar-choice">calendars:</label>
-      <input type="text" v-model="calendarSelected" list="calendars">
-      <datalist id="calendars">
-        <option v-for="calendar in calendars" :key="calendar.id">{{calendar.name}}</option>
-      </datalist>
+    <label for="calendar-choice">calendars:</label>
 
-      <div>
-        <input
-            type="checkbox"
-            v-model="calendarSelected.shouldBeDefault"
-            :value="1"
-            name="pets"
-          />
-        <label>Keep this calendar as default</label>
-      </div>
+    <select v-model="selectedOption">
+      <option disabled value="">Choisissez</option>
+      <option v-for="calendar in calendars" :key="calendar.id">{{calendar.name}}</option>
+    </select>
 
-      <input type="submit" value="Go">
-      <br/> ...ou créer un nouveau <router-link class="active" to="/newcalendar">calendrier</router-link>.
+    <div>
+      <input
+          type="checkbox"
+          v-model="shouldBeDefault"
+          :value="1"
+          name="pets"
+        />
+      <label>Keep this calendar as default</label>
+    </div>
+
+    <input type="submit" value="Go">
+    <br/> ...ou créer un nouveau <router-link class="active" to="/newcalendar">calendrier</router-link>.
     </div>
   </form>
 </template>
@@ -42,7 +42,7 @@
       Header
     },
     data() {
-      return { calendars: [], calendarSelected: []}
+      return { calendars: [], shouldBeDefault: false, selectedOption : ""}
     },
     mounted(){
       let apiURL = 'http://localhost:4000/calendar/';
@@ -54,8 +54,8 @@
     },
     methods:{
       goToCalendar(){
-        var isChecked = this.calendarSelected.shouldBeDefault;
-        var category = this.calendarSelected.key;
+        var isChecked = this.shouldBeDefault;
+        var category = this.selectedOption;
         console.log("IsChecked : " + isChecked);
         console.log("catogry : " + category);
       }
