@@ -36,8 +36,10 @@
   export default {
     components: {
       Header
-    }, 
-    
+    },
+    data() {
+      return { calendars}
+    },
     setup(){
       let apiURL = 'http://localhost:4000/calendar/';
       axios.get(apiURL).then((res) => {
@@ -45,12 +47,13 @@
       console.log(JSON.stringify(res.data));
 
 
-      const calendars = ref([JSON.stringify(res.data)]);
+      //this.calendars = ref([res.data]);
+      this.calendars = ref([
+        {"_id":"6008333a85179c0f042ef332","name":"My-Tech-calendar","__v":0},
+        {"_id":"600836e085179c0f042ef333","name":"chocoMelly","__v":0}
+      ]);
 
-        return {
-            calendars
-        };
-
+      
       }).catch(error => {
           console.log(error);
       });
