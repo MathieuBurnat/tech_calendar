@@ -119,7 +119,7 @@ userRoute.post("/set-default-calendar", async (req, response) => {
       console.log("calendar id : " + calendar._id);
       console.log("user id : " + mongoose.Types.ObjectId(req.body.user_id));
 
-      userModel.update({_id: mongoose.Types.ObjectId(req.body.user_id)}, {
+      userModel.findByIdAndUpdate({_id: mongoose.Types.ObjectId(req.body.user_id)}, {
         defaultCalendar: calendar._id
       }, function(resp) {
         console.log(resp);
