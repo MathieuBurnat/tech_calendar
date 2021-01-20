@@ -58,13 +58,14 @@
         var isChecked = this.shouldBeDefault;
         var name = this.selectedOption;
         var ui =  JSON.parse(localStorage.getItem("userInformations"));
+        var user_id = ui.user;
 
         verifyAuthenticity();
         if(verifyAuthenticity){ //If the user is legit (it tokken is validate)
           
           //if "chose this calendar as default is cheked"
           if(isChecked){
-            var data = [{name, ui}]
+            var data = {name, user_id}
 
             let apiURL = 'http://localhost:4000/user/set-default-calendar';
               axios.post(apiURL, data).then(() => {

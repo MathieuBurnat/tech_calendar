@@ -1,6 +1,7 @@
 const express = require('express');
 const userRoute = express.Router();
 const Bcrypt = require("bcryptjs");
+var mongoose = require('mongoose');
 
 // user model
 let userModel = require('../../../model/user');
@@ -101,34 +102,30 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
 
 
 
-userRoute.post("//set-default-calendar", async (req, response) => {
+userRoute.post("/set-default-calendar", async (req, response) => {
   try {
-      console.log("here we go again..");
-      //Find calendar id with it name
-      var calendarName = req.body.name;
-      console.log("name ? " + calendarName);
+      calendarName = req.body.name;
 
+      //Find calendar id with it name
       var calendar = await calendarModel.findOne({ name: calendarName }).exec();
 
       if(!calendar){
         console.log("the calendar is invalid.");
-        return response.send({ message: "Calendar invalid. "});
+        return response.send({ message: "Invalid calendar."});
       }else{
         console.log("calendar founded :D");
       }
       
-      
-      User.update({_id: mongoose.Types.ObjectId(req.body.ui.user)}, {
+      console.log("calendar id : " + calendar._id);
+      console.log("user id : " + mongoose.Types.ObjectId(req.body.user_id));
+
+      userModel.update({_id: mongoose.Types.ObjectId(req.body.user_id)}, {
         defaultCalendar: calendar._id
-      }, function(err, affected, resp) {
+      }, function(resp) {
         console.log(resp);
       })
       console.log("here we go again..");
-
-
       
-      
-      response.send({ message: "The username and password combination is correct!", isPswrdMatches, token});
   } catch (error) {
       response.status(500).send(error);
   }
