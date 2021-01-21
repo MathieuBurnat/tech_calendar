@@ -6,7 +6,7 @@
 
     <form @submit.prevent="createCalendar">
             <label>Calendrier</label>
-            <input type="text" class="form-control" v-model="calendar.name" required>
+            <input type="text" class="form-control" v-model="calendarName" required>
 
             <br/><button class="btn btn-danger btn-block">Créer</button>
     </form>
@@ -24,9 +24,6 @@ export default {
   },
   data() {
     return {
-        calendar: {
-          name: '',
-        },
         calendarName : "",
         author : "",
     }
