@@ -42,6 +42,13 @@ export default {
         TockenValid = res.data.isTockenMatches;
         
         if(TockenValid){
+          var ui =  JSON.parse(localStorage.getItem("userInformations"));
+          var user_id = ui.user;
+
+          this.calendar = {
+            name: '',
+            author: user_id
+          }
           // create the calendar with the text box name
           let calendarURL = 'http://localhost:4000/calendar/create-calendar';
           axios.post(calendarURL, this.calendar).then((res) => {

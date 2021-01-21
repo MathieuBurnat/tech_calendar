@@ -5,6 +5,9 @@ var mongoose = require('mongoose');
 // calendar model
 let calendarModel = require('../../../model/calendar');
 
+// year model
+let yearModel = require('../../../model/year');
+
 calendarRoute.route('/').get((req, res) => {
     calendarModel.find((error, data) => {
      if (error) {
@@ -16,21 +19,50 @@ calendarRoute.route('/').get((req, res) => {
  })
 
  calendarRoute.route('/create-calendar').post((req, response, next) => {
-   var isCreated = false;
+    var isCreated = false;
+    var calendar_id = 0;
+
+    console.log(JSON.stringify(req.body) );
 
     calendar = calendarModel.create(req.body, (error, data) => {
-    if (error) {
+      if (error) {
       response.send({ message: "The calendar is not created !", isCreated });
 
       return next(error)
     } else {
       isCreated = true;
-
       calendar_id = data._id;
-
       response.send({ message: "The calendar is created !", isCreated, calendar_id });
     }
-  })
+    })
+
+    var today = new Date();
+
+    var dd = today.getDate();
+
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+
+    today = dd+'-'+mm+'-'+yyyy;
+
+    console.log("create year. When ? :D " + today);
+
+    calendar_id = 23;
+    //Create a year 
+    newYear = {
+      startingDate : "today",
+      calendar : "calendar_id"
+    }
+
+    console.log(JSON.stringify(newYear) );
+
+    yearModel.create(newYear, (error) => {
+      if (error) {
+        return next(error);
+      } else {
+        console.log("Year created :D");
+      }
+    })
 });
 
 calendarRoute.route('/edit-calendar/:id').get((req, res) => {
@@ -87,5 +119,6 @@ calendarRoute.route('/delete-calendar/:id').delete((req, res, next) => {
     }
   })
 })
+
 
 module.exports = calendarRoute;
