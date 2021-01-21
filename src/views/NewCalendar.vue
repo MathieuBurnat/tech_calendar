@@ -25,8 +25,10 @@ export default {
   data() {
     return {
         calendar: {
-            name: '',
+          name: '',
         },
+        calendarName : "",
+        author : "",
     }
   },
   methods:{
@@ -43,21 +45,18 @@ export default {
         
         if(TockenValid){
           var ui =  JSON.parse(localStorage.getItem("userInformations"));
-          var user_id = ui.user;
+          this.author = ui.user;
 
-          this.calendar = {
-            name: '',
-            author: user_id
-          }
+          var newCalendar = {
+            name : this.calendarName,
+            author : this.author
+          };
+
           // create the calendar with the text box name
           let calendarURL = 'http://localhost:4000/calendar/create-calendar';
-          axios.post(calendarURL, this.calendar).then((res) => {
+          axios.post(calendarURL, newCalendar).then((res) => {
             
             console.log(res.data.message); //return message
-
-            this.calendar = {
-              name: '',
-            }
 
             this.$router.push({
               name: 'Calendar',
