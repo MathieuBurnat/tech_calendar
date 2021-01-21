@@ -3,10 +3,9 @@
     <h2> Welcome to the calendar's section. </h2>
     <p> id : {{id}} </p>
 
-    <select v-model="selectedOption">
-      <option disabled value="">Choisissez</option>
-      <option v-for="calendar in calendars" :key="calendar.id">{{calendar.name}}</option>
-    </select>
+    <div v-for="calendar in calendars" :key="calendar.id">
+      <p> - {{calendar.name}} - </p>
+    </div>
 </template>
 
 <script>
