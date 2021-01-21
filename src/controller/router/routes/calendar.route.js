@@ -1,5 +1,6 @@
 const express = require('express');
 const calendarRoute = express.Router();
+var mongoose = require('mongoose');
 
 // calendar model
 let calendarModel = require('../../../model/calendar');
@@ -41,6 +42,24 @@ calendarRoute.route('/edit-calendar/:id').get((req, res) => {
     }
   })
 })
+
+calendarRoute.post("/get-id", async (request, response) => {
+  try {
+      console.log("Here we go..");
+      //console.log("Name " + request.body);
+
+      console.log( JSON.stringify(request.body) );
+
+      var calendar = await calendarModel.findOne({ name: request.body.name }).exec();
+      if(!calendar) {
+        return response.send({ message: "Has not been found" });
+      }
+      var calendar_id = calendar._id;
+      response.send({ message: "The username and password combination is correct!", calendar_id});
+  } catch (error) {
+      response.status(500).send(error);
+  }
+});
 
 // Update calendar
 calendarRoute.route('/update-calendar/:id').post((req, res, next) => {

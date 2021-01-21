@@ -124,7 +124,7 @@ userRoute.post("/set-default-calendar", async (req, response) => {
         console.log(resp);
       })
       
-      return response.send({ message: "Default calender set !", calendar_id });
+      return response.send({ message: "Default calendar set !", calendar_id });
       
   } catch (error) {
       response.status(500).send(error);
