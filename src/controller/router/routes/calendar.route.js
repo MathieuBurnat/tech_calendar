@@ -29,6 +29,22 @@ calendarRoute.route('/').get((req, res) => {
  })
 
   calendarRoute.route('/get-full-calendar').get((req, res) => {
+    //Should i creat a big-messa' object ? hm...
+
+    //Find the correct calendar with it id.
+    
+    //Get all its years
+
+    //With years's id, find all trimesters that are linked too.
+
+    //omg what m-i doin' ?
+
+    //With trimesters's id, get all weeks (...)
+
+    //latter...
+    //with all week's id, get all modules
+    //same for weeksType
+
   calendarModel.find((error, data) => {
     if (error) {
       return next(error)
@@ -36,6 +52,7 @@ calendarRoute.route('/').get((req, res) => {
       res.json(data)
     }
   })
+
   })
 
  calendarRoute.route('/create-calendar').post((req, response, next) => {
