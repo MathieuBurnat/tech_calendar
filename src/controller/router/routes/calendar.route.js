@@ -31,39 +31,34 @@ calendarRoute.route('/').get((req, res) => {
       return next(error)
     } else {
       isCreated = true;
+
       calendar_id = data._id;
+
+      
+      //Create a year 
+      var today = new Date();
+      newYear = {
+        startingDate : today.getDate() + '-' + today.getMonth()+1 +'-'+today.getFullYear(),
+        calendar : calendar_id
+      }
+      createYear(newYear);
+
       response.send({ message: "The calendar is created !", isCreated, calendar_id });
     }
     })
-
-    var today = new Date();
-
-    var dd = today.getDate();
-
-    var mm = today.getMonth()+1; 
-    var yyyy = today.getFullYear();
-
-    today = dd+'-'+mm+'-'+yyyy;
-
-    console.log("create year. When ? :D " + today);
-
-    calendar_id = 23;
-    //Create a year 
-    newYear = {
-      startingDate : "today",
-      calendar : "calendar_id"
-    }
-
-    console.log(JSON.stringify(newYear) );
-
-    yearModel.create(newYear, (error) => {
-      if (error) {
-        return next(error);
-      } else {
-        console.log("Year created :D");
-      }
-    })
 });
+
+function createYear(newYear){
+  console.log(JSON.stringify(newYear) );
+
+  yearModel.create(newYear, (error) => {
+    if (error) {
+      return next(error);
+    } else {
+      console.log("Year created :D");
+    }
+  })
+}
 
 calendarRoute.route('/edit-calendar/:id').get((req, res) => {
    calendarModel.findById(req.params.id, (error, data) => {
@@ -119,6 +114,7 @@ calendarRoute.route('/delete-calendar/:id').delete((req, res, next) => {
     }
   })
 })
+
 
 
 module.exports = calendarRoute;
