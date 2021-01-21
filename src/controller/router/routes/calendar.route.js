@@ -28,6 +28,16 @@ calendarRoute.route('/').get((req, res) => {
    })
  })
 
+  calendarRoute.route('/get-full-calendar').get((req, res) => {
+  calendarModel.find((error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+  })
+
  calendarRoute.route('/create-calendar').post((req, response, next) => {
     var isCreated = false;
     var calendar_id = 0;

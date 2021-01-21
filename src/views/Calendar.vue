@@ -22,9 +22,13 @@
       return { calendars: [], selectedOption : ""}
     },
     mounted(){
-      let apiURL = 'http://localhost:4000/calendar/';
+      let apiURL = 'http://localhost:4000/calendar/get-full-calendar';
       axios.get(apiURL).then((res) => {
+
       this.calendars = res.data;
+      console.log( JSON.stringify(this.calendars) );
+
+
       }).catch(error => {
           console.log(error);
       });
