@@ -38,13 +38,13 @@ calendarRoute.route('/').get((req, res) => {
 
       calendar_id = data._id;
 
-      
       //Create a year 
       var today = new Date();
       newYear = {
         startingDate : today.getDate() + '-' + today.getMonth()+1 +'-'+today.getFullYear(),
         calendar : calendar_id
       }
+
       createYear(newYear); //createYear -> creareTrimester -> createWeeks
 
       response.send({ message: "The calendar is created !", isCreated, calendar_id });
@@ -61,21 +61,19 @@ function createYear(newYear){
     } else {
       console.log("Year created :D");
 
-      createTrimester(data._id, 4);
+      var newTrimester = {
+        year: data._id
+      }
+
+      for (let i = 0; i < 4; i++) {
+        createTrimester(newTrimester);
+      }
     }
   })
 }
 
-function createTrimester(yearId, quantity)
+function createTrimester(newTrimester)
 {
-  console.log("yearId: " + yearId);
-  console.log("quantity: " + quantity);
-
-  var newTrimester = {
-    name: "test",
-    year: yearId
-  }
-
   trimesterModel.create(newTrimester, (error, data) => {
     if (error) {
       return next(error);
