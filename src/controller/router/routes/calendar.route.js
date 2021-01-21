@@ -14,6 +14,10 @@ let trimesterModel = require('../../../model/trimester');
 // week model
 let weekModel = require('../../../model/week');
 
+//config 
+var trimestersCount = 4;
+var weeksCount = 11;
+
 calendarRoute.route('/').get((req, res) => {
     calendarModel.find((error, data) => {
      if (error) {
@@ -67,7 +71,7 @@ function createYear(newYear){
         year: data._id
       }
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < trimestersCount; i++) {
         createTrimester(newTrimester);
       }
     }
@@ -86,7 +90,7 @@ function createTrimester(newTrimester)
         trimester: data._id
       }
 
-      for (let i = 0; i < 11; i++) {
+      for (let i = 0; i < weeksCount; i++) {
         createWeek(newWeek);
       }
     }
