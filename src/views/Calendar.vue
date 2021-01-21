@@ -20,21 +20,22 @@
     },
     data() {
       return { calendars: [], selectedOption : ""}
-    },
-    mounted(){
+    },setup() {
+      const route = useRoute()
+      const id = computed(() => route.params.id);
+      
+      var poney = id.value.toString();
+      console.log("my id " + poney);
+
       let apiURL = 'http://localhost:4000/calendar/get-full-calendar';
-      axios.get(apiURL).then((res) => {
+      axios.get(apiURL, poney).then((res) => {
 
       this.calendars = res.data;
-      console.log( JSON.stringify(this.calendars) );
-
 
       }).catch(error => {
           console.log(error);
       });
-    },setup() {
-      const route = useRoute()
-      const id = computed(() => route.params.id);
+
       return {
         id,
       };

@@ -30,6 +30,9 @@ calendarRoute.route('/').get((req, res) => {
 
   calendarRoute.route('/get-full-calendar').get((req, res) => {
     //Should i creat a big-messa' object ? hm...
+    console.log("Another day, another life. What's my id ? " + req.body);
+
+
 
     //Find the correct calendar with it id.
     
@@ -45,95 +48,13 @@ calendarRoute.route('/').get((req, res) => {
     //with all week's id, get all modules
     //same for weeksType
 
-    // test area
-
-    var persons = [];
-    
-    var hobbies = [{category, name :"judo"}];
-
-
-    var person = [{n: "mark", age: 23, isCrazy: true, hobbies}];
-
-
-    var category = [{name: "test"},{name: "test"},{name: "test"},]
-
-
-
-    for (let i = 0; i < 9; i++) 
-    {
-      persons.push(person);
-    }
-
-    //See all people
-    console.log("Show persons's lists");
-
-    console.log(persons);
-
-    console.log("Show person's line");
-
-    //try to get datas one per one 
-    for (let i = 0; i < persons.length; i++)
-    {
-      console.log(persons[i]);
-
-      for (let i2 = 0; i2 < persons[i].length; i2++)
-      {
-        //console.log("Name : " + person[i2]);
-      }
-    }
-
-    /* Storing multi-line JSON string in a JS variable
-using the new ES6 template literals */
-var json = `{
-  "book": {
-      "name": "Harry Potter and the Goblet of Fire",
-      "author": "J. K. Rowling",
-      "year": 2000,
-      "characters": ["Harry Potter", "Hermione Granger", "Ron Weasley"],
-      "genre": "Fantasy Fiction",
-      "price": {
-          "paperback": "$10.40", "hardcover": "$20.32", "kindle": "$4.11"
-      }
-  }
-}`;
-
-// Converting JSON object to JS object
-var obj = JSON.parse(json);
-
-// Define recursive function to print nested values
-function printValues(obj) {
-  for(var k in obj) {
-      if(obj[k] instanceof Object) {
-          printValues(obj[k]);
-      } else {
-          console.log(obj[k] + "<br>");
-      };
-  }
-};
-
-// Printing all the values from the resulting object
-printValues(obj);
-
-console.log("<hr>");
-
-// Printing a single value
-console.log(obj["book"]["author"] + "<br>");  // Prints: J. K. Rowling
-console.log(obj["book"]["characters"][0] + "<br>");  // Prints: Harry Potter
-console.log(obj["book"]["price"]["hardcover"]);  // Prints: $20.32
-
-    //
-
-  calendarModel.find((error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
 
   })
-
- calendarRoute.route('/create-calendar').post((req, response, next) => {
+ 
+ 
+ 
+ 
+  calendarRoute.route('/create-calendar').post((req, response, next) => {
     var isCreated = false;
     var calendar_id = 0;
 
