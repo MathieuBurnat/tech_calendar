@@ -8,6 +8,10 @@ let calendarModel = require('../../../model/calendar');
 // year model
 let yearModel = require('../../../model/year');
 
+// trimester model
+let trimesterModel = require('../../../model/trimester');
+
+
 calendarRoute.route('/').get((req, res) => {
     calendarModel.find((error, data) => {
      if (error) {
@@ -41,7 +45,7 @@ calendarRoute.route('/').get((req, res) => {
         startingDate : today.getDate() + '-' + today.getMonth()+1 +'-'+today.getFullYear(),
         calendar : calendar_id
       }
-      createYear(newYear);
+      createYear(newYear); //createYear -> creareTrimester -> createWeeks
 
       response.send({ message: "The calendar is created !", isCreated, calendar_id });
     }
@@ -51,11 +55,32 @@ calendarRoute.route('/').get((req, res) => {
 function createYear(newYear){
   console.log(JSON.stringify(newYear) );
 
-  yearModel.create(newYear, (error) => {
+  yearModel.create(newYear, (error, data) => {
     if (error) {
       return next(error);
     } else {
       console.log("Year created :D");
+
+      createTrimester(data._id, 4);
+    }
+  })
+}
+
+function createTrimester(yearId, quantity)
+{
+  console.log("yearId: " + yearId);
+  console.log("quantity: " + quantity);
+
+  var newTrimester = {
+    name: "test",
+    year: yearId
+  }
+
+  trimesterModel.create(newTrimester, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      console.log("Trimester created :D");
     }
   })
 }
