@@ -41,8 +41,8 @@ calendarRoute.route('/').get((req, res) => {
       //if something's find.
       if (typeof docs !== "undefined"){ 
 
-        console.log("something's find :  " + docs);
-        console.log("docs _id : " + docs._id);
+        console.log("[calendar] something's find :  " + docs);
+        console.log("[calendar] docs _id : " + docs._id);
         
         //set caladar's data
         holyCalendar.author = docs.author;
@@ -54,8 +54,8 @@ calendarRoute.route('/').get((req, res) => {
           //if something's find.
           console.log("Years :");
           if (typeof years !== "undefined"){ 
-            console.log("something's find :  " + years);
-            console.log("docs _id : " + years._id);
+            console.log("[Years] something's find :  " + years);
+            console.log("[Years] docs _id : " + years._id);
             
             //create the year
             year = {
@@ -63,25 +63,26 @@ calendarRoute.route('/').get((req, res) => {
               trimestersList :[]
             }
 
-            /*
-            calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
+            
+            trimesterModel.findOne({year : years._id}, function (err, trimesters) { 
+            console.log("Trimesters :");
 
             //if something's find.
-            if (typeof docs !== "undefined"){ 
+            if (typeof trimesters !== "undefined"){ 
     
-              console.log("something's find :  " + docs);
-              console.log("docs _id : " + docs._id);
+              console.log("[Trimesters] something's find :  " + trimesters);
+              console.log("[Trimesters] docs _id : " + trimesters._id);
               
               //set caladar's data
-              holyCalendar.author = docs.author;
-              holyCalendar.author = docs.name;
               }
-            });*/
 
-            //push the actual year
-            holyCalendar.yearsList.push(year);
+              //push the actual year
+              holyCalendar.yearsList.push(year);
 
-            console.log("my Holy Calendar : ");
+              console.log("my Holy Calendar : ");
+            });
+
+            
             console.log(holyCalendar);
           }
         });
