@@ -39,7 +39,7 @@ export default {
     register(){
         let apiURL = 'http://localhost:4000/user/create-user';
         axios.post(apiURL, this.user).then(() => {
-          //this.$router.push('/view')
+          this.$router.push('/login');
           this.user = {
             name: '',
             email: '',

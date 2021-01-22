@@ -31,20 +31,61 @@ calendarRoute.route('/').get((req, res) => {
   calendarRoute.route('/get-full-calendar').post((req, res) => {
     //Should i creat a big-messa' object ? hm...
 
-    console.log("id : " + req.body.calendarId);
+    console.log("(req) id : " + req.body.calendarId);
 
     //Find the correct calendar with its id.
     calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
-      var calendar = {};
-      var yearsList = {};
+      var holyCalendar = { name : "", author : "", yearsList : []};
+      
       
       //if something's find.
-      if (docs.length){ 
+      if (typeof docs !== "undefined"){ 
+
         console.log("something's find :  " + docs);
         console.log("docs _id : " + docs._id);
+        
+        //set caladar's data
+        holyCalendar.author = docs.author;
+        holyCalendar.author = docs.name;
 
-        //Get all its years
-          
+        //Get all years of the calendar
+        yearModel.findOne({calendar : docs._id}, function (err, years) {
+
+          //if something's find.
+          console.log("Years :");
+          if (typeof years !== "undefined"){ 
+            console.log("something's find :  " + years);
+            console.log("docs _id : " + years._id);
+            
+            //create the year
+            year = {
+              startingDate : years.startingDate,
+              trimestersList :[]
+            }
+
+            /*
+            calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
+
+            //if something's find.
+            if (typeof docs !== "undefined"){ 
+    
+              console.log("something's find :  " + docs);
+              console.log("docs _id : " + docs._id);
+              
+              //set caladar's data
+              holyCalendar.author = docs.author;
+              holyCalendar.author = docs.name;
+              }
+            });*/
+
+            //push the actual year
+            holyCalendar.yearsList.push(year);
+
+            console.log("my Holy Calendar : ");
+            console.log(holyCalendar);
+          }
+        });
+
       }
     });
 
@@ -56,6 +97,7 @@ calendarRoute.route('/').get((req, res) => {
     //omg what m-i doin' ?
 
     //With trimesters's id, get all weeks (...)
+    
 
     //latter...
     //with all week's id, get all modules
@@ -101,7 +143,7 @@ function createYear(newYear){
     if (error) {
       return next(error);
     } else {
-      console.log("Year created :D");
+      //console.log("Year created :D");
 
       var newTrimester = {
         year: data._id
@@ -120,7 +162,7 @@ function createTrimester(newTrimester)
     if (error) {
       return next(error);
     } else {
-      console.log("Trimester created :D");
+      //console.log("Trimester created :D");
 
       var newWeek = {
         trimester: data._id
@@ -138,7 +180,7 @@ function createWeek(newWeek){
     if (error) {
       return next(error);
     } else {
-      console.log("Week created :D");
+      //console.log("Week created :D");
     }
   })
 }
