@@ -33,9 +33,15 @@ calendarRoute.route('/').get((req, res) => {
 
     console.log("id : " + req.body.calendarId);
 
-    //Find the correct calendar with it id.
-    calendarModel.find({_id : req.body.calendarId}, function (err, data) {
-      console.log("something's find :  " + data);
+    //Find the correct calendar with its id.
+    calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
+
+      console.log("something's find :  " + docs);
+
+      var poney = res.json(docs);
+      console.log("poney id : " + poney.id);
+      console.log("docs _id : " + docs._id);
+
     });
 
     //Get all its years
