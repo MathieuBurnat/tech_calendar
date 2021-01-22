@@ -64,14 +64,20 @@ calendarRoute.route('/').get((req, res) => {
             }
 
             
-            trimesterModel.findOne({year : years._id}, function (err, trimesters) { 
+            trimesterModel.find({year : years._id}, function (err, trimesters) { 
             console.log("Trimesters :");
 
             //if something's find.
             if (typeof trimesters !== "undefined"){ 
     
               console.log("[Trimesters] something's find :  " + trimesters);
-              console.log("[Trimesters] docs _id : " + trimesters._id);
+              
+              
+              for (i = 0; i < trimesters.length; i++) {
+                console.log("[Trimester] id : " + trimesters[i]._id);
+              }
+              
+              //console.log("[Trimesters] docs _id : " + trimesters._id);
               
               //set caladar's data
               }
