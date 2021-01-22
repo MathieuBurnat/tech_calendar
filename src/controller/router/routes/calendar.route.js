@@ -28,6 +28,9 @@ calendarRoute.route('/').get((req, res) => {
    })
  })
 
+
+
+
   calendarRoute.route('/get-full-calendar').post((req, res) => {
     //Should i creat a big-messa' object ? hm...
 
@@ -35,69 +38,24 @@ calendarRoute.route('/').get((req, res) => {
 
     //Find the correct calendar with its id.
     calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
-      var holyCalendar = { name : "", author : "", yearsList : []};
+    var holyCalendar = { name : "", author : "", yearsList : []};
       
       
-      //if something's find.
+      //if on calendar is found
       if (typeof docs !== "undefined"){ 
+        //Get years
+        var yearsList = [];
 
-        console.log("[calendar] something's find :  " + docs);
-        console.log("[calendar] docs _id : " + docs._id);
-        
-        //set caladar's data
-        holyCalendar.author = docs.author;
-        holyCalendar.author = docs.name;
+        yearsList = addYears(docs._id); //Here we use a recursive method to get our years then trimesters then weeks then [....]
 
-        //Get all years of the calendar
-        yearModel.findOne({calendar : docs._id}, function (err, years) {
+        console.log("===== my Holy Calendar ======"); //Render data
+        console.log(yearsList);  
 
-          //if something's find.
-          console.log("Years :");
-          if (typeof years !== "undefined"){ 
-            console.log("[Years] something's find :  " + years);
-            console.log("[Years] docs _id : " + years._id);
-            
-            //create the year
-            year = {
-              startingDate : years.startingDate,
-              trimestersList :[]
-            }
-
-            
-            trimesterModel.find({year : years._id}, function (err, trimesters) { 
-            console.log("Trimesters :");
-
-            //if something's find.
-            if (typeof trimesters !== "undefined"){ 
-    
-              console.log("[Trimesters] something's find :  " + trimesters);
-              
-              
-              for (i = 0; i < trimesters.length; i++) {
-                console.log("[Trimester] id : " + trimesters[i]._id);
-              }
-              
-              //console.log("[Trimesters] docs _id : " + trimesters._id);
-              
-              //set caladar's data
-              }
-
-              //push the actual year
-              holyCalendar.yearsList.push(year);
-
-              console.log("my Holy Calendar : ");
-            });
-
-            
-            console.log(holyCalendar);
-          }
-        });
-
+      }else{
+        console.log("Any calendar has been found :c");
       }
     });
 
-
-  
 
     //With years's id, find all trimesters that are linked too.
 
@@ -112,7 +70,38 @@ calendarRoute.route('/').get((req, res) => {
 
 
   })
+
+  function addYears(id){
+    yearModel.find({calendar : id}, function (err, years) { 
+      var yearsList = [];
+
+      console.log("= Years =");
+      //if a years is found.
+      if (typeof years !== "undefined"){ 
+
+        console.log("[Years] something's found :  " + years);
+
+        for (i = 0; i < years.length; i++) {
+
+          console.log("[Year] id : " + years[i]._id);
+          year = {
+            startingDate: years[i].startingDate,
+            //trimestersList : addTrimesters(years[i]._id) next push ;,)
+          }
+          yearsList.push(year);
+        }
+
+        console.log("my yearsList : ");
+        console.log(yearsList);
+        return yearsList;
+        }
+      });
+  }
  
+  function addTrimesters(id){
+
+  }
+
   calendarRoute.route('/create-calendar').post((req, response, next) => {
     var isCreated = false;
     var calendar_id = 0;
