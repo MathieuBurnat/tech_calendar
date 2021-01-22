@@ -28,14 +28,16 @@ calendarRoute.route('/').get((req, res) => {
    })
  })
 
-  calendarRoute.route('/get-full-calendar').get((req, res) => {
+  calendarRoute.route('/get-full-calendar').post((req, res) => {
     //Should i creat a big-messa' object ? hm...
-    console.log("Another day, another life. What's my id ? " + req.body);
 
-
+    console.log("id : " + req.body.calendarId);
 
     //Find the correct calendar with it id.
-    
+    calendarModel.find({_id : req.body.calendarId}, function (err, data) {
+      console.log("something's find :  " + data);
+    });
+
     //Get all its years
 
     //With years's id, find all trimesters that are linked too.
@@ -50,9 +52,6 @@ calendarRoute.route('/').get((req, res) => {
 
 
   })
- 
- 
- 
  
   calendarRoute.route('/create-calendar').post((req, response, next) => {
     var isCreated = false;

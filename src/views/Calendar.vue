@@ -24,18 +24,19 @@
       const route = useRoute()
       const id = computed(() => route.params.id);
       
-      var poney = id.value.toString();
-      console.log("my id " + poney);
+      var data = {
+        calendarId : id.value,
+      }
 
       let apiURL = 'http://localhost:4000/calendar/get-full-calendar';
-      axios.get(apiURL, poney).then((res) => {
+      axios.post(apiURL, data).then((res) => {
 
       this.calendars = res.data;
 
       }).catch(error => {
           console.log(error);
       });
-
+      
       return {
         id,
       };
