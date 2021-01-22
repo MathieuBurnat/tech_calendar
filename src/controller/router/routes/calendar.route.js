@@ -35,16 +35,21 @@ calendarRoute.route('/').get((req, res) => {
 
     //Find the correct calendar with its id.
     calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
+      var calendar = {};
+      var yearsList = {};
+      
+      //if something's find.
+      if (docs.length){ 
+        console.log("something's find :  " + docs);
+        console.log("docs _id : " + docs._id);
 
-      console.log("something's find :  " + docs);
-
-      var poney = res.json(docs);
-      console.log("poney id : " + poney.id);
-      console.log("docs _id : " + docs._id);
-
+        //Get all its years
+          
+      }
     });
 
-    //Get all its years
+
+  
 
     //With years's id, find all trimesters that are linked too.
 
