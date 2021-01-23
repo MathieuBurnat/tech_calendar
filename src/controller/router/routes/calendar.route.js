@@ -162,6 +162,9 @@ calendarRoute.route('/').get((req, res) => {
 
           console.log("[week] id : " + weeks[i]._id);
           week = {
+            content : weeks[i].content,
+            weekType : weeks[i].weekType,
+            module : weeks[i].module,
             name : "dance to the floor",
             weeksList : [] // Yeah... The madness start... Again !
           }
