@@ -134,6 +134,33 @@ calendarRoute.route('/').get((req, res) => {
       });
   }
 
+  function addweeks(id, callback){
+    weekModel.find({trimester : id}, function (err, weeks) { 
+      var weeksList = [];
+
+      console.log("= weeks =");
+      //if a weeks is found.
+      if (typeof weeks !== "undefined"){ 
+
+        console.log("[weeks] something's found :  " + weeks);
+
+        for (i = 0; i < weeks.length; i++) {
+
+          console.log("[week] id : " + weeks[i]._id);
+          week = {
+            weeksList : [] // Yeah... The madness start... Again !
+          }
+          weeksList.push(week);
+        }
+
+        console.log("my weeksList : ");
+        console.log(weeksList);
+        
+        callback(weeksList);
+        }
+      });
+  }
+
 
   calendarRoute.route('/create-calendar').post((req, response, next) => {
     var isCreated = false;
