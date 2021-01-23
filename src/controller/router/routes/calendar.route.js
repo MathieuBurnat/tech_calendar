@@ -51,6 +51,8 @@ calendarRoute.route('/').get((req, res) => {
 
           console.log(" = Here's the holy calendar = ");
           console.log(holyCalendar);
+          res.send({holyCalendar});
+
           return yearsList;
         });
 
@@ -188,7 +190,7 @@ calendarRoute.route('/').get((req, res) => {
   }
 
 
-  calendarRoute.route('/create-calendar').post((req, response, next) => {
+  calendarRoute.route('/create-calendar').post((req, res, next) => {
     var isCreated = false;
     var calendar_id = 0;
 
@@ -196,7 +198,7 @@ calendarRoute.route('/').get((req, res) => {
 
     calendar = calendarModel.create(req.body, (error, data) => {
       if (error) {
-      response.send({ message: "The calendar is not created !", isCreated });
+      res.send({ message: "The calendar is not created !", isCreated });
 
       return next(error)
     } else {
@@ -216,7 +218,7 @@ calendarRoute.route('/').get((req, res) => {
         createYear(newYear); //createYear -> creareTrimester -> createWeeks
       }
 
-      response.send({ message: "The calendar is created !", isCreated, calendar_id });
+      res.send({ message: "The calendar is created !", isCreated, calendar_id });
     }
     })
 });
@@ -282,7 +284,7 @@ calendarRoute.route('/edit-calendar/:id').get((req, res) => {
   })
 })
 
-calendarRoute.post("/get-id", async (request, response) => {
+calendarRoute.post("/get-id", async (request, res) => {
   try {
       //console.log("Here we go..");
       ////console.log("Name " + request.body);
@@ -291,12 +293,12 @@ calendarRoute.post("/get-id", async (request, response) => {
 
       var calendar = await calendarModel.findOne({ name: request.body.name }).exec();
       if(!calendar) {
-        return response.send({ message: "Has not been found" });
+        return res.send({ message: "Has not been found" });
       }
       var calendar_id = calendar._id;
-      response.send({ message: "The username and password combination is correct!", calendar_id});
+      res.send({ message: "The username and password combination is correct!", calendar_id});
   } catch (error) {
-      response.status(500).send(error);
+      res.status(500).send(error);
   }
 });
 
