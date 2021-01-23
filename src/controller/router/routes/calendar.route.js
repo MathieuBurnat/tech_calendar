@@ -95,7 +95,7 @@ calendarRoute.route('/').get((req, res) => {
             }
             yearsList.push(year);
 
-            console.log("my yearsList : ");
+            console.log("my sweet yearsList : ");
             console.log(yearsList);
 
             return trimestersList;
