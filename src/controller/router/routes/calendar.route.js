@@ -44,8 +44,7 @@ calendarRoute.route('/').get((req, res) => {
         var yearsList = [];
         
         addYears(docs.id, function(yearsList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
-          console.log("===== my Holy Calendar ======"); //Render data
-          console.log(yearsList);  
+
           return yearsList;
         });
 
@@ -65,7 +64,8 @@ calendarRoute.route('/').get((req, res) => {
     //with all week's id, get all modules
     //same for weeksType
 
-
+    console.log("===== my Holy Calendar ======"); //Render data
+    console.log(yearsList);  
   })
 
   function addYears(id, callback){
@@ -95,8 +95,8 @@ calendarRoute.route('/').get((req, res) => {
             }
             yearsList.push(year);
 
-            console.log("my sweet yearsList : ");
-            console.log(yearsList);
+            console.log("my sweet yearsList : "); 
+            console.log(yearsList); // <--
 
             return trimestersList;
           });
@@ -120,11 +120,24 @@ calendarRoute.route('/').get((req, res) => {
 
         for (i = 0; i < trimesters.length; i++) {
 
-          console.log("[trimester] id : " + trimesters[i]._id);
-          trimester = {
-            weeksList : [] // Yeah... The madness start... Again !
-          }
-          trimestersList.push(trimester);
+          //new with week callback
+
+          var id = trimesters[i]._id;
+          weeksList = addweeks(trimesters[i]._id, function(weeksList){ //Here we use a recursive method to get our years then weeks then weeks then [....]
+
+
+            //console.log("[trimester] id : " + id;
+            trimester = {
+              name : (i + "yeah, i'm totally crazy"),
+              weeksList : weeksList // Yeah... The madness start... Again !
+            }
+
+            console.log("weeks list ");  
+            console.log(weeksList);  
+
+            trimestersList.push(trimester);
+          });
+          //
         }
 
         console.log("my trimestersList : ");
@@ -149,6 +162,7 @@ calendarRoute.route('/').get((req, res) => {
 
           console.log("[week] id : " + weeks[i]._id);
           week = {
+            name : "dance to the floor",
             weeksList : [] // Yeah... The madness start... Again !
           }
           weeksList.push(week);
