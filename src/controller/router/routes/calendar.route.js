@@ -81,9 +81,15 @@ calendarRoute.route('/').get((req, res) => {
         for (i = 0; i < years.length; i++) {
 
           console.log("[Year] id : " + years[i]._id);
+
+          addTrimesters(years[i]._id, function(trimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
+            console.log("here we are : ");  
+            console.log(trimestersList);  
+            return trimestersList;
+          });
+
           year = {
             startingDate: years[i].startingDate,
-            trimestersList : addTrimesters(years[i]._id)
           }
           yearsList.push(year);
         }
@@ -97,7 +103,7 @@ calendarRoute.route('/').get((req, res) => {
   }
  
   function addTrimesters(id, callback){
-    trimesterModel.find({calendar : id}, function (err, trimesters) { 
+    trimesterModel.find({year : id}, function (err, trimesters) { 
       var trimestersList = [];
 
       console.log("= trimesters =");
