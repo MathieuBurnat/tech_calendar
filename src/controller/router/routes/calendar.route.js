@@ -79,23 +79,28 @@ calendarRoute.route('/').get((req, res) => {
         console.log("[Years] something's found :  " + years);
 
         for (i = 0; i < years.length; i++) {
+          var trimestersList = [];
 
           console.log("[Year] id : " + years[i]._id);
 
-          addTrimesters(years[i]._id, function(trimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
-            console.log("here we are : ");  
+          var sd = years[i].startingDate;
+        
+          trimestersList = addTrimesters(years[i]._id, function(trimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
+            console.log("trimesters list ");  
             console.log(trimestersList);  
+
+            year = {
+              startingDate: sd,
+              trimestersList
+            }
+            yearsList.push(year);
+
+            console.log("my yearsList : ");
+            console.log(yearsList);
+
             return trimestersList;
           });
-
-          year = {
-            startingDate: years[i].startingDate,
-          }
-          yearsList.push(year);
         }
-
-        console.log("my yearsList : ");
-        console.log(yearsList);
         
         callback(yearsList);
         }
