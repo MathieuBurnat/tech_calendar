@@ -71,6 +71,5 @@ export default {
 <style>
 .error{
   color: #E91E63;
-
 }
 </style>

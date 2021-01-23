@@ -24,9 +24,11 @@ userRoute.route('/').get((req, res) => {
 
  userRoute.route('/create-user').post((req, res, next) => {
     userModel.find({email : req.body.email}, function (err, docs) {
+      var hasError = true;
       if (docs.length){ //The email is already taken... too bad.
-          console.log("This email is already taken :c");
+          return res.send({ message: "Cette adresse mail est déjà prise :'c", hasError});
       }else{ //Fine. we can save user's datas
+        hasError = false
         req.body.password = Bcrypt.hashSync(req.body.password, 10); //hash the password
         userModel.create(req.body, (error, data) => {
         if (error) {

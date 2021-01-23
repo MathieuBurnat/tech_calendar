@@ -15,6 +15,8 @@
 
             ou <router-link class="active" to="/login">se connecter</router-link>.
     </form>
+    <p class="error"> {{errorMessage}}</p>
+
   <Footer/>
 </template>
 
@@ -33,18 +35,26 @@ export default {
             email: '',
             password: ''
         },
+        errorMessage : ""
     }
   },
   methods:{
     register(){
         let apiURL = 'http://localhost:4000/user/create-user';
-        axios.post(apiURL, this.user).then(() => {
-          this.$router.push('/login');
-          this.user = {
-            name: '',
-            email: '',
-            password: ''
-          }
+        axios.post(apiURL, this.user).then((res) => {
+
+        if (res.data.hasError){
+          this.errorMessage = res.data.message;
+        }else{
+        this.$router.push('/login');
+
+        }
+        
+        this.user = {
+          name: '',
+          email: '',
+          password: ''
+        }
         }).catch(error => {
             console.log(error);
         });
@@ -52,3 +62,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.error{
+  color: #E91E63;
+}
+</style>
