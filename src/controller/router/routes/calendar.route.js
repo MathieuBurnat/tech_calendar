@@ -28,9 +28,6 @@ calendarRoute.route('/').get((req, res) => {
    })
  })
 
-
-
-
   calendarRoute.route('/get-full-calendar').post((req, res) => {
     //Should i creat a big-messa' object ? hm...
 
@@ -45,18 +42,17 @@ calendarRoute.route('/').get((req, res) => {
       if (typeof docs !== "undefined"){ 
         //Get years
         var yearsList = [];
-        asyncCall();
-
-        yearsList = addYears(docs._id); //Here we use a recursive method to get our years then trimesters then weeks then [....]
-
-        console.log("===== my Holy Calendar ======"); //Render data
-        console.log(yearsList);  
+        
+        addYears(docs.id, function(yearsList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
+          console.log("===== my Holy Calendar ======"); //Render data
+          console.log(yearsList);  
+          return yearsList;
+        });
 
       }else{
         console.log("Any calendar has been found :c");
       }
     });
-
 
     //With years's id, find all trimesters that are linked too.
 
@@ -72,7 +68,7 @@ calendarRoute.route('/').get((req, res) => {
 
   })
 
-  function addYears(id){
+  function addYears(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 
       var yearsList = [];
 
@@ -94,7 +90,8 @@ calendarRoute.route('/').get((req, res) => {
 
         console.log("my yearsList : ");
         console.log(yearsList);
-        return yearsList;
+        
+        callback(yearsList);
         }
       });
   }
@@ -103,22 +100,6 @@ calendarRoute.route('/').get((req, res) => {
 
   }
 
-  function resolveAfter2Seconds() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve('resolved');
-      }, 2000);
-    });
-  }
-  
-  async function asyncCall() {
-    console.log('calling');
-    const result = await resolveAfter2Seconds();
-    console.log(result);
-    // expected output: "resolved"
-  }
-  
-  
   calendarRoute.route('/create-calendar').post((req, response, next) => {
     var isCreated = false;
     var calendar_id = 0;
