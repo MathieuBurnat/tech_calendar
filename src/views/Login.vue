@@ -16,6 +16,7 @@
 
             ou <router-link class="active" to="/register">s'enregistrer</router-link>.
     </form>
+    <p class="error"> {{errorMessage}}</p>
   <!--Footer/-->
 </template>
 
@@ -34,6 +35,7 @@ export default {
             email: '',
             password: ''
         },
+        errorMessage : ""
     }
   },
   methods:{
@@ -43,7 +45,8 @@ export default {
           
           //Return messages 
           console.log(res.data.message);
-          
+          this.errorMessage = res.data.message;
+
           if(res.data.isPswrdMatches){ //If the user exists and the password matches.
             //store the token (use_id with token) into "userInformations"
             localStorage.setItem('userInformations', JSON.stringify(res.data.token));
@@ -64,3 +67,10 @@ export default {
   },
 }
 </script>
+
+<style>
+.error{
+  color: #E91E63;
+
+}
+</style>

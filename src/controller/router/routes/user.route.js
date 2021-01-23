@@ -46,10 +46,10 @@ userRoute.post("/login", async (request, response) => {
   try {
       var user = await userModel.findOne({ email: request.body.email }).exec();
       if(!user) {
-        return response.send({ message: "The email does not exist", isPswrdMatches });
+        return response.send({ message: "L'adresse mail n'existe pas.", isPswrdMatches });
       }
       if(!Bcrypt.compareSync(request.body.password, user.password)) {
-          return response.send({ message: "The password is invalid", isPswrdMatches  });
+          return response.send({ message: "Le mot de passe est invalide.", isPswrdMatches  });
       }
       isPswrdMatches = true;
 
