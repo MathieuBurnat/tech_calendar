@@ -45,6 +45,7 @@ calendarRoute.route('/').get((req, res) => {
       if (typeof docs !== "undefined"){ 
         //Get years
         var yearsList = [];
+        asyncCall();
 
         yearsList = addYears(docs._id); //Here we use a recursive method to get our years then trimesters then weeks then [....]
 
@@ -102,6 +103,22 @@ calendarRoute.route('/').get((req, res) => {
 
   }
 
+  function resolveAfter2Seconds() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve('resolved');
+      }, 2000);
+    });
+  }
+  
+  async function asyncCall() {
+    console.log('calling');
+    const result = await resolveAfter2Seconds();
+    console.log(result);
+    // expected output: "resolved"
+  }
+  
+  
   calendarRoute.route('/create-calendar').post((req, response, next) => {
     var isCreated = false;
     var calendar_id = 0;
@@ -154,6 +171,8 @@ function createYear(newYear){
     }
   })
 }
+
+
 
 function createTrimester(newTrimester)
 {
