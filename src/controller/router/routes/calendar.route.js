@@ -42,9 +42,15 @@ calendarRoute.route('/').get((req, res) => {
       if (typeof docs !== "undefined"){ 
         //Get years
         var yearsList = [];
-        
+
         addYears(docs.id, function(yearsList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
 
+          holyCalendar.yearsList = yearsList;
+          holyCalendar.name = docs.name;
+          holyCalendar.author = docs.author;
+
+          console.log("OMG, where m-i ? ");
+          console.log(holyCalendar);
           return yearsList;
         });
 
