@@ -6,7 +6,7 @@ let trimesterSchema = new Schema({
     type: String
   },
   year: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId, ref: "years"
   },
 },{
   collection: 'trimesters'

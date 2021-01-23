@@ -6,7 +6,7 @@ let yearSchema = new Schema({
     type: String
   },
   calendar: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId, ref: "calendars"
   },
 },{
   collection: 'years'

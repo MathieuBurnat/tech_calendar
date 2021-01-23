@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 let tokenSchema = new Schema({
   user: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId, ref: "users"
   },
   token: {
     type: String

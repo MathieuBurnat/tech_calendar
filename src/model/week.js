@@ -6,7 +6,7 @@ let weekSchema = new Schema({
     type: String
   },
   trimester: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId, ref: "weeks"
   },
   weekType: {
     type: String
