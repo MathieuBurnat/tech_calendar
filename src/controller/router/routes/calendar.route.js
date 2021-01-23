@@ -31,7 +31,7 @@ calendarRoute.route('/').get((req, res) => {
   calendarRoute.route('/get-full-calendar').post((req, res) => {
     //Should i creat a big-messa' object ? hm...
 
-    console.log("(req) id : " + req.body.calendarId);
+    //console.log("(req) id : " + req.body.calendarId);
 
     //Find the correct calendar with its id.
     calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
@@ -49,13 +49,13 @@ calendarRoute.route('/').get((req, res) => {
           holyCalendar.name = docs.name;
           holyCalendar.author = docs.author;
 
-          console.log("OMG, where m-i ? ");
+          console.log(" = Here's the holy calendar = ");
           console.log(holyCalendar);
           return yearsList;
         });
 
       }else{
-        console.log("Any calendar has been found :c");
+        //console.log("Any calendar has been found :c");
       }
     });
 
@@ -70,24 +70,24 @@ calendarRoute.route('/').get((req, res) => {
     //with all week's id, get all modules
     //same for weeksType
 
-    console.log("===== my Holy Calendar ======"); //Render data
-    console.log(yearsList);  
+    //console.log("===== my Holy Calendar ======"); //Render data
+    //console.log(yearsList);  
   })
 
   function addYears(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 
       var yearsList = [];
 
-      console.log("= Years =");
+      //console.log("= Years =");
       //if a years is found.
       if (typeof years !== "undefined"){ 
 
-        console.log("[Years] something's found :  " + years);
+        //console.log("[Years] something's found :  " + years);
 
         for (i = 0; i < years.length; i++) {
           var trimestersList = [];
 
-          console.log("[Year] id : " + years[i]._id);
+          //console.log("[Year] id : " + years[i]._id);
 
           var sd = years[i].startingDate;
         
@@ -101,28 +101,29 @@ calendarRoute.route('/').get((req, res) => {
             }
             yearsList.push(year);
 
-            console.log("my sweet yearsList : "); 
-            console.log(yearsList); // <--
+            //console.log("my sweet yearsList : "); 
+            //console.log(yearsList); // <--
+            
+            callback(yearsList);
 
             return trimestersList;
           });
         }
         
-        callback(yearsList);
         }
       });
   }
  
   function addTrimesters(id, callback){
-    console.log("did you found me ? " + id);
+    //console.log("did you found me ? " + id);
     trimesterModel.find({year : id}, function (err, trimesters) { 
       var trimestersList = [];
 
-      console.log("= trimesters =");
+      //console.log("= trimesters =");
       //if a trimesters is found.
       if (typeof trimesters !== "undefined"){ 
 
-        console.log("[trimesters] something's found :  " + trimesters);
+        //console.log("[trimesters] something's found :  " + trimesters);
 
         for (i = 0; i < trimesters.length; i++) {
 
@@ -132,24 +133,25 @@ calendarRoute.route('/').get((req, res) => {
           weeksList = addweeks(trimesters[i]._id, function(weeksList){ //Here we use a recursive method to get our years then weeks then weeks then [....]
 
 
-            //console.log("[trimester] id : " + id;
+            ////console.log("[trimester] id : " + id;
             trimester = {
               name : (i + "yeah, i'm totally crazy"),
               weeksList : weeksList // Yeah... The madness start... Again !
             }
 
-            console.log("weeks list ");  
-            console.log(weeksList);  
-
+            //console.log("here we go huhu ? ");
             trimestersList.push(trimester);
+            //console.log("my sweet trimList : "); 
+            //console.log(trimestersList); // <--
+            callback(trimestersList);
+
           });
           //
         }
 
-        console.log("my trimestersList : ");
-        console.log(trimestersList);
+        //console.log("my trimestersList : ");
+        //console.log(trimestersList);
         
-        callback(trimestersList);
         }
       });
   }
@@ -158,15 +160,15 @@ calendarRoute.route('/').get((req, res) => {
     weekModel.find({trimester : id}, function (err, weeks) { 
       var weeksList = [];
 
-      console.log("= weeks =");
+      //console.log("= weeks =");
       //if a weeks is found.
       if (typeof weeks !== "undefined"){ 
 
-        console.log("[weeks] something's found :  " + weeks);
+        //console.log("[weeks] something's found :  " + weeks);
 
         for (i = 0; i < weeks.length; i++) {
 
-          console.log("[week] id : " + weeks[i]._id);
+          //console.log("[week] id : " + weeks[i]._id);
           week = {
             content : weeks[i].content,
             weekType : weeks[i].weekType,
@@ -177,8 +179,8 @@ calendarRoute.route('/').get((req, res) => {
           weeksList.push(week);
         }
 
-        console.log("my weeksList : ");
-        console.log(weeksList);
+        //console.log("my weeksList : ");
+        //console.log(weeksList);
         
         callback(weeksList);
         }
@@ -190,7 +192,7 @@ calendarRoute.route('/').get((req, res) => {
     var isCreated = false;
     var calendar_id = 0;
 
-    console.log(JSON.stringify(req.body) );
+    //console.log(JSON.stringify(req.body) );
 
     calendar = calendarModel.create(req.body, (error, data) => {
       if (error) {
@@ -220,13 +222,13 @@ calendarRoute.route('/').get((req, res) => {
 });
 
 function createYear(newYear){
-  console.log(JSON.stringify(newYear) );
+  //console.log(JSON.stringify(newYear) );
 
   yearModel.create(newYear, (error, data) => {
     if (error) {
       return next(error);
     } else {
-      //console.log("Year created :D");
+      ////console.log("Year created :D");
 
       var newTrimester = {
         year: data._id
@@ -247,7 +249,7 @@ function createTrimester(newTrimester)
     if (error) {
       return next(error);
     } else {
-      //console.log("Trimester created :D");
+      ////console.log("Trimester created :D");
 
       var newWeek = {
         trimester: data._id
@@ -265,7 +267,7 @@ function createWeek(newWeek){
     if (error) {
       return next(error);
     } else {
-      //console.log("Week created :D");
+      ////console.log("Week created :D");
     }
   })
 }
@@ -282,10 +284,10 @@ calendarRoute.route('/edit-calendar/:id').get((req, res) => {
 
 calendarRoute.post("/get-id", async (request, response) => {
   try {
-      console.log("Here we go..");
-      //console.log("Name " + request.body);
+      //console.log("Here we go..");
+      ////console.log("Name " + request.body);
 
-      console.log( JSON.stringify(request.body) );
+      //console.log( JSON.stringify(request.body) );
 
       var calendar = await calendarModel.findOne({ name: request.body.name }).exec();
       if(!calendar) {
@@ -307,7 +309,7 @@ calendarRoute.route('/update-calendar/:id').post((req, res, next) => {
       return next(error);
     } else {
       res.json(data)
-      console.log('calendar successfully updated!')
+      //console.log('calendar successfully updated!')
     }
   })
 })
