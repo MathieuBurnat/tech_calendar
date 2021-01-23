@@ -30,6 +30,11 @@ const routes = [
     component: Login,
   },
   {
+    path: "/profil",
+    name: "Profil",
+    component: Login,
+  },
+  {
     path: "/register",
     name: "Register",
     component: Register,
