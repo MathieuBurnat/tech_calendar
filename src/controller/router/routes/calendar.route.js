@@ -108,6 +108,7 @@ calendarRoute.route('/').get((req, res) => {
   }
  
   function addTrimesters(id, callback){
+    console.log("did you found me ? " + id);
     trimesterModel.find({year : id}, function (err, trimesters) { 
       var trimestersList = [];
 
