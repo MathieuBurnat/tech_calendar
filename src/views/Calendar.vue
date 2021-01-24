@@ -1,11 +1,11 @@
 <template>
     <Header/>
     
-    <h2> Welcome to the calendar's section. </h2>
+    <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
     <p> id : {{id}} </p>
 
     <p> {{ displayMySweetCalendar() }}</p>
-    <p> what's my name ? {{ calendars.name }}</p>
+    <p> what's my name ? {{ calendar.name }}</p>
     <p> {{ message }}</p>
 </template>
 
@@ -22,8 +22,8 @@
     },
     data() {
       return { 
-        calendars: [], 
-        message : "Andi je t'aime !",
+        calendar: [], 
+        message : "",
         }
     },setup() {
       const route = useRoute()
@@ -49,13 +49,23 @@
         calendar = res.data.holyCalendar;
         console.log(calendar);
 
-        this.message = "poney";
+
+        //tests section
+        this.message = "Hellow sweetie :3";
+        this.calendar = calendar;
+
+        console.log("my name is " + calendar.name);
+
+
+        //
+
+
+
 
         }).catch(error => {
             console.log(error);
         });
 
-        this.calendars = calendar;
         }
     }
   }
