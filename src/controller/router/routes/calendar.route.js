@@ -31,7 +31,6 @@ calendarRoute.route('/').get((req, res) => {
  })
 
   calendarRoute.route('/get-full-calendar').post((req, res) => {
-
     //Find the correct calendar with its id.
     calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
     var holyCalendar = { name : "", author : "", yearsList : []};

@@ -51,30 +51,29 @@
         this.calendar = res.data.holyCalendar;
         console.log(this.calendar);
 
+        // --- Test section 
+        console.log("[" + this.calendar.name + "]"); //The name of the calendar
 
-        //tests section
-        console.log("[" + this.calendar.name + "]");
-
-        
-        for (let i = 0; i < this.calendar.yearsList.length; i++)  //inside the yearsList, get trismters
+        //Here is the logic to get calendar's datas
+        for (let i = 0; i < this.calendar.yearsList.length; i++) //Inside years
         { 
+          console.log("[" + i + "] --- Year ---");
           console.log(i + "> Starting date : " + this.calendar.yearsList[i].startingDate);
-          /*
-          for (let i2 = 0; i2 < this.calendar.yearsList[i].trimestersList.length; i2++)
+          
+          for (let i2 = 0; i2 < this.calendar.yearsList[i].trimestersList.length; i2++) //Inside trimesters
           {  
             console.log(i+ "." + i2 + "> Trimester's name : " + this.calendar.yearsList[i].trimestersList[i2].name);
 
-            for (let i3 = 0; i3 < this.calendar.yearsList[i].trimestersList[i2].weeksList.length; i3++)
+            for (let i3 = 0; i3 < this.calendar.yearsList[i].trimestersList[i2].weeksList.length; i3++) //inside weeds
             {  
               console.log(i+ "." + i2 + "." + i3 + "> week's name : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].name);
+              /*
+                console.log(i+ "." + i2 + "." + i3 + "> week's module : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType);
+                console.log(i+ "." + i2 + "." + i3 + "> week's type : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].module);
+              */ // Will come later...
             }
-          }*/
+          }
         }
-
-        //
-
-
-
 
         }).catch(error => {
             console.log(error);
