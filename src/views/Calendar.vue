@@ -55,10 +55,11 @@
         //tests section
         console.log("[" + this.calendar.name + "]");
 
+        
         for (let i = 0; i < this.calendar.yearsList.length; i++)  //inside the yearsList, get trismters
         { 
-          console.log(i + "> my starting date : " + this.calendar.yearsList[i].startingDate);
-
+          console.log(i + "> Starting date : " + this.calendar.yearsList[i].startingDate);
+          /*
           for (let i2 = 0; i2 < this.calendar.yearsList[i].trimestersList.length; i2++)
           {  
             console.log(i+ "." + i2 + "> Trimester's name : " + this.calendar.yearsList[i].trimestersList[i2].name);
@@ -67,7 +68,7 @@
             {  
               console.log(i+ "." + i2 + "." + i3 + "> week's name : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].name);
             }
-          }
+          }*/
         }
 
         //

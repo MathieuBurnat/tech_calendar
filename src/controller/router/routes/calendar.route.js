@@ -15,8 +15,10 @@ let trimesterModel = require('../../../model/trimester');
 let weekModel = require('../../../model/week');
 
 //config 
+var yearsCount = 2;
 var trimestersCount = 4;
 var weeksCount = 11;
+
 
 calendarRoute.route('/').get((req, res) => {
     calendarModel.find((error, data) => {
@@ -221,64 +223,60 @@ calendarRoute.route('/').get((req, res) => {
 
       fillCalendar(calendar_id);
 
-
       res.send({ message: "The calendar is created !", isCreated, calendar_id });
     }
     })
 });
 
 function fillCalendar(calendar_id){
-  var today = new Date();
-  newYear = {
-    startingDate : today.getDate() + '-' + today.getMonth()+1 +'-'+today.getFullYear(),
-    calendar : calendar_id
-  }
-
-  createYear(newYear); //createYear -> createTrimester -> createWeeks
+  for (let i = 0; i < yearsCount; i++)
+    createYear(calendar_id); //createYear -> createTrimester -> createWeeks
 }
 
-function createYear(newYear){
-  //console.log(JSON.stringify(newYear) );
+function createYear(calendar_id){
+  var today = new Date();
+  newYear = {
+    startingDate : today.getDate() + '-' + today.getMonth() + 1 +'-'+today.getFullYear(),
+    calendar : calendar_id
+  }
 
   yearModel.create(newYear, (error, data) => {
     if (error) {
       return next(error);
     } else {
-      ////console.log("Year created :D");
 
-      var newTrimester = {
-        year: data._id
-      }
 
-      for (let i = 0; i < trimestersCount; i++) {
-        createTrimester(newTrimester);
-      }
+
+      for (let i = 0; i < trimestersCount; i++) 
+        createTrimester(data._id); // createTrimester -> createWeeks
     }
   })
 }
 
-
-
-function createTrimester(newTrimester)
+function createTrimester(id)
 {
+  var newTrimester = {
+    year: id
+  }
+
   trimesterModel.create(newTrimester, (error, data) => {
     if (error) {
       return next(error);
     } else {
       ////console.log("Trimester created :D");
 
-      var newWeek = {
-        trimester: data._id
-      }
-
       for (let i = 0; i < weeksCount; i++) {
-        createWeek(newWeek);
+        createWeek(data._id);
       }
     }
   })
 }
 
-function createWeek(newWeek){
+function createWeek(id){
+  var newWeek = {
+    trimester: id
+  }
+
   weekModel.create(newWeek, (error, data) => {
     if (error) {
       return next(error);
