@@ -58,6 +58,7 @@ calendarRoute.route('/').get((req, res) => {
         setTimeout(() => {   //That's the ugliest thing i ever made.
           console.log(" = Here's the holy calendar = ");
           console.log(holyCalendar);
+          
           return res.send({ message, holyCalendar });
         }, 
         1000);
@@ -218,20 +219,23 @@ calendarRoute.route('/').get((req, res) => {
 
       calendar_id = data._id;
 
-      //Create a year 
-      var today = new Date();
-      newYear = {
-        startingDate : today.getDate() + '-' + today.getMonth()+1 +'-'+today.getFullYear(),
-        calendar : calendar_id
-      }
-
-      createYear(newYear); //createYear -> createTrimester -> createWeeks
+      fillCalendar(calendar_id);
 
 
       res.send({ message: "The calendar is created !", isCreated, calendar_id });
     }
     })
 });
+
+function fillCalendar(calendar_id){
+  var today = new Date();
+  newYear = {
+    startingDate : today.getDate() + '-' + today.getMonth()+1 +'-'+today.getFullYear(),
+    calendar : calendar_id
+  }
+
+  createYear(newYear); //createYear -> createTrimester -> createWeeks
+}
 
 function createYear(newYear){
   //console.log(JSON.stringify(newYear) );
