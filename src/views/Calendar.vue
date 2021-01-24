@@ -1,11 +1,11 @@
 <template>
-  <Header/>
+    <Header/>
+    
     <h2> Welcome to the calendar's section. </h2>
     <p> id : {{id}} </p>
 
-    <div v-for="calendar in calendars" :key="calendar.id">
-      <p> - {{calendar.name}} - </p>
-    </div>
+    <p div="poney"> {{ displayMySweetCalendar() }}</p>
+    
 </template>
 
 <script>
@@ -19,7 +19,10 @@
       Header
     },
     data() {
-      return { calendars: [], selectedOption : ""}
+      return { 
+        calendars: [], 
+        message : "Andi je t'aime !",
+        }
     },setup() {
       const route = useRoute()
       const id = computed(() => route.params.id);
@@ -32,16 +35,20 @@
       axios.post(apiURL, data).then((res) => {
 
 
-      //this.calendars = res.body.message;
-      console.log("Beep Bop Beep, I'm gonna crazy. Oh by the way you have a  new message : " + res.data.message);
+      console.log("Beep Bop Beep, I'm gonna crazy. Oh by the way you have a new message : " + res.data.message);
+      
+      //const message = "Don't trust the crazy wise";
 
       }).catch(error => {
           console.log(error);
       });
-      
       return {
         id,
       };
-    }
+    },methods: {
+      displayMySweetCalendar() {
+      return "poney " + this.id;
+  }
+}
   }
 </script>
