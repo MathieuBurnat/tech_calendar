@@ -225,10 +225,8 @@ calendarRoute.route('/').get((req, res) => {
         calendar : calendar_id
       }
 
+      createYear(newYear); //createYear -> createTrimester -> createWeeks
 
-      for (let i = 0; i < 2; i++) { // TEST 
-        createYear(newYear); //createYear -> creareTrimester -> createWeeks
-      }
 
       res.send({ message: "The calendar is created !", isCreated, calendar_id });
     }
