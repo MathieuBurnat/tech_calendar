@@ -31,9 +31,6 @@ calendarRoute.route('/').get((req, res) => {
  })
 
   calendarRoute.route('/get-full-calendar').post((req, res) => {
-    //Should i creat a big-messa' object ? hm...
-
-    //console.log("(req) id : " + req.body.calendarId);
 
     //Find the correct calendar with its id.
     calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
@@ -42,18 +39,12 @@ calendarRoute.route('/').get((req, res) => {
       
       //if on calendar is found
       if (typeof docs !== "undefined"){ 
-        //Get years
-        var yearsList = [];
 
         holyCalendar.name = docs.name;
         holyCalendar.author = docs.author;
 
-        message = "my messaege";
-
         addYears(docs.id, function(yearsList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
-          holyCalendar.yearsList = yearsList;
-          message = "i love you !";
-          
+          holyCalendar.yearsList = yearsList; //hmm ? i thing that we should push the year over there
           return holyCalendar;
         });
 
@@ -63,129 +54,65 @@ calendarRoute.route('/').get((req, res) => {
           
           return res.send({ message, holyCalendar });
         }, 
-        1000);
+        800);
       }else{
         mesage = "Any calendar has been found :c"
         return res.send({ message, holyCalendar });
       }
     });
-
-    //With years's id, find all trimesters that are linked too.
-
-    //omg what m-i doin' ?
-
-    //With trimesters's id, get all weeks (...)
-    
-
-
-    //latter...
-    //with all week's id, get all modules
-    //same for weeksType
-
-    //console.log("===== my Holy Calendar ======"); //Render data
-    //console.log(yearsList);  
   })
-
-  setTimeout(function () {
-    // ...
-  }, 10000);
-
 
   function addYears(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 
       var yearsList = [];
 
-      //console.log("= Years =");
       //if a years is found.
       if (typeof years !== "undefined"){ 
-
-        //console.log("[Years] something's found :  " + years);
-
         for (i = 0; i < years.length; i++) {
           var trimestersList = [];
-
-          //console.log("[Year] id : " + years[i]._id);
 
           var sd = years[i].startingDate;
         
           trimestersList = addTrimesters(years[i]._id, function(trimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
-            //console.log("trimesters list ");  
-            //console.log(trimestersList);  
-
-            year = {
-              startingDate: sd,
-              trimestersList
-            }
-            yearsList.push(year);
-
-            //console.log("my sweet yearsList : "); 
-            //console.log(yearsList); // <--
-            
-            callback(yearsList);
-
-            return trimestersList;
+          year = {
+            startingDate: sd,
+            trimestersList
+          }
+          yearsList.push(year);
+          callback(yearsList);
+          return trimestersList;
           });
         }
-        
-        }
-      });
+      }
+    });
   }
  
   function addTrimesters(id, callback){
-    //console.log("did you found me ? " + id);
     trimesterModel.find({year : id}, function (err, trimesters) { 
       var trimestersList = [];
 
-      //console.log("= trimesters =");
       //if a trimesters is found.
       if (typeof trimesters !== "undefined"){ 
-
-        //console.log("[trimesters] something's found :  " + trimesters);
-
         for (i = 0; i < trimesters.length; i++) {
-
-          //new with week callback
-
           var id = trimesters[i]._id;
-          weeksList = addweeks(trimesters[i]._id, function(weeksList){ //Here we use a recursive method to get our years then weeks then weeks then [....]
-
-
-            ////console.log("[trimester] id : " + id;
+          weeksList = addweeks(trimesters[i]._id, function(weeksList){ 
             trimester = {
               name : (i + "yeah, i'm totally crazy"),
               weeksList : weeksList // Yeah... The madness start... Again !
             }
-
-            //console.log("here we go huhu ? ");
             trimestersList.push(trimester);
-            //console.log("my sweet trimList : "); 
-            //console.log(trimestersList); // <--
             callback(trimestersList);
-
           });
-          //
         }
-
-        //console.log("my trimestersList : ");
-        //console.log(trimestersList);
-        
-        }
-      });
+      }
+    });
   }
 
   function addweeks(id, callback){
     weekModel.find({trimester : id}, function (err, weeks) { 
       var weeksList = [];
-
-      //console.log("= weeks =");
-      //if a weeks is found.
       if (typeof weeks !== "undefined"){ 
-
-        //console.log("[weeks] something's found :  " + weeks);
-
         for (i = 0; i < weeks.length; i++) {
-
-          //console.log("[week] id : " + weeks[i]._id);
           week = {
             content : weeks[i].content,
             weekType : weeks[i].weekType,
@@ -195,10 +122,6 @@ calendarRoute.route('/').get((req, res) => {
           }
           weeksList.push(week);
         }
-
-        //console.log("my weeksList : ");
-        //console.log(weeksList);
-        
         callback(weeksList);
         }
       });
