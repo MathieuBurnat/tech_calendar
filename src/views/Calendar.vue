@@ -68,7 +68,6 @@
               console.log(i+ "." + i2 + "." + i3 + "> week's name : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].name);
             }
           }
-
         }
 
         //
