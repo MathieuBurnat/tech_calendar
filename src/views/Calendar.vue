@@ -1,12 +1,18 @@
 <template>
     <Header/>
     
-    <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
-    <p> id : {{id}} </p>
+    <div v-if="calendar.length == 0"> <!-- If there isn't calendars. -->
+      <h2> Chargement du calendrier... </h2>
+    </div>
+    <div v-else> 
+      <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
+      <p> id : {{id}} </p>
 
+      <p> what's my name ? {{ calendar.name }}</p>
+      <p> {{ message }}</p>
+    </div>
     <p> {{ displayMySweetCalendar() }}</p>
-    <p> what's my name ? {{ calendar.name }}</p>
-    <p> {{ message }}</p>
+
 </template>
 
 <script>
@@ -55,6 +61,7 @@
         this.calendar = calendar;
 
         console.log("my name is " + calendar.name);
+        console.log("m-i " + !calendar.length);
 
 
         //
