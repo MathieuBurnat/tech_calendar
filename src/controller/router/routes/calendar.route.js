@@ -65,24 +65,21 @@ calendarRoute.route('/').get((req, res) => {
   function addYears(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 
       var yearsList = [];
-
       //if a years is found.
       if (typeof years !== "undefined"){ 
         for (i = 0; i < years.length; i++) {
           var trimestersList = [];
-
           var sd = years[i].startingDate;
-        
           trimestersList = addTrimesters(years[i]._id, function(trimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
           year = {
             startingDate: sd,
-            trimestersList
+            trimestersList,
           }
           yearsList.push(year);
-          callback(yearsList);
           return trimestersList;
           });
         }
+        callback(yearsList);
       }
     });
   }
@@ -90,7 +87,6 @@ calendarRoute.route('/').get((req, res) => {
   function addTrimesters(id, callback){
     trimesterModel.find({year : id}, function (err, trimesters) { 
       var trimestersList = [];
-
       //if a trimesters is found.
       if (typeof trimesters !== "undefined"){ 
         for (i = 0; i < trimesters.length; i++) {
@@ -131,8 +127,6 @@ calendarRoute.route('/').get((req, res) => {
   calendarRoute.route('/create-calendar').post((req, res, next) => {
     var isCreated = false;
     var calendar_id = 0;
-
-    //console.log(JSON.stringify(req.body) );
 
     calendar = calendarModel.create(req.body, (error, data) => {
       if (error) {
