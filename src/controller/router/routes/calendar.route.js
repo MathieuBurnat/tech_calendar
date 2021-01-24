@@ -94,16 +94,16 @@ calendarRoute.route('/').get((req, res) => {
       //if a trimesters is found.
       if (typeof trimesters !== "undefined"){ 
         for (i = 0; i < trimesters.length; i++) {
-          var id = trimesters[i]._id;
+          var debugName = ("[" + id  + "]>" + i + " yeah, i'm totally crazy")
           weeksList = addweeks(trimesters[i]._id, function(weeksList){ 
             trimester = {
-              name : (i + "yeah, i'm totally crazy"),
+              name : debugName,
               weeksList : weeksList // Yeah... The madness start... Again !
             }
             trimestersList.push(trimester);
-            callback(trimestersList);
           });
         }
+        callback(trimestersList);
       }
     });
   }
@@ -113,12 +113,12 @@ calendarRoute.route('/').get((req, res) => {
       var weeksList = [];
       if (typeof weeks !== "undefined"){ 
         for (i = 0; i < weeks.length; i++) {
+          var debugName = ("[" + id  + "]>" + i + " dance to the floor")
           week = {
             content : weeks[i].content,
             weekType : weeks[i].weekType,
             module : weeks[i].module,
-            name : "dance to the floor",
-            weeksList : [] // Yeah... The madness start... Again !
+            name : debugName,
           }
           weeksList.push(week);
         }
