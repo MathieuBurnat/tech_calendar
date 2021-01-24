@@ -49,24 +49,21 @@ calendarRoute.route('/').get((req, res) => {
         message = "my messaege";
 
         addYears(docs.id, function(yearsList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
-
           holyCalendar.yearsList = yearsList;
-
-          console.log(" = Here's the holy calendar = ");
-          console.log(holyCalendar);
-          
           message = "i love you !";
-          //res.send({message});
-          //console.log("mimimi2 ? " + this.message); 
+          
           return holyCalendar;
         });
-        //console.log("mimimi1 ? " + this.message); 
-        
-        return res.send({ message });
 
-
+        setTimeout(() => {   //That's the ugliest thing i ever made.
+          console.log(" = Here's the holy calendar = ");
+          console.log(holyCalendar);
+          return res.send({ message, holyCalendar });
+        }, 
+        2000);
       }else{
-        //console.log("Any calendar has been found :c");
+        mesage = "Any calendar has been found :c"
+        return res.send({ message, holyCalendar });
       }
     });
 
@@ -85,6 +82,11 @@ calendarRoute.route('/').get((req, res) => {
     //console.log("===== my Holy Calendar ======"); //Render data
     //console.log(yearsList);  
   })
+
+  setTimeout(function () {
+    // ...
+  }, 10000);
+
 
   function addYears(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 
