@@ -20,6 +20,7 @@ mongoose.connect(database.db, {
 const calendarAPI = require('./router/routes/calendar.route.js')
 const userAPI = require('./router/routes/user.route.js')
 const authAPI = require('./router/routes/auth.route.js')
+const weekTypeAPI = require('./router/routes/weekType.route.js')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -31,6 +32,7 @@ app.use(cors());
 app.use('/api', calendarAPI)
 app.use('/user', userAPI)
 app.use('/auth', authAPI)
+app.use('/weekType', weekTypeAPI)
 
 // Create port
 const port = process.env.PORT || 4000;
