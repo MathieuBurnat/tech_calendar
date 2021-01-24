@@ -60,7 +60,7 @@ calendarRoute.route('/').get((req, res) => {
           console.log(holyCalendar);
           return res.send({ message, holyCalendar });
         }, 
-        2000);
+        1000);
       }else{
         mesage = "Any calendar has been found :c"
         return res.send({ message, holyCalendar });
