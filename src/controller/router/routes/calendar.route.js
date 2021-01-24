@@ -46,25 +46,23 @@ calendarRoute.route('/').get((req, res) => {
         holyCalendar.name = docs.name;
         holyCalendar.author = docs.author;
 
-
-        f1(10).then((value) => console.log("is it working ? " + value));
+        message = "my messaege";
 
         addYears(docs.id, function(yearsList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
-
 
           holyCalendar.yearsList = yearsList;
 
           console.log(" = Here's the holy calendar = ");
           console.log(holyCalendar);
           
-          this.message = "my messaege";
+          message = "i love you !";
           //res.send({message});
           //console.log("mimimi2 ? " + this.message); 
 
-
-          return yearsList;
         });
         //console.log("mimimi1 ? " + this.message); 
+        
+        return res.send({ message });
 
 
       }else{
@@ -79,6 +77,7 @@ calendarRoute.route('/').get((req, res) => {
     //With trimesters's id, get all weeks (...)
     
 
+
     //latter...
     //with all week's id, get all modules
     //same for weeksType
@@ -86,29 +85,6 @@ calendarRoute.route('/').get((req, res) => {
     //console.log("===== my Holy Calendar ======"); //Render data
     //console.log(yearsList);  
   })
-
-
-  function resolveAfter2Seconds(x) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(x);
-      }, 500);
-    });
-  }
-  
-  async function f1(p) {
-    var x = await resolveAfter2Seconds(p);
-    return x;
-  }
-
-  async function f0() {
-    const thenable = {
-      then: function(resolve, _reject) {
-        resolve("résolu :)");
-      }
-    };
-    console.log(await thenable); // résolu :)
-  }
 
   function addYears(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 
