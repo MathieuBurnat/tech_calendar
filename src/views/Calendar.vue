@@ -31,8 +31,9 @@
       let apiURL = 'http://localhost:4000/calendar/get-full-calendar';
       axios.post(apiURL, data).then((res) => {
 
-      this.calendars = res.data;
 
+      //this.calendars = res.body.message;
+      console.log("Beep Bop Beep, I'm gonna crazy. Oh by the way you have a  new message : " + res.body.message);
       }).catch(error => {
           console.log(error);
       });

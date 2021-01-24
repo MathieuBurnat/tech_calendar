@@ -36,7 +36,7 @@ calendarRoute.route('/').get((req, res) => {
     //Find the correct calendar with its id.
     calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
     var holyCalendar = { name : "", author : "", yearsList : []};
-      
+    var message = "";
       
       //if on calendar is found
       if (typeof docs !== "undefined"){ 
@@ -49,12 +49,18 @@ calendarRoute.route('/').get((req, res) => {
           holyCalendar.name = docs.name;
           holyCalendar.author = docs.author;
 
-          console.log(" = Here's the holy calendar = ");
-          console.log(holyCalendar);
-          res.send({holyCalendar});
+          /*console.log(" = Here's the holy calendar = ");
+          console.log(holyCalendar);*/
+          
+          this.message = "my messaege";
+          //res.send({message});
+          console.log("mimimi2 ? " + this.message); 
+
 
           return yearsList;
         });
+        console.log("mimimi1 ? " + this.message); 
+
 
       }else{
         //console.log("Any calendar has been found :c");
@@ -94,8 +100,8 @@ calendarRoute.route('/').get((req, res) => {
           var sd = years[i].startingDate;
         
           trimestersList = addTrimesters(years[i]._id, function(trimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
-            console.log("trimesters list ");  
-            console.log(trimestersList);  
+            //console.log("trimesters list ");  
+            //console.log(trimestersList);  
 
             year = {
               startingDate: sd,
