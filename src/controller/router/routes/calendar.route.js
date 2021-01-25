@@ -25,7 +25,7 @@ let modulesModel = require('../../../model/modules');
 var yearsCount = 2;
 var trimestersCount = 4;
 var weeksCount = 11;
-
+var wt_id = 0;
 
 calendarRoute.route('/').get((req, res) => {
     calendarModel.find((error, data) => {
@@ -176,8 +176,27 @@ calendarRoute.route('/').get((req, res) => {
 });
 
 function fillCalendar(calendar_id){
+  //Dev option
+  //Create a weeType to default and return its is
+  wt_id = createWeekType()
+
   for (let i = 0; i < yearsCount; i++)
     createYear(calendar_id); //createYear -> createTrimester -> createWeeks
+}
+
+function createWeekType(){
+  weekType = {
+    name : "default",
+    color : "#f1e7e7"
+  }
+
+  weekTypesModel.create(weekType, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      return data._id;
+    }
+  })
 }
 
 function createYear(calendar_id){
@@ -221,7 +240,8 @@ function createTrimester(id)
 
 function createWeek(id){
   var newWeek = {
-    trimester: id
+    trimester: id,
+    weekType: wt_id
   }
 
   weekModel.create(newWeek, (error, data) => {
