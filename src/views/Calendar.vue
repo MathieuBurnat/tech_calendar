@@ -13,7 +13,7 @@
           <div v-if="(index + 1) != 1" class="year case"> {{ index + 1 }} ème </div>  <!-- It's an exception because to the next years, we use the setence "ème" -->
 
           <div v-for="trimester in year.trimestersList" :key="trimester"> 
-            <div class="week case" :id="week.id" v-for="week in trimester.weeksList" :key="week"> {{week.content}} </div>
+            <div @click="toggleIsClicked" class="week case" :id="week.id" v-for="week in trimester.weeksList" :key="week"> {{week.content}} </div>
             <div class="case trimester"></div>
           </div>
         </div>
