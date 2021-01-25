@@ -18,7 +18,6 @@
           </div>
         </div>
       </div>
-      <h3> Actually, the calendar's render is still in working progrss. Check the console (via F12) if you want to see the console-calendar ! :'D </h3>
   </div>
 
   <div @click="toggleIsClicked" :id="injectionID_Test" > Hi, this is a test >:c </div>
@@ -103,6 +102,7 @@
         console.log("[" + this.calendar.name + "]"); //The name of the calendar
 
         //Here is the logic to get calendar's datas
+        /*
         for (let i = 0; i < this.calendar.yearsList.length; i++) //Inside years
         { 
           console.log("[" + i + "] --- Year ---");
@@ -120,7 +120,8 @@
               console.log(i+ "." + i2 + "." + i3 + "> week's module : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].module.name);
             }
           }
-        }
+        }*/
+
         }).catch(error => {
             console.log(error);
         });
