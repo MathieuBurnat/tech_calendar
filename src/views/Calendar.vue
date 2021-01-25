@@ -7,9 +7,19 @@
     </div>
     <div v-else> 
       <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
+      <h3> Actually, the calendar's render is still in working progrss. Check the console (via F12) if you want to see the console-calendar ! :'D </h3>
+      <!-- Render the calendar-->
+        <ul v-for="year in calendar.yearsList" :key="year">
+          <li v-text="year.startingDate"></li>
+          <ul v-for="trimester in year.trimestersList" :key="trimester">
+            <li v-text="trimester.name"></li>
 
-      <!-- Display-->
-      <div v-for="year in calendar.yearsList" :key="year.id">- trimesters - {{ year.id }} </div>
+            <ul v-for="week in trimester.weeksList" :key="week">
+              <li v-text="week.name"></li>
+            </ul>
+          </ul>
+        </ul>
+      <!-- the render ends here -->
     </div>
 
 </template>
