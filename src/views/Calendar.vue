@@ -8,10 +8,10 @@
     <div v-else> 
       <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
       <div class="row">
-        <div class="column" v-for="year in calendar.yearsList" :key="year">
-          <div class="year case"> Year :D</div>
+        <div class="column" v-for="(year, index) in calendar.yearsList" :key="year">
+          <div class="year case"> {{ index + 1 }} année  </div>
           <div v-for="trimester in year.trimestersList" :key="trimester"> 
-            <div class="week case" v-for="week in trimester.weeksList" :key="week">My week</div>
+            <div class="week case" v-for="week in trimester.weeksList" :key="week"> week</div>
           </div>
         </div>
       </div>
@@ -22,6 +22,10 @@
 <style>
   .case{
     border: 1px solid #ccc;
+  }
+
+  .blanckCase{
+    padding: 9px 0;
   }
 
   .year{
@@ -56,7 +60,7 @@
     },
     data() {
       return { 
-        calendar: [], 
+        calendar: []
         }
     },setup() {
       const route = useRoute()
