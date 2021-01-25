@@ -116,28 +116,33 @@ calendarRoute.route('/').get((req, res) => {
       if (typeof weeks !== "undefined"){ 
         for (i = 0; i < weeks.length; i++) {
           var debugName = ("[" +  weeks[i]._id  + "]>" + i + " dance to the floor")
+          var content = weeks[i].content;
 
-          week = {
-            content : weeks[i].content,
-            weekType : addWeekType(weeks[i].weekType), //I want to see if this method's works for non-listed items, otherwise i'll implement them as callback method
-            module : addModule(weeks[i].module),
-            name : debugName,
-          }
-          weeksList.push(week);
+          addWeekType(weeks[i].weekType, function(weekType){ 
+            week = {
+              content : content,
+              weekType : weekType, 
+              module: "",
+              name : debugName,
+            }
+            weeksList.push(week);
+          });
         }
         callback(weeksList);
       }
     });
   }
 
-  function addWeekType(id){
+  function addWeekType(id, callback){
     weekTypesModel.find({_id : id}, function (err, weekType) { 
       if (typeof weekType !== "undefined"){ 
         weekType = {
           name : weekType.name,
           color : weekType.color,
         }
-        return weekType;
+        console.log(weekType);
+
+        callback(weekType);
       }
     });
   }
@@ -255,7 +260,7 @@ function createWeek(id){
     if (error) {
       return next(error);
     } else {
-      //console.log("Assigned as : " + data._id);
+      console.log("Assigned as : " + data._id);
       //console.log("wt_id : " + wt_id);
     }
   })
