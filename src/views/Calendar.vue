@@ -56,6 +56,10 @@
   .column {
     flex: 1 1 50%;
   }
+
+  .test{
+    background-color: cyan;
+  }
 </style>
 
 <script>
@@ -123,6 +127,11 @@
         console.log(event);
         console.log("content : " + event.toElement.outerText);
         console.log("id : " + event.toElement.id);
+
+        //Datas injection  test
+        //Change data -> event.toElement.outerText = "poney";
+        //Set text-color -> document.getElementById(event.toElement.id).style.backgroundcolor="pink";
+        document.getElementById(event.toElement.id).classList.add("test")
       }
     }
   }
