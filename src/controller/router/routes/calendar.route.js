@@ -134,14 +134,12 @@ calendarRoute.route('/').get((req, res) => {
   }
 
   function addWeekType(id, callback){
-    weekTypesModel.find({_id : id}, function (err, weekType) { 
+    weekTypesModel.findOne({_id: mongoose.Types.ObjectId(id)}, function (err, weekType) { 
       if (typeof weekType !== "undefined"){ 
         weekType = {
           name : weekType.name,
           color : weekType.color,
         }
-        console.log(weekType);
-
         callback(weekType);
       }
     });
@@ -260,7 +258,7 @@ function createWeek(id){
     if (error) {
       return next(error);
     } else {
-      console.log("Assigned as : " + data._id);
+      //console.log("Assigned as : " + data._id);
       //console.log("wt_id : " + wt_id);
     }
   })
