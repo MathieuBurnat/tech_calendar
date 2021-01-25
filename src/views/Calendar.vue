@@ -7,6 +7,8 @@
     </div>
     <div v-else> 
       <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
+
+
       <h3> Actually, the calendar's render is still in working progrss. Check the console (via F12) if you want to see the console-calendar ! :'D </h3>
       <!-- Render the calendar-->
         <ul v-for="year in calendar.yearsList" :key="year">
@@ -19,17 +21,59 @@
             </ul>
           </ul>
         </ul>
-      <!-- the render ends here -->
+
+
     </div>
 
+      <!-- the render ends here -->
+      <!-- test (Here we'll render the calendar) -->
+      <div class="row">
+      <div class="column" style="background-color:#aaa;">
+        <div class="week">Some text</div>
+        <div class="week">Some text</div>
+        <div class="week">Some text</div>
+      </div>
+      <div class="column" style="background-color:#bbb;">
+        <div class="week">Some text</div>
+        <div class="week">Some text</div>        
+      </div>
+      </div>
+      <!-- test -->
+
 </template>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px 0px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.week{
+  border-style: dotted;
+  border-width: 2px;
+}
+
+</style>
 
 <script>
   import Header from './Header.vue'
   import axios from "axios";
   import { computed } from "vue";
   import { useRoute } from "vue-router";
-
   export default 
     {
     components: {
@@ -84,12 +128,11 @@
             }
           }
         }
-
         }).catch(error => {
             console.log(error);
         });
-
-        }
+      }
     }
   }
 </script>
+
