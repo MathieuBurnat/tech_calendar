@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import PageNotFound from "@/views/errors/PageNotFound.vue";
-import Home from "@/views/Home.vue";
+//import Home from "@/views/Home.vue";
 import PickACalender from "@/views/PickACalender.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
@@ -17,7 +17,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: Login, //Actually with try this interface as homepage (according to the sketches B -- homepage).
   },
   {
     path: "/about",
@@ -27,6 +27,11 @@ const routes = [
   {
     path: "/login",
     name: "Login",
+    component: Login,
+  },
+  {
+    path: "/profil",
+    name: "Profil",
     component: Login,
   },
   {
@@ -43,9 +48,9 @@ const routes = [
     path: "/pickacalendar",
     name: "PickACalender",
     component: PickACalender,
-  },
+  }, 
   {
-    path: "/calendar",
+    path: "/calendar:id",
     name: "Calendar",
     component: Calendar,
   },

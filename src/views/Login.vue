@@ -1,6 +1,10 @@
 <template>
   <Header/>
-    <h1> Se connecter </h1>
+    <h1>Bienvenue ! </h1>
+    <p>Avant de pouvoir bénéficier des services de l'application et de façon à conserver vos calendriers de façon sécurisée, vous devez vous connecter. </p>
+
+    <h2> Se connecter </h2>
+
     <form @submit.prevent="login">
             <label>Adresse mail</label>
             <input type="text" class="form-control" v-model="user.email" required>
@@ -12,6 +16,7 @@
 
             ou <router-link class="active" to="/register">s'enregistrer</router-link>.
     </form>
+    <p class="error"> {{errorMessage}}</p>
   <!--Footer/-->
 </template>
 
@@ -30,6 +35,7 @@ export default {
             email: '',
             password: ''
         },
+        errorMessage : ""
     }
   },
   methods:{
@@ -39,13 +45,14 @@ export default {
           
           //Return messages 
           console.log(res.data.message);
-          
+          this.errorMessage = res.data.message;
+
           if(res.data.isPswrdMatches){ //If the user exists and the password matches.
             //store the token (use_id with token) into "userInformations"
             localStorage.setItem('userInformations', JSON.stringify(res.data.token));
 
-            //redirect into the homepage or whatever.
-            this.$router.push('/')
+            //now the use will be able to pick a calendar.. 
+            this.$router.push('/pickacalendar')
           }
 
           this.user = {
@@ -60,3 +67,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.error{
+  color: #E91E63;
+}
+</style>

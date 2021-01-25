@@ -70,7 +70,7 @@
             }
         },
         created() {
-            let apiURL = 'http://localhost:4000/api';
+            let apiURL = 'http://localhost:4000/user';
             axios.get(apiURL).then(res => {
                 this.Calendars = res.data;
             }).catch(error => {
@@ -79,7 +79,7 @@
         },
         methods: {
             handleSubmitForm() {
-                let apiURL = 'http://localhost:4000/api/create-calendar';
+                let apiURL = 'http://localhost:4000/user/create-calendar';
                 axios.post(apiURL, this.calendar).then(() => {
                   //this.$router.push('/view')
                   this.calendar = {

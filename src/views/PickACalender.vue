@@ -1,14 +1,97 @@
 <template>
   <Header/>
-    <h2> Welcome to the pickacalendar's section. </h2>
+  <h1> Pick a calendar ! </h1>
+
+  <form @submit.prevent="goToCalendar">
+
+    <div v-if="!calendars.length"> <!-- If there isn't calendars. -->
+      <p> Aucun calendrier n'existe pour le moment. </p>
+      Créer en un nouveau <router-link class="active" to="/newcalendar">ici</router-link> !
+    </div>
+    <div v-else> 
+    <label for="calendar-choice">calendars:</label>
+
+    <select v-model="selectedOption">
+      <option disabled value="">Choisissez</option>
+      <option v-for="calendar in calendars" :key="calendar.id">{{calendar.name}}</option>
+    </select>
+
+    <div>
+      <input
+          type="checkbox"
+          v-model="shouldBeDefault"
+          :value="1"
+          name="pets"
+        />
+      <label>Keep this calendar as default</label>
+    </div>
+
+    <input type="submit" value="Go">
+    <br/> ...ou créer un nouveau <router-link class="active" to="/newcalendar">calendrier</router-link>.
+    </div>
+  </form>
 </template>
 
 <script>
-  import Header from './Header.vue'
+  import Header from './Header.vue';
+  import axios from "axios";
+  import {verifyAuthenticity} from "@/components/auth.js";
 
   export default {
     components: {
       Header
+    },
+    data() {
+      return { calendars: [], shouldBeDefault: false, selectedOption : ""}
+    },
+    mounted(){
+      let apiURL = 'http://localhost:4000/calendar/';
+      axios.get(apiURL).then((res) => {
+      this.calendars = res.data;
+      }).catch(error => {
+          console.log(error);
+      });
+    },
+    methods:{
+      goToCalendar(){
+        //get datas
+        var isChecked = this.shouldBeDefault;
+        var name = this.selectedOption;
+        var ui =  JSON.parse(localStorage.getItem("userInformations"));
+        var user_id = ui.user;
+        verifyAuthenticity();
+        if(verifyAuthenticity){ //If the user is legit (it tokken is validate)
+          
+          //if "chose this calendar as default is cheked"
+          var data = {name, user_id}
+
+          if(isChecked){
+
+            let apiURL = 'http://localhost:4000/user/set-default-calendar';
+              
+            axios.post(apiURL, data).then((res) => {
+              console.log(res.data.message);
+            }).catch(error => {
+              console.log(error);
+            });
+          }
+
+          //Get calendar id with the name and push it into /calendar
+          let authURL = 'http://localhost:4000/calendar/get-id';
+              axios.post(authURL, data).then((res) => {
+                var calendar_id = res.data.calendar_id;
+                this.$router.push({
+                name: 'Calendar',
+                params: { id: calendar_id}
+                });
+              }).catch(error => {
+                  console.log(error);
+              });
+
+        }else{
+          this.$router.push('/logout')
+        }
+      }
     }
   }
 </script>

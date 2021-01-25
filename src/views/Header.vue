@@ -4,7 +4,8 @@
     <div class="topnav">
       <!-- Centered link -->
       <div class="topnav-centered">
-        <router-link class="active" to="/calendar">My calendar</router-link>
+        <router-link class="active" :to="{ name: 'Calendar', params: { id: -1 } }">My calendar</router-link>
+
       </div>
       <!-- Left-aligned links (default) -->
       <div class="topnav-left">

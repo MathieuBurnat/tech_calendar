@@ -5,11 +5,8 @@ let calendarSchema = new Schema({
   name: {
     type: String
   },
-  email: {
-    type: String
-  },
-  phone: {
-    type: String
+  author: {
+    type: mongoose.Schema.Types.ObjectId, ref: "users"
   },
 }, {
   collection: 'calendars'
