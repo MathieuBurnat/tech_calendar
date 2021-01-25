@@ -31,26 +31,38 @@
         </ul-->
       <!-- the render ends here -->
       <!-- test (Here we'll render the calendar) -->
+      <div class="row">
+        <div class="column">
+          <div class="week">Some text</div>
+          <div class="week">Some text</div>
+          <div class="week">Some text</div>
+        </div>
+        <div class="column">
+          <div class="week">Some text</div>
+          <div class="week">Some text</div>        
+          <div class="week">Some text</div>        
+        </div>
+      </div>
 
-    <table>
+
+      <table>
         <tr>
-            <th v-for="year in calendar.yearsList" :key="year">
-              <span>{{year.startingDate}}</span>
-            </th>
+          <th v-for="year in calendar.yearsList" :key="year">
+            <span>{{year.startingDate}}</span>
+          </th>
         </tr>
         <tr>
           <td v-for="year in calendar.yearsList" :key="year">
             <span>{{year.startingDate}}</span>
               <ul v-for="trimester in year.trimestersList" :key="trimester">
               <li v-text="trimester.name"></li>
-
               <ul v-for="week in trimester.weeksList" :key="week">
                 <li v-text="week.name"></li>
               </ul>
             </ul>
           </td>
         </tr> 
-    </table>
+      </table>
       <!-- test -->
   </div>
 
@@ -74,6 +86,21 @@ td, th {
 
 tr:nth-child(even) {
   /*background-color: #dddddd;*/
+}
+
+.week{
+  border: 1px solid #ccc;
+}
+
+.row {
+  display: flex;
+  flex-flow: row wrap;
+  width: 75%;
+  padding: 10px;
+}
+
+.column {
+  flex: 1 1 50%;
 }
 
 </style>
