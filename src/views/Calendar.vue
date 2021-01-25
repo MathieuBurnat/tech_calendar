@@ -12,6 +12,7 @@
           <div class="year case"> {{ index + 1 }} année  </div>
           <div v-for="trimester in year.trimestersList" :key="trimester"> 
             <div class="week case" v-for="week in trimester.weeksList" :key="week"> {{week.content}} </div>
+            <div class="case trimester"></div>
           </div>
         </div>
       </div>
@@ -32,8 +33,13 @@
     font-weight: bold;
   }
 
+  .trimester{
+    background-color: pink;
+    padding: 2px;
+  }
+
   .week{
-    border: 1px solid #ccc;
+
   }
 
   .row {
@@ -103,7 +109,6 @@
               console.log(i+ "." + i2 + "." + i3 + "> week : type's anme : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType.name);
               console.log(i+ "." + i2 + "." + i3 + "> week : type's color : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType.color);
               console.log(i+ "." + i2 + "." + i3 + "> week's module : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].module.name);
-
             }
           }
         }
