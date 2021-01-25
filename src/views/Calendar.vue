@@ -11,7 +11,7 @@
 
       <h3> Actually, the calendar's render is still in working progrss. Check the console (via F12) if you want to see the console-calendar ! :'D </h3>
       <!-- Render the calendar-->
-        <ul v-for="year in calendar.yearsList" :key="year">
+        <!--ul v-for="year in calendar.yearsList" :key="year">
           <li v-text="year.startingDate"></li>
           <ul v-for="trimester in year.trimestersList" :key="trimester">
             <li v-text="trimester.name"></li>
@@ -20,7 +20,7 @@
               <li v-text="week.name"></li>
             </ul>
           </ul>
-        </ul>
+        </ul-->
 
 
     </div>
@@ -28,13 +28,14 @@
       <!-- the render ends here -->
       <!-- test (Here we'll render the calendar) -->
       <div class="row">
-      <div class="column" style="background-color:#aaa;">
+      <div class="column">
         <div class="week">Some text</div>
         <div class="week">Some text</div>
         <div class="week">Some text</div>
       </div>
-      <div class="column" style="background-color:#bbb;">
+      <div class="column">
         <div class="week">Some text</div>
+        <div class="week">Some text</div>        
         <div class="week">Some text</div>        
       </div>
       </div>
@@ -43,28 +44,20 @@
 </template>
 
 <style>
-* {
-  box-sizing: border-box;
+
+.row {
+  display: flex;
+  flex-flow: row wrap;
+  width: 75%;
+  padding: 10px;
 }
 
-/* Create three equal columns that floats next to each other */
 .column {
-  float: left;
-  width: 33.33%;
-  padding: 10px 0px;
-  height: 300px; /* Should be removed. Only for demonstration */
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+  flex: 1 1 50%;
 }
 
 .week{
-  border-style: dotted;
-  border-width: 2px;
+  border: 1px solid #ccc;
 }
 
 </style>
