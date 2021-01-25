@@ -11,8 +11,13 @@
 
       <h3> Actually, the calendar's render is still in working progrss. Check the console (via F12) if you want to see the console-calendar ! :'D </h3>
       <!-- Render the calendar-->
-        <!--ul v-for="year in calendar.yearsList" :key="year">
-          <li v-text="year.startingDate"></li>
+        <!--ul v-for="year in calendar.yearsList" :key="year"> OK
+
+
+          <li v-text="year.startingDate"></li> OK
+
+
+
           <ul v-for="trimester in year.trimestersList" :key="trimester">
             <li v-text="trimester.name"></li>
 
@@ -20,43 +25,34 @@
               <li v-text="week.name"></li>
             </ul>
           </ul>
+
+
+
         </ul-->
-
-
-    </div>
       <!-- the render ends here -->
       <!-- test (Here we'll render the calendar) -->
+
     <table>
-      <tr>
-        <th>Contact</th>
-        <th>Country</th>
-      </tr>
-      <tr>
-        <td>Maria Anders</td>
-        <td>Germany</td>
-      </tr>
-      <tr>
-        <td>Francisco Chang</td>
-        <td>Mexico</td>
-      </tr>
-      <tr>
-        <td>Roland Mendel</td>
-        <td>Austria</td>
-      </tr>
-      <tr>
-        <td>Helen Bennett</td>
-        <td>UK</td>
-      </tr>
-      <tr>
-        <td>Yoshi Tannamuri</td>
-        <td>Canada</td>
-      </tr>
-      <tr>
-        <td>Giovanni Rovelli</td>
-        <td>Italy</td>
-      </tr>
+        <tr>
+            <th v-for="year in calendar.yearsList" :key="year">
+              <span>{{year.startingDate}}</span>
+            </th>
+        </tr>
+        <tr>
+          <td v-for="year in calendar.yearsList" :key="year">
+            <span>{{year.startingDate}}</span>
+              <ul v-for="trimester in year.trimestersList" :key="trimester">
+              <li v-text="trimester.name"></li>
+
+              <ul v-for="week in trimester.weeksList" :key="week">
+                <li v-text="week.name"></li>
+              </ul>
+            </ul>
+          </td>
+        </tr> 
     </table>
       <!-- test -->
+  </div>
 
 </template>
 
