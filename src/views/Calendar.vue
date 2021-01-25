@@ -11,7 +11,7 @@
         <div class="column" v-for="(year, index) in calendar.yearsList" :key="year">
           <div class="year case"> {{ index + 1 }} année  </div>
           <div v-for="trimester in year.trimestersList" :key="trimester"> 
-            <div class="week case" v-for="week in trimester.weeksList" :key="week"> week</div>
+            <div class="week case" v-for="week in trimester.weeksList" :key="week"> {{week.content}} </div>
           </div>
         </div>
       </div>
@@ -99,7 +99,7 @@
 
             for (let i3 = 0; i3 < this.calendar.yearsList[i].trimestersList[i2].weeksList.length; i3++) //inside weeds
             {  
-              console.log(i+ "." + i2 + "." + i3 + "> week's name : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].name);
+              console.log(i+ "." + i2 + "." + i3 + "> week's content : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].content);
               console.log(i+ "." + i2 + "." + i3 + "> week's module : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType);
               console.log(i+ "." + i2 + "." + i3 + "> week's type : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].module);
             }

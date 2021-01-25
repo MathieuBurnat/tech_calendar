@@ -25,7 +25,7 @@ let modulesModel = require('../../../model/modules');
 var yearsCount = 2;
 var trimestersCount = 4;
 var weeksCount = 11;
-var wt_id = 0;
+var wt_id = 23;
 
 calendarRoute.route('/').get((req, res) => {
     calendarModel.find((error, data) => {
@@ -55,8 +55,8 @@ calendarRoute.route('/').get((req, res) => {
         });
 
         setTimeout(() => {   //That's the ugliest thing i ever made.
-          console.log(" = Here's the holy calendar = ");
-          console.log(holyCalendar);
+          //console.log(" = Here's the holy calendar = ");
+          //console.log(holyCalendar);
           
           return res.send({ message, holyCalendar });
         }, 
@@ -178,7 +178,7 @@ calendarRoute.route('/').get((req, res) => {
 function fillCalendar(calendar_id){
   //Dev option
   //Create a weeType to default and return its is
-  wt_id = createWeekType()
+  createWeekType();
 
   for (let i = 0; i < yearsCount; i++)
     createYear(calendar_id); //createYear -> createTrimester -> createWeeks
@@ -194,12 +194,15 @@ function createWeekType(){
     if (error) {
       return next(error);
     } else {
-      return data._id;
+      //console.log("inside->matrix> wt_id : " + data._id);
+      wt_id = data._id;
     }
   })
 }
 
 function createYear(calendar_id){
+  //console.log("createY> wt_id" + wt_id);
+
   var today = new Date();
   newYear = {
     startingDate : today.getDate() + '-' + today.getMonth() + 1 +'-'+today.getFullYear(),
@@ -211,7 +214,9 @@ function createYear(calendar_id){
       return next(error);
     } else {
 
-
+  //console.log("srly ?> wt_id" + wt_id);
+  //console.log("srly ?> tre" + trimestersCount);
+      
 
       for (let i = 0; i < trimestersCount; i++) 
         createTrimester(data._id); // createTrimester -> createWeeks
@@ -229,7 +234,7 @@ function createTrimester(id)
     if (error) {
       return next(error);
     } else {
-      ////console.log("Trimester created :D");
+      //////console.log("Trimester created :D");
 
       for (let i = 0; i < weeksCount; i++) {
         createWeek(data._id);
@@ -241,14 +246,17 @@ function createTrimester(id)
 function createWeek(id){
   var newWeek = {
     trimester: id,
-    weekType: wt_id
+    content : "my week's content",
+    weekType: wt_id,
   }
+
 
   weekModel.create(newWeek, (error, data) => {
     if (error) {
       return next(error);
     } else {
-      ////console.log("Week created :D");
+      //console.log("Assigned as : " + data._id);
+      //console.log("wt_id : " + wt_id);
     }
   })
 }
@@ -265,10 +273,10 @@ calendarRoute.route('/edit-calendar/:id').get((req, res) => {
 
 calendarRoute.post("/get-id", async (request, res) => {
   try {
-      //console.log("Here we go..");
-      ////console.log("Name " + request.body);
+      ////console.log("Here we go..");
+      //////console.log("Name " + request.body);
 
-      //console.log( JSON.stringify(request.body) );
+      ////console.log( JSON.stringify(request.body) );
 
       var calendar = await calendarModel.findOne({ name: request.body.name }).exec();
       if(!calendar) {
@@ -290,7 +298,7 @@ calendarRoute.route('/update-calendar/:id').post((req, res, next) => {
       return next(error);
     } else {
       res.json(data)
-      //console.log('calendar successfully updated!')
+      ////console.log('calendar successfully updated!')
     }
   })
 })
