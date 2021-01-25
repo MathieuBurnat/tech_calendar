@@ -7,102 +7,41 @@
     </div>
     <div v-else> 
       <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
-
-
-      <h3> Actually, the calendar's render is still in working progrss. Check the console (via F12) if you want to see the console-calendar ! :'D </h3>
-      <!-- Render the calendar-->
-        <!--ul v-for="year in calendar.yearsList" :key="year"> OK
-
-
-          <li v-text="year.startingDate"></li> OK
-
-
-
-          <ul v-for="trimester in year.trimestersList" :key="trimester">
-            <li v-text="trimester.name"></li>
-
-            <ul v-for="week in trimester.weeksList" :key="week">
-              <li v-text="week.name"></li>
-            </ul>
-          </ul>
-
-
-
-        </ul-->
-      <!-- the render ends here -->
-      <!-- test (Here we'll render the calendar) -->
       <div class="row">
-        <div class="column">
-          <div class="week">Some text</div>
-          <div class="week">Some text</div>
-          <div class="week">Some text</div>
-        </div>
-        <div class="column">
-          <div class="week">Some text</div>
-          <div class="week">Some text</div>        
-          <div class="week">Some text</div>        
+        <div class="column" v-for="year in calendar.yearsList" :key="year">
+          <div class="year case"> Year :D</div>
+          <div v-for="trimester in year.trimestersList" :key="trimester"> 
+            <div class="week case" v-for="week in trimester.weeksList" :key="week">My week</div>
+          </div>
         </div>
       </div>
-
-
-      <table>
-        <tr>
-          <th v-for="year in calendar.yearsList" :key="year">
-            <span>{{year.startingDate}}</span>
-          </th>
-        </tr>
-        <tr>
-          <td v-for="year in calendar.yearsList" :key="year">
-            <span>{{year.startingDate}}</span>
-              <ul v-for="trimester in year.trimestersList" :key="trimester">
-              <li v-text="trimester.name"></li>
-              <ul v-for="week in trimester.weeksList" :key="week">
-                <li v-text="week.name"></li>
-              </ul>
-            </ul>
-          </td>
-        </tr> 
-      </table>
-      <!-- test -->
+      <h3> Actually, the calendar's render is still in working progrss. Check the console (via F12) if you want to see the console-calendar ! :'D </h3>
   </div>
-
 </template>
 
 <style>
+  .case{
+    border: 1px solid #ccc;
+  }
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 75%;
-  margin: 10px;
-}
+  .year{
+    font-weight: bold;
+  }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-  width: 50% ;
-}
+  .week{
+    border: 1px solid #ccc;
+  }
 
-tr:nth-child(even) {
-  /*background-color: #dddddd;*/
-}
+  .row {
+    display: flex;
+    flex-flow: row wrap;
+    width: 60%;
+    padding: 10px;
+  }
 
-.week{
-  border: 1px solid #ccc;
-}
-
-.row {
-  display: flex;
-  flex-flow: row wrap;
-  width: 75%;
-  padding: 10px;
-}
-
-.column {
-  flex: 1 1 50%;
-}
-
+  .column {
+    flex: 1 1 50%;
+  }
 </style>
 
 <script>
