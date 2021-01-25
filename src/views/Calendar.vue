@@ -97,11 +97,13 @@
           {  
             console.log(i+ "." + i2 + "> Trimester's name : " + this.calendar.yearsList[i].trimestersList[i2].name);
 
-            for (let i3 = 0; i3 < this.calendar.yearsList[i].trimestersList[i2].weeksList.length; i3++) //inside weeds
+            for (let i3 = 0; i3 < this.calendar.yearsList[i].trimestersList[i2].weeksList.length; i3++) //inside weeks
             {  
               console.log(i+ "." + i2 + "." + i3 + "> week's content : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].content);
-              console.log(i+ "." + i2 + "." + i3 + "> week's type : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType);
-              console.log(i+ "." + i2 + "." + i3 + "> week's module : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].module);
+              console.log(i+ "." + i2 + "." + i3 + "> week : type's anme : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType.name);
+              console.log(i+ "." + i2 + "." + i3 + "> week : type's color : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType.color);
+              console.log(i+ "." + i2 + "." + i3 + "> week's module : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].module.name);
+
             }
           }
         }
