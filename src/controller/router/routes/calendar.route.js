@@ -115,16 +115,23 @@ calendarRoute.route('/').get((req, res) => {
       var weeksList = [];
       if (typeof weeks !== "undefined"){ 
         for (i = 0; i < weeks.length; i++) {
-          var debugName = ("[" +  weeks[i]._id  + "]>" + i + " dance to the floor")
+          
+          var debugName = ("[" +  weeks[i]._id  + "]>" + i + " dance to the floor");
+          var weekId = weeks[i]._id;
           var content = weeks[i].content;
 
-          addWeekType(weeks[i].weekType, function(weekType){ 
+          //console.log("before addwt " + weekId);
+
+          addWeekType(weeks[i].weekType, weekId, function(weekType){ 
             week = {
+              id : weekId,
               content : content,
               weekType : weekType, 
               module: "",
               name : debugName,
             }
+            //console.log("inside addwt " + weekId);
+
             weeksList.push(week);
           });
         }
@@ -133,7 +140,7 @@ calendarRoute.route('/').get((req, res) => {
     });
   }
 
-  function addWeekType(id, callback){
+  function addWeekType(id, weekId, callback){
     weekTypesModel.findOne({_id: mongoose.Types.ObjectId(id)}, function (err, weekType) { 
       if (typeof weekType !== "undefined"){ 
         weekType = {
