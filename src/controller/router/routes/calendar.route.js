@@ -15,10 +15,10 @@ let trimesterModel = require('../../../model/trimester');
 let weekModel = require('../../../model/week');
 
 // weekTypes model
-let weekModel = require('../../../model/weekTypes');
+let weekTypesModel = require('../../../model/weekTypes');
 
 // week model
-let modules = require('../../../model/modules');
+let modulesModel = require('../../../model/modules');
 
 
 //config 
@@ -116,19 +116,43 @@ calendarRoute.route('/').get((req, res) => {
       if (typeof weeks !== "undefined"){ 
         for (i = 0; i < weeks.length; i++) {
           var debugName = ("[" + id  + "]>" + i + " dance to the floor")
+
           week = {
             content : weeks[i].content,
-            weekType : weeks[i].weekType,
-            module : weeks[i].module,
+            weekType : addWeekType(weeks[i].weekType), //I want to see if this method's works for non-listed items, otherwise i'll implement them as callback method
+            module : addModule(weeks[i].module),
             name : debugName,
           }
           weeksList.push(week);
         }
         callback(weeksList);
-        }
-      });
+      }
+    });
   }
 
+  function addWeekType(id){
+    weekTypesModel.find({_id : id}, function (err, weekType) { 
+      if (typeof weekType !== "undefined"){ 
+        weekType = {
+          name : weekType.name,
+          color : weekType.color,
+        }
+        return weekType;
+      }
+    });
+  }
+
+  function addModule(id){ //I put the name wmodule because module is already taken by mongoose !
+    modulesModel.find({_id : id}, function (err, wmodule) { 
+      if (typeof wmodule !== "undefined"){ 
+        wmodule = {
+          name : wmodule.name,
+          color : wmodule.color,
+        }
+        return wmodule;
+      }
+    });
+  }
 
   calendarRoute.route('/create-calendar').post((req, res, next) => {
     var isCreated = false;
