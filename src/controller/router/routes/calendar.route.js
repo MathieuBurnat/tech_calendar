@@ -51,7 +51,6 @@ calendarRoute.route('/').get((req, res) => {
 
         addYears(docs.id, function(yearsList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
           holyCalendar.yearsList = yearsList; //hmm ? i thing that we should push the year over there
-          return holyCalendar;
         });
 
         setTimeout(() => {   //That's the ugliest thing i ever made.
@@ -76,13 +75,13 @@ calendarRoute.route('/').get((req, res) => {
         for (i = 0; i < years.length; i++) {
           var trimestersList = [];
           var sd = years[i].startingDate;
-          trimestersList = addTrimesters(years[i]._id, function(trimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
+
+          addTrimesters(years[i]._id, function(trimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
           year = {
             startingDate: sd,
             trimestersList,
           }
           yearsList.push(year);
-          return trimestersList;
           });
         }
         callback(yearsList);
@@ -97,7 +96,7 @@ calendarRoute.route('/').get((req, res) => {
       if (typeof trimesters !== "undefined"){ 
         for (i = 0; i < trimesters.length; i++) {
           var debugName = ("[" + trimesters[i]._id  + "]>" + i + " I'm totally crazy")
-          weeksList = addweeks(trimesters[i]._id, function(weeksList){ 
+          addweeks(trimesters[i]._id, function(weeksList){ 
             trimester = {
               name : debugName,
               weeksList : weeksList // Yeah... The madness start... Again !
