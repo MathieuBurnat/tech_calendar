@@ -21,7 +21,7 @@
       <h3> Actually, the calendar's render is still in working progrss. Check the console (via F12) if you want to see the console-calendar ! :'D </h3>
   </div>
 
-  <div @click="toggleIsClicked" id="myPoney"> Hi, this is a test >:c </div>
+  <div @click="toggleIsClicked" :id="injectionID_Test" > Hi, this is a test >:c </div>
 </template>
 
 <style>
@@ -74,7 +74,8 @@
     },
     data() {
       return { 
-        calendar: []
+        calendar: [],
+        injectionID_Test : "Pawned"
         }
     },setup() {
       const route = useRoute()
@@ -114,7 +115,7 @@
             for (let i3 = 0; i3 < this.calendar.yearsList[i].trimestersList[i2].weeksList.length; i3++) //inside weeks
             {  
               console.log(i+ "." + i2 + "." + i3 + "> week's content : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].content);
-              console.log(i+ "." + i2 + "." + i3 + "> week : type's anme : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType.name);
+              console.log(i+ "." + i2 + "." + i3 + "> week : type's name : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType.name);
               console.log(i+ "." + i2 + "." + i3 + "> week : type's color : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType.color);
               console.log(i+ "." + i2 + "." + i3 + "> week's module : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].module.name);
             }
