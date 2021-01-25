@@ -21,7 +21,7 @@
       <h3> Actually, the calendar's render is still in working progrss. Check the console (via F12) if you want to see the console-calendar ! :'D </h3>
   </div>
 
-  <div @click="toggleIsClicked"> Hi, this is a test >:c </div>
+  <div @click="toggleIsClicked" id="myPoney"> Hi, this is a test >:c </div>
 </template>
 
 <style>
@@ -119,8 +119,10 @@
         }).catch(error => {
             console.log(error);
         });
-      },toggleIsClicked : function() {
-        console.log("heeeeeeeee");
+      },toggleIsClicked : function(event) {
+        console.log(event);
+        console.log("content : " + event.toElement.outerText);
+        console.log("id : " + event.toElement.id);
       }
     }
   }
