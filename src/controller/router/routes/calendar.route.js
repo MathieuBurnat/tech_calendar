@@ -14,6 +14,13 @@ let trimesterModel = require('../../../model/trimester');
 // week model
 let weekModel = require('../../../model/week');
 
+// weekTypes model
+let weekModel = require('../../../model/weekTypes');
+
+// week model
+let modules = require('../../../model/modules');
+
+
 //config 
 var yearsCount = 2;
 var trimestersCount = 4;
