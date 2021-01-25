@@ -96,7 +96,7 @@ calendarRoute.route('/').get((req, res) => {
       //if a trimesters is found.
       if (typeof trimesters !== "undefined"){ 
         for (i = 0; i < trimesters.length; i++) {
-          var debugName = ("[" + id  + "]>" + i + " yeah, i'm totally crazy")
+          var debugName = ("[" + trimesters[i]._id  + "]>" + i + " I'm totally crazy")
           weeksList = addweeks(trimesters[i]._id, function(weeksList){ 
             trimester = {
               name : debugName,
@@ -115,7 +115,7 @@ calendarRoute.route('/').get((req, res) => {
       var weeksList = [];
       if (typeof weeks !== "undefined"){ 
         for (i = 0; i < weeks.length; i++) {
-          var debugName = ("[" + id  + "]>" + i + " dance to the floor")
+          var debugName = ("[" +  weeks[i]._id  + "]>" + i + " dance to the floor")
 
           week = {
             content : weeks[i].content,
