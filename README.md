@@ -1,4 +1,4 @@
-# Tech' calendar - Version Alpha 0.1
+# Tech' calendar - Version Alpha 0.2
 ## Description
 
 Hey ! Welcome to the tech calendar. Also called tech diary ;3
