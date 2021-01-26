@@ -5,7 +5,10 @@
 
 /* CSS Variables */ 
 :root {
-    --blue: #3078c0;
+  /*Color-palette*/
+  --header-front : #716e77;
+  --header-active : #ecd6c7;
+  --buttonColor: #e79686;
 }
 
 body {
@@ -18,7 +21,7 @@ body {
 
 /* Set a style for the submit button */
 .button {
-  background-color: #4CAF50;
+  background-color: var(--buttonColor);
   color: white;
   padding: 16px 20px;
   margin: 8px 0;
