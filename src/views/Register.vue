@@ -62,9 +62,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.error{
-  color: #E91E63;
-}
-</style>
