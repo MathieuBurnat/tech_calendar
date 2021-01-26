@@ -1,8 +1,26 @@
-/* Yeah this is actually a test to see if i'm able to import this file :D */
+/* 
+ The main file contain global object like buttons.
+ It also store css variables for our website's theme.
+*/
+
+
+/* CSS Variables */ 
 :root {
     --blue: #3078c0;
-  }
-
-.test-div{
-    background-color: var(--blue);
 }
+
+/* Set a style for the submit button */
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+  }
+  
+  .button:hover {
+    opacity: 1;
+  }
