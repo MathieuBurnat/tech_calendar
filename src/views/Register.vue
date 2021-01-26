@@ -1,21 +1,49 @@
 <template>
   <Header/>
-    <h1> S'enregistrer </h1>
+
+
+
     <form @submit.prevent="register">
-            <label>Nom</label>
-            <input type="text" class="form-control" v-model="user.name" required>
 
-            <label>Adresse mail</label>
-            <input type="text" class="form-control" v-model="user.email" required>
+      <div class="container">
+        <h2> Bienvenue ! </h2>
+        <p> Nous sommes heureux de vous compter parmis nous ! :'D</p>
 
-            <label>Mot de passe</label>
-            <input type="password" class="form-control" v-model="user.password" required>
+        <h1> S'enregistrer </h1>
+        <hr>
 
-            <button class="btn btn-danger btn-block">S'enregistrer !</button>
+        <label for="name"><b>Nom</b></label>
+        <input type="text" class="form-control" v-model="user.name" required>
 
-            ou <router-link class="active" to="/login">se connecter</router-link>.
+        <label for="email"><b>Adresse mail</b></label>
+        <input type="text" placeholder="Entrer une adresse mail"  class="form-control" v-model="user.email" required>
+
+        <label for="psw"><b>Mot de passe</b></label>
+        <input type="password" class="form-control" v-model="user.password" required>
+
+        <hr>
+
+        <button class="button">S'enregistrer !</button>
+      </div>
+      
+      <div class="container signin">
+        Vous avez déjà un compte ? <router-link class="active" to="/login">Connectez-vous</router-link> !
+      </div>
+
+      <p class="error"> {{errorMessage}}</p>
     </form>
-    <p class="error"> {{errorMessage}}</p>
+
+
+
+
+
+
+
+
+
+
+
+
 
   <Footer/>
 </template>
@@ -23,6 +51,7 @@
 <script>
 import Header from './Header.vue'
 import axios from "axios";
+import '@/assets/styles/form.css';
 
 export default {
   components: {
