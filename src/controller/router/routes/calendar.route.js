@@ -99,9 +99,9 @@ calendarRoute.route('/').get((req, res) => {
         for (i = 0; i < trimesters.length; i++) {
           var debugName = ("[" + trimesters[i]._id  + "]>" + i + " Trimester")
 
-            console.log("Before the while : " + debugName);
+            //console.log("Before the while : " + debugName);
           addweeks(trimesters[i]._id, function(newWeeksList){ 
-            console.log("After the while : " + debugName);
+            //console.log("After the while : " + debugName);
           
             trimester = {
               name : debugName,

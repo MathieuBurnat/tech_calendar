@@ -20,7 +20,7 @@
       </div>
   </div>
 
-  <div @click="toggleIsClicked" :id="injectionID_Test" > Hi, this is a test >:c </div>
+  <!--div @click="toggleIsClicked" :id="injectionID_Test" > Hi, this is a test >:c </div-->
 </template>
 
 <style>
@@ -133,7 +133,7 @@
         //Datas injection  test
         //Change data -> event.toElement.outerText = "poney";
         //Set text-color -> document.getElementById(event.toElement.id).style.backgroundcolor="pink";
-        document.getElementById(event.toElement.id).classList.add("test")
+        //document.getElementById(event.toElement.id).classList.add("test")
       }
     }
   }
