@@ -3,41 +3,44 @@
  It also store css variables for our website's theme.
 */
 
-
 /* CSS Variables */ 
 :root {
     --blue: #3078c0;
 }
 
+body {
+  font-family: 'Lato', sans-serif !important;
+}
+
 .error{
   color: #E91E63;
-}
+  }
 
 /* Set a style for the submit button */
 .button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-  }
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
 
 .button:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* Add padding to containers */
 .container {
-    padding: 16px;
-    background-color: white;
-  }
+  padding: 16px;
+  background-color: white;
+}
   
 /* Set a grey background color and center the text of the note's section */
 .notes {
-    background-color: #f1f1f1 !important;
-    text-align: center;
+  background-color: #f1f1f1 !important;
+  text-align: center;
 }
 
