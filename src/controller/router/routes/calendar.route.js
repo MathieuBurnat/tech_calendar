@@ -75,11 +75,13 @@ calendarRoute.route('/').get((req, res) => {
         for (i = 0; i < years.length; i++) {
           var trimestersList = [];
           var sd = years[i].startingDate;
+          var debugName = ("[" + years[i]._id  + "]>" + i + " Year")
 
-          addTrimesters(years[i]._id, function(trimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
+          addTrimesters(years[i]._id, function(newTrimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
           year = {
+            name : debugName,
             startingDate: sd,
-            trimestersList,
+            trimestersList : newTrimestersList,
           }
           yearsList.push(year);
           });
@@ -95,11 +97,11 @@ calendarRoute.route('/').get((req, res) => {
       //if a trimesters is found.
       if (typeof trimesters !== "undefined"){ 
         for (i = 0; i < trimesters.length; i++) {
-          var debugName = ("[" + trimesters[i]._id  + "]>" + i + " I'm totally crazy")
-          addweeks(trimesters[i]._id, function(weeksList){ 
+          var debugName = ("[" + trimesters[i]._id  + "]>" + i + " Trimester")
+          addweeks(trimesters[i]._id, function(newWeeksList){ 
             trimester = {
               name : debugName,
-              weeksList : weeksList // Yeah... The madness start... Again !
+              weeksList : newWeeksList // Yeah... The madness start... Again !
             }
             trimestersList.push(trimester);
           });
@@ -115,19 +117,19 @@ calendarRoute.route('/').get((req, res) => {
       if (typeof weeks !== "undefined"){ 
         for (i = 0; i < weeks.length; i++) {
           
-          var debugName = ("[" +  weeks[i]._id  + "]>" + i + " dance to the floor");
+          var debugName = ("[" +  weeks[i]._id  + "]>" + i + " Week");
           var weekId = weeks[i]._id;
           var content = weeks[i].content;
 
           //console.log("before addwt " + weekId);
 
-          addWeekType(weeks[i].weekType, weekId, function(weekType){ 
+          addWeekType(weeks[i].weekType, weekId, function(newWeekType){ 
             week = {
+              name : debugName,
               id : weekId,
               content : content,
-              weekType : weekType, 
+              weekType : newWeekType, 
               module: "",
-              name : debugName,
             }
             //console.log("inside addwt " + weekId);
 
