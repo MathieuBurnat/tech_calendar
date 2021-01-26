@@ -18,10 +18,10 @@
 
       <label for="calendar-choice">Calendriers :</label>
 
-      <select v-model="selectedOption">
+      <select v-model="selectedOption" required>
         <option disabled value="">Choisissez</option>
         <option v-for="calendar in calendars" :key="calendar.id">{{calendar.name}}</option>
-      </select>
+      </select >
 
       <input type="checkbox" v-model="shouldBeDefault" :value="1"/>
       <label>Je veux que ce soit mon calendrier par défaut !</label>
