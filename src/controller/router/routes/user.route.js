@@ -22,30 +22,6 @@ userRoute.route('/').get((req, res) => {
    })
  })
 
- userRoute.route('/get-default-calendar-id').get((req, res) => {
-  console.log("poney : " + req.body.name);
-  console.log( JSON.stringify(req.data));
-
-  userModel.find({_id : mongoose.Types.ObjectId(req.data.userId)}, function (err, docs) {
-
-
-    var hasError = false;
-    if (docs.length){ //The user is found. That's sound good
-        console.log("I find something captain : ");
-        console.log(docs._id);
-
-        return res.send({ id : docs._id, hasError});
-    }else{ //We find nothing. >:c
-      hasError = true;
-      console.log("The user had not been found !" + req.body.user_id);
-      return res.send({ message: "The user had not been found !", hasError});
-      }
-  });
-
-
-});
-
-
  userRoute.route('/create-user').post((req, res, next) => {
     userModel.find({email : req.body.email}, function (err, docs) {
       var hasError = true;
@@ -62,8 +38,8 @@ userRoute.route('/').get((req, res) => {
           console.log("User created :D");
         }
       })
-      }
-    });
+    }
+  });
 });
 
 // Login 
@@ -155,6 +131,14 @@ userRoute.post("/set-default-calendar", async (req, response) => {
   } catch (error) {
       response.status(500).send(error);
   }
+});
+
+ userRoute.route('/get-fdci').post((req, res, next) => {
+    userModel.findOne({_id: mongoose.Types.ObjectId(req.body.userId)}, function (err, docs) {
+
+      var defaultCalendar = docs.defaultCalendar;
+      return res.send({ defaultCalendar, message: "User's found"});
+  });
 });
 
 //Create token (it's possible to return it to store)
