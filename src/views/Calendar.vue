@@ -1,23 +1,32 @@
 <template>
     <Header/>
-    
-    <div v-if="calendar.length == 0"> <!-- If there isn't calendars. -->
-      <h2> Chargement du calendrier... </h2>
-      <p> {{ displayMySweetCalendar() }}</p>
-    </div>
-    <div v-else> 
-      <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
-      <div class="row">
-        <div class="column" v-for="(year, index) in calendar.yearsList" :key="year">
-          <div v-if="(index + 1) == 1" class="year case">  {{ index + 1 }} ère </div> <!-- Une french, we use "ère" to speak about the first year -->
-          <div v-if="(index + 1) != 1" class="year case"> {{ index + 1 }} ème </div>  <!-- It's an exception because to the next years, we use the setence "ème" -->
 
-          <div v-for="trimester in year.trimestersList" :key="trimester"> 
-            <div @click="toggleIsClicked" class="week case" :id="week.id" v-for="week in trimester.weeksList" :key="week"> {{week.content}} </div>
-            <div class="case trimester"></div>
+    <!-- Dev buttons-->
+    <div class="right">
+      <h2> Dev Tools (create for Mr. Mottier). </h2>
+        <router-link class="active" to="/editcase">Edit-Case</router-link> | <router-link class="active" to="/edittype">Edit-Type</router-link>
+
+    </div>
+
+    <div class="container">
+      <div v-if="calendar.length == 0"> <!-- If there isn't calendars. -->
+        <h2> Chargement du calendrier... </h2>
+        <p> {{ displayMySweetCalendar() }}</p>
+      </div>
+      <div v-else> 
+        <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
+        <div class="row">
+          <div class="column" v-for="(year, index) in calendar.yearsList" :key="year">
+            <div v-if="(index + 1) == 1" class="year case">  {{ index + 1 }} ère </div> <!-- Une french, we use "ère" to speak about the first year -->
+            <div v-if="(index + 1) != 1" class="year case"> {{ index + 1 }} ème </div>  <!-- It's an exception because to the next years, we use the setence "ème" -->
+
+            <div v-for="trimester in year.trimestersList" :key="trimester"> 
+              <div @click="toggleIsClicked" class="week case" :id="week.id" v-for="week in trimester.weeksList" :key="week"> {{week.content}} </div>
+              <div class="case trimester"></div>
+            </div>
           </div>
         </div>
-      </div>
+    </div>
   </div>
 
   <!--div @click="toggleIsClicked" :id="injectionID_Test" > Hi, this is a test >:c </div-->
@@ -58,6 +67,10 @@
 
   .test{
     background-color: cyan;
+  }
+
+  .right{
+    float: right;
   }
 </style>
 

@@ -25,7 +25,6 @@
 
       <p class="error"> {{errorMessage}}</p>
     </form>
-
   <!--Footer/-->
 </template>
 
