@@ -1,7 +1,7 @@
 <template>
   <Header/>
     <h1>Bienvenue ! </h1>
-    <p>Avant de pouvoir bénéficier des services de l'application et de façon à conserver vos calendriers de façon sécurisée, vous devez vous connecter. </p>
+    <p class="test-div">Avant de pouvoir bénéficier des services de l'application et de façon à conserver vos calendriers de façon sécurisée, vous devez vous connecter. </p>
 
     <h2> Se connecter </h2>
 
@@ -23,6 +23,7 @@
 <script>
 import Header from './Header.vue'
 import axios from "axios";
+import '@/assets/styles/main.css';
 
 export default {
   components: {
@@ -69,6 +70,8 @@ export default {
 </script>
 
 <style>
+
+
 .error{
   color: #E91E63;
 }

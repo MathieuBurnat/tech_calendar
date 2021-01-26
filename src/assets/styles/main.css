@@ -1,0 +1,8 @@
+/* Yeah this is actually a test to see if i'm able to import this file :D */
+:root {
+    --blue: #3078c0;
+  }
+
+.test-div{
+    background-color: var(--blue);
+}
