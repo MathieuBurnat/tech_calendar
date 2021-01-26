@@ -5,13 +5,17 @@
     <div class="right">
       <h2> Dev Tools (create for Mr. Mottier). </h2>
         <router-link class="active" to="/editcase">Edit-Case</router-link> | <router-link class="active" to="/edittype">Edit-Type</router-link>
-
     </div>
 
     <div class="container">
+      <div v-if="id==-1">
+        <h2> Vous être à présent dans l'onglet "mon calendrier " #{{id}} </h2> <!-- If the id equals to -1, we want get de default calendar of th user -->
+        <!-- {{ displayMySweetCalendar(true)}} -->
+      </div>
+
       <div v-if="calendar.length == 0"> <!-- If there isn't calendars. -->
         <h2> Chargement du calendrier... </h2>
-        <p> {{ displayMySweetCalendar() }}</p>
+        <p> {{ displayMySweetCalendar(false) }}</p>
       </div>
       <div v-else> 
         <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
@@ -97,22 +101,55 @@
       };
     },
     methods: {
-      displayMySweetCalendar() {
+      displayMySweetCalendar(isDefaultCalendar) {
         var data = {
           calendarId : this.id,
+          }
+
+        //if isDefaultCalendar equals true, it's because the user want to display its default calendar !!
+        //Get its calendar and continue de proced.
+        if(isDefaultCalendar){
+          this.id = 0;
+
+          var ui =  JSON.parse(localStorage.getItem("userInformations"));
+
+          var newData = {};
+          var user_id = ui.user;
+          console.log("ui id : " + user_id);
+
+          newData = { 
+          name : "Mathieu", 
+          userId : user_id 
+          };
+
+          console.log(newData);
+
+          let apiURL = 'http://localhost:4000/user//get-fdci';
+          axios.post(apiURL, newData).then((res) => {
+            console.log("New default calendar's id : " + res.data.defaultCalendar);
+            data = {
+            calendarId : res.data.defaultCalendar,
+            }
+          }).catch(error => {
+              console.log(error);
+          });
+        }else{
+          data = {
+          calendarId : this.id,
+          }
         }
 
         //get the full calendar
         let apiURL = 'http://localhost:4000/calendar/get-full-calendar';
         axios.post(apiURL, data).then((res) => {
 
-        console.log("Beep Bop Beep, I'm gonna crazy. Oh by the way you have a new message : " + res.data.message);
+        //console.log("Beep Bop Beep, I'm gonna crazy. Oh by the way you have a new message : " + res.data.message);
 
         this.calendar = res.data.holyCalendar;
-        console.log(this.calendar);
+        //console.log(this.calendar);
 
         // --- Test section 
-        console.log("[" + this.calendar.name + "]"); //The name of the calendar
+        //console.log("[" + this.calendar.name + "]"); //The name of the calendar
 
         //Here is the logic to get calendar's datas
         /*
