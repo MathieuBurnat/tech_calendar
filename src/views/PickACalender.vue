@@ -12,7 +12,10 @@
         </div>
       </div>
       <div v-else> 
-      <label for="calendar-choice">calendars:</label>
+
+
+
+      <label for="calendar-choice">Calendriers :</label>
 
       <select v-model="selectedOption">
         <option disabled value="">Choisissez</option>
@@ -26,11 +29,17 @@
             :value="1"
             name="pets"
           />
-        <label>Keep this calendar as default</label>
+        <label>Je veux que ce soit mon calendrier par défaut !</label>
       </div>
 
-      <input type="submit" value="Go">
-      <br/> ...ou créer un nouveau <router-link class="active" to="/newcalendar">calendrier</router-link>.
+      <button class="button">C'est parti !</button>
+
+      <div class="notes container">
+        Envie de créer votre propre calendrier ? Cliquez <router-link class="active" to="/newcalendar">ici</router-link> !
+      </div>
+
+
+
       </div>
     </form>
   </div>
