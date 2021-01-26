@@ -3,11 +3,10 @@
   <Header/>
   <div class="container">
     <form  @submit.prevent="createType">
-
       <h1> Édition du type de semaine </h1>
 
-      <h2> Prévisualisation de la semaine</h2>
-      <label for="Preview">Preview </label>
+      <h2> Prévisualisation </h2>
+      <label for="Preview">Prévisualisation du type de la semaine </label>
       <input id="Preview" type="text" disabled :style="{backgroundColor: weekType.color }" :value=weekType.name />
 
       <hr>
@@ -21,14 +20,14 @@
       <input id="color" type="color"  v-model="weekType.color" />
 
       <hr>
-      <input type="submit" class="button button-medium save" value="Save">
-      <input type="reset" class="button button-medium cancel"  @click="cancelValues()" value="Cancel">
-      <input type="button" class="button button-medium return" @click="$router.push('/editcase')" value="Return">
+      <input type="submit" class="button button-medium save" value="Sauvegarder">
+      <input type="reset" class="button button-medium cancel"  @click="cancelValues()" value="Annuler">
+      <input type="button" class="button button-medium return" @click="$router.push('/editcase')" value="Retour">
     </form>
     <p class="greatInfo"> {{message}} </p>
   </div>
 
-  <Footer/>
+  <!--Footer/-->
 </template>
 
 <script>

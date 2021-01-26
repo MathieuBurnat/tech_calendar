@@ -1,13 +1,14 @@
 <template>
   <Header/>
     <div class="container">
-    <h2> Welcome to the editcase's section. </h2>
+    <h1> Édition de la semaine </h1>
     <form>
+      <hr>
       <table>
         <tr>
           <td>
-            <label for="Preview">Preview</label>
-            <input id="Preview" type="text" disabled :value=weekTypeSelected.name :style="{backgroundColor: weekTypeSelected.color }" />
+            <label for="Preview">Prévisualisation de la semaine </label>
+            <input id="Preview" type="text" disabled :value=weekTypeSelected.name :style="{backgroundColor: this.selectedOption }" />
             <!--input id="name" type="text" v-model="weekType.name" required/ Meh-->
           </td>
           <td>
@@ -17,32 +18,37 @@
         </tr>
         <tr>
           <td>
-            <label for="typeWeek">type</label>
-            <select onchange="getColor()" id="typeWeek">
-              <option selected> --- choisissez --- </option>
-              <option v-for="weekType in weekTypes" :key="weekType.id" :value=weekType.color :style="{backgroundColor: weekType.color }">{{weekType.name}}</option>
+            <label for="typeWeek">Sélectionner un type</label>
+            <select id="typeWeek"  v-model="selectedOption">
+              <option selected> Choisissez </option>
+              <option v-for="weekType in weekTypes" :key="weekType.id" :value=weekType.color :style="{ backgroundColor: weekType.color }">{{weekType.name}}</option>
             </select>
           </td>
           <td>
-            <label for="Module">Module</label>
-            <input id="Module" type="text" />
+            <label for="modules">Ajouter un module</label>
+            <select id="modules">
+              <option selected> Choisissez </option>
+              <option> This option will comes latter [...] </option>
+            </select>
           </td>
         </tr>
         <tr>
           <td>
-            <a href="/edittype">+</a><a>-</a>
+            <a href="/edittype">+</a> <a class="right">-</a>
           </td>
             <td>
-            <a href="/edittype">+</a><a>-</a>
+            <a>+</a><a class="right">-</a>
           </td>
         </tr>
       </table>
-          <input type="submit" class="green-btn" value="Save">
-          <input type="reset" class="red-btn" value="Cancel">
-          <input type="button" onclick="window.location.href='/editcase'" class="red-btn" value="Return">
+      <hr>
+
+      <input type="submit" class="button button-medium save" value="Sauvegarder">
+      <input type="reset" class="button button-medium cancel"  @click="cancelValues()" value="Annuler">
+      <input type="button" class="button button-medium return" @click="$router.push('/calendar')" value="Retour">
     </form>
     </div>
-  <Footer/>
+  <!--Footer/-->
 </template>
 
 <script  type="text/javascript">
@@ -64,7 +70,8 @@ export default {
       weekTypeSelected: {
         name: '',
         color: ''
-      }
+      },
+      selectedOption: "",
     }
   },
   mounted(){
@@ -84,7 +91,21 @@ export default {
       this.weekTypeSelected.color = valueSelect;
 
       selectElmt.className = valueSelect;
+    },
+    renderPriview(){
+      console.log("hello there..");
+      console.log(this.selectedOption);
     }
   }
 }
 </script>
+
+<style>
+table{
+  width: 50%;
+}
+
+.right{
+float: right;
+}
+</style>
