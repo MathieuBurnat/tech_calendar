@@ -26,7 +26,7 @@
         <button class="button">S'enregistrer !</button>
       </div>
       
-      <div class="container signin">
+      <div class="notes container">
         Vous avez déjà un compte ? <router-link class="active" to="/login">Connectez-vous</router-link> !
       </div>
 

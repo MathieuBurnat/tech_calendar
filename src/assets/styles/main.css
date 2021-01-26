@@ -24,7 +24,14 @@
     width: 100%;
     opacity: 0.9;
   }
-  
-  .button:hover {
+
+.button:hover {
     opacity: 1;
-  }
+}
+
+/* Set a grey background color and center the text of the note's section */
+.notes {
+    background-color: #f1f1f1 !important;
+    text-align: center;
+}
+

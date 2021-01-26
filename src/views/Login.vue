@@ -20,7 +20,7 @@
         <button class="button">Se connecter</button>
       </div>
       
-      <div class="container signin">
+      <div class="notes container">
         Vous n'avez pas de compte ? <router-link class="active" to="/register">Enregistrez-vous</router-link> !
       </div>
 
