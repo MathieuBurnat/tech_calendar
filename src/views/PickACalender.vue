@@ -14,8 +14,6 @@
       </div>
       <div v-else> 
 
-
-
       <label for="calendar-choice">Calendriers :</label>
 
       <select v-model="selectedOption" required>

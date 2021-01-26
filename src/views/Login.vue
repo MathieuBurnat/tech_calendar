@@ -14,7 +14,6 @@
 
         <label for="psw"><b>Mot de passe</b></label>
         <input type="password" placeholder="Entrer un mot de passe" class="form-control" v-model="user.password" required>
-
         <hr>
 
         <button class="button">Se connecter</button>
