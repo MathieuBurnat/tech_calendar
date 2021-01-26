@@ -5,6 +5,7 @@
     <form @submit.prevent="goToCalendar">
       <h1> Pick a calendar </h1>
 
+      <hr>
       <div v-if="!calendars.length"> <!-- If there isn't calendars. -->
         <p> Aucun calendrier n'existe pour le moment. >:c </p>
         <div class="notes container">
@@ -22,16 +23,11 @@
         <option v-for="calendar in calendars" :key="calendar.id">{{calendar.name}}</option>
       </select>
 
-      <div>
-        <input
-            type="checkbox"
-            v-model="shouldBeDefault"
-            :value="1"
-            name="pets"
-          />
-        <label>Je veux que ce soit mon calendrier par défaut !</label>
-      </div>
+      <input type="checkbox" v-model="shouldBeDefault" :value="1"/>
+      <label>Je veux que ce soit mon calendrier par défaut !</label>
 
+
+      <hr>
       <button class="button">C'est parti !</button>
 
       <div class="notes container">
