@@ -73,28 +73,3 @@ export default {
   }
 }
 </script>
-
-<style>
- .button-medium{
-    width: 20%;
-    margin: 0 10px;
- }
-
- .save{
-   background-color: #72cb72;
- }
-  .cancel{
-   background-color: #c04f4f;
- }
-  .return{
-   background-color: var(--header-front);
- }
-
- /* Responsive navigation menu (for mobile devices) */
-@media screen and (max-width: 600px) {
-  .button-medium{
-    width: 100%;
-    margin: 5px 0;
-  }
-}
-</style>
