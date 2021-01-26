@@ -9,14 +9,18 @@
       <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
       <div class="row">
         <div class="column" v-for="(year, index) in calendar.yearsList" :key="year">
-          <div class="year case"> {{ index + 1 }} année  </div>
+          <div v-if="(index + 1) == 1" class="year case">  {{ index + 1 }} ère </div> <!-- Une french, we use "ère" to speak about the first year -->
+          <div v-if="(index + 1) != 1" class="year case"> {{ index + 1 }} ème </div>  <!-- It's an exception because to the next years, we use the setence "ème" -->
+
           <div v-for="trimester in year.trimestersList" :key="trimester"> 
-            <div class="week case" v-for="week in trimester.weeksList" :key="week"> week</div>
+            <div @click="toggleIsClicked" class="week case" :id="week.id" v-for="week in trimester.weeksList" :key="week"> {{week.content}} </div>
+            <div class="case trimester"></div>
           </div>
         </div>
       </div>
-      <h3> Actually, the calendar's render is still in working progrss. Check the console (via F12) if you want to see the console-calendar ! :'D </h3>
   </div>
+
+  <!--div @click="toggleIsClicked" :id="injectionID_Test" > Hi, this is a test >:c </div-->
 </template>
 
 <style>
@@ -32,8 +36,13 @@
     font-weight: bold;
   }
 
+  .trimester{
+    background-color: pink;
+    padding: 2px;
+  }
+
   .week{
-    border: 1px solid #ccc;
+
   }
 
   .row {
@@ -45,6 +54,10 @@
 
   .column {
     flex: 1 1 50%;
+  }
+
+  .test{
+    background-color: cyan;
   }
 </style>
 
@@ -60,7 +73,8 @@
     },
     data() {
       return { 
-        calendar: []
+        calendar: [],
+        injectionID_Test : "Pawned"
         }
     },setup() {
       const route = useRoute()
@@ -88,6 +102,7 @@
         console.log("[" + this.calendar.name + "]"); //The name of the calendar
 
         //Here is the logic to get calendar's datas
+        /*
         for (let i = 0; i < this.calendar.yearsList.length; i++) //Inside years
         { 
           console.log("[" + i + "] --- Year ---");
@@ -97,19 +112,28 @@
           {  
             console.log(i+ "." + i2 + "> Trimester's name : " + this.calendar.yearsList[i].trimestersList[i2].name);
 
-            for (let i3 = 0; i3 < this.calendar.yearsList[i].trimestersList[i2].weeksList.length; i3++) //inside weeds
+            for (let i3 = 0; i3 < this.calendar.yearsList[i].trimestersList[i2].weeksList.length; i3++) //inside weeks
             {  
-              console.log(i+ "." + i2 + "." + i3 + "> week's name : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].name);
-              /*
-                console.log(i+ "." + i2 + "." + i3 + "> week's module : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType);
-                console.log(i+ "." + i2 + "." + i3 + "> week's type : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].module);
-              */ // Will come later...
+              console.log(i+ "." + i2 + "." + i3 + "> week's content : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].content);
+              console.log(i+ "." + i2 + "." + i3 + "> week : type's name : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType.name);
+              console.log(i+ "." + i2 + "." + i3 + "> week : type's color : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].weekType.color);
+              console.log(i+ "." + i2 + "." + i3 + "> week's module : " + this.calendar.yearsList[i].trimestersList[i2].weeksList[i3].module.name);
             }
           }
-        }
+        }*/
+
         }).catch(error => {
             console.log(error);
         });
+      },toggleIsClicked : function(event) {
+        console.log(event);
+        console.log("content : " + event.toElement.outerText);
+        console.log("id : " + event.toElement.id);
+
+        //Datas injection  test
+        //Change data -> event.toElement.outerText = "poney";
+        //Set text-color -> document.getElementById(event.toElement.id).style.backgroundcolor="pink";
+        //document.getElementById(event.toElement.id).classList.add("test")
       }
     }
   }
