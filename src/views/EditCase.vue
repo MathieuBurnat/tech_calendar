@@ -12,7 +12,7 @@
             <!--input id="name" type="text" v-model="weekType.name" required/ Meh-->
           </td>
           <td>
-            <label for="name">Contenu</label>
+            <label for="name">Ajouter un contenu</label>
             <input id="name" type="text" v-model="weekTypeSelected.name" required />
           </td>
         </tr>
