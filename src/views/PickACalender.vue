@@ -1,41 +1,46 @@
 <template>
   <Header/>
-  <h1> Pick a calendar ! </h1>
 
-  <form @submit.prevent="goToCalendar">
+  <div class="container">
+    <form @submit.prevent="goToCalendar">
+      <h1> Pick a calendar </h1>
 
-    <div v-if="!calendars.length"> <!-- If there isn't calendars. -->
-      <p> Aucun calendrier n'existe pour le moment. </p>
-      Créer en un nouveau <router-link class="active" to="/newcalendar">ici</router-link> !
-    </div>
-    <div v-else> 
-    <label for="calendar-choice">calendars:</label>
+      <div v-if="!calendars.length"> <!-- If there isn't calendars. -->
+        <p> Aucun calendrier n'existe pour le moment. >:c </p>
+        <div class="notes container">
+          Créer en un nouveau <router-link class="active" to="/newcalendar">ici</router-link> !
+        </div>
+      </div>
+      <div v-else> 
+      <label for="calendar-choice">calendars:</label>
 
-    <select v-model="selectedOption">
-      <option disabled value="">Choisissez</option>
-      <option v-for="calendar in calendars" :key="calendar.id">{{calendar.name}}</option>
-    </select>
+      <select v-model="selectedOption">
+        <option disabled value="">Choisissez</option>
+        <option v-for="calendar in calendars" :key="calendar.id">{{calendar.name}}</option>
+      </select>
 
-    <div>
-      <input
-          type="checkbox"
-          v-model="shouldBeDefault"
-          :value="1"
-          name="pets"
-        />
-      <label>Keep this calendar as default</label>
-    </div>
+      <div>
+        <input
+            type="checkbox"
+            v-model="shouldBeDefault"
+            :value="1"
+            name="pets"
+          />
+        <label>Keep this calendar as default</label>
+      </div>
 
-    <input type="submit" value="Go">
-    <br/> ...ou créer un nouveau <router-link class="active" to="/newcalendar">calendrier</router-link>.
-    </div>
-  </form>
+      <input type="submit" value="Go">
+      <br/> ...ou créer un nouveau <router-link class="active" to="/newcalendar">calendrier</router-link>.
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
   import Header from './Header.vue';
   import axios from "axios";
   import {verifyAuthenticity} from "@/components/auth.js";
+  import '@/assets/styles/form.css';
 
   export default {
     components: {
