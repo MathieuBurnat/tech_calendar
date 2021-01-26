@@ -89,4 +89,12 @@ export default {
   .return{
    background-color: var(--header-front);
  }
+
+ /* Responsive navigation menu (for mobile devices) */
+@media screen and (max-width: 600px) {
+  .button-medium{
+    width: 100%;
+    margin: 5px 0;
+  }
+}
 </style>
