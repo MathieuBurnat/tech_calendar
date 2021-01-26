@@ -22,9 +22,10 @@
 
       <hr>
       <input type="submit" class="button button-medium save" value="Save">
-      <input type="reset" class="button button-medium cancel" value="Cancel">
-      <input type="button" class="button button-medium" onclick="window.location.href='/editcase'" value="Return">
+      <input type="reset" class="button button-medium cancel"  @click="cancelValues()" value="Cancel">
+      <input type="button" class="button button-medium return" @click="$router.push('/editcase')" value="Return">
     </form>
+    <p class="greatInfo"> {{message}} </p>
   </div>
 
   <Footer/>
@@ -45,12 +46,14 @@ export default {
         name: '',
         color: ''
       },
+      message: ""
     }
   },
   methods: {
     createType() {
       let apiURL = 'http://localhost:4000/weekType/create-weekType';
-      axios.post(apiURL, this.weekType).then(() => {
+      axios.post(apiURL, this.weekType).then((res) => {
+        this.message = res.data.message;
 
         this.weekType = {
           name: '',
@@ -60,6 +63,13 @@ export default {
         console.log(error);
       });
     },
+    cancelValues(){
+      this.weekType = {
+        name: '',
+        color: ''
+      }
+      this.message = "";
+    }
   }
 }
 </script>

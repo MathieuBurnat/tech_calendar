@@ -17,7 +17,11 @@ body {
 
 .error{
   color: #E91E63;
-  }
+}
+
+.greatInfo{
+  color: #3ba9dd;
+}
 
 /* Set a style for the submit button */
 .button {
