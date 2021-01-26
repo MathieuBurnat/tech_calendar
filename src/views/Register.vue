@@ -13,13 +13,13 @@
         <hr>
 
         <label for="name"><b>Nom</b></label>
-        <input type="text" class="form-control" v-model="user.name" required>
+        <input type="text" placeholder="Entrer un nom" class="form-control" v-model="user.name" required>
 
         <label for="email"><b>Adresse mail</b></label>
         <input type="text" placeholder="Entrer une adresse mail"  class="form-control" v-model="user.email" required>
 
         <label for="psw"><b>Mot de passe</b></label>
-        <input type="password" class="form-control" v-model="user.password" required>
+        <input type="password" placeholder="Entrer un mot de passe" class="form-control" v-model="user.password" required>
 
         <hr>
 
