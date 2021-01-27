@@ -28,7 +28,7 @@
             <label for="modules">Ajouter un module</label>
             <select id="modules">
               <option selected> Choisissez </option>
-              <option> This option will comes latter [...] </option>
+              <option> This option will comes later [...] </option>
             </select>
           </td>
         </tr>
@@ -45,7 +45,7 @@
 
       <input type="submit" class="button button-medium save" value="Sauvegarder">
       <input type="reset" class="button button-medium cancel"  @click="cancelValues()" value="Annuler">
-      <input type="button" class="button button-medium return" @click="$router.push('/calendar')" value="Retour">
+      <input type="button" class="button button-medium return" @click="$router.push('/calendar-1')" value="Retour">
     </form>
     </div>
   <!--Footer/-->
