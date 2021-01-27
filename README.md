@@ -35,6 +35,12 @@ Let's install it !
 ```
 npm install -g nodemon
 ```
+### Execute api's db
+
+```
+nodemon
+```
+
 
 > With Windows, i recommand to close the terminal to reload it. (This action will avoid loading bugs...).
 
