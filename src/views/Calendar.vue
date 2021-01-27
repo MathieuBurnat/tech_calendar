@@ -32,7 +32,7 @@
         </div>
     </div>
   </div>
-
+  <p class="error"> {{message}} </p>
   <!--div @click="toggleIsClicked" :id="injectionID_Test" > Hi, this is a test >:c </div-->
 </template>
 
@@ -92,7 +92,8 @@
       return { 
         calendar: [],
         injectionID_Test : "Pawned",
-        lastId : 0
+        lastId : 0,
+        message : ""
         }
     },setup() {
       const route = useRoute()
@@ -121,28 +122,36 @@
         if(this.id == -1){
           this.id = 0;
 
+
           var ui =  JSON.parse(localStorage.getItem("userInformations"));
 
-          var newData = {};
-          var user_id = ui.user;
-          console.log("ui id : " + user_id);
 
-          newData = { 
-          name : "Mathieu", 
-          userId : user_id 
-          };
+          if(ui !== null){
+            this.message = "";
+            var newData = {};
+            var user_id = ui.user;
+            console.log("ui id : " + user_id);
 
-          console.log(newData);
+            newData = { 
+            name : "Mathieu", 
+            userId : user_id 
+            };
 
-          let apiURL = 'http://localhost:4000/user//get-fdci';
-          axios.post(apiURL, newData).then((res) => {
-            console.log("New default calendar's id : " + res.data.defaultCalendar);
-            data = {
-            calendarId : res.data.defaultCalendar,
-            }
-          }).catch(error => {
-              console.log(error);
-          });
+            console.log(newData);
+
+            let apiURL = 'http://localhost:4000/user//get-fdci';
+            axios.post(apiURL, newData).then((res) => {
+              console.log("New default calendar's id : " + res.data.defaultCalendar);
+              data = {
+              calendarId : res.data.defaultCalendar,
+              }
+            }).catch(error => {
+                console.log(error);
+            });
+          }else{
+            this.message = "[Dev error] You need to be connected to access this page.";
+          }
+
         }else{
           data = {
           calendarId : this.id,
