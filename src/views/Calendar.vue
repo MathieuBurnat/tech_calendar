@@ -10,7 +10,7 @@
     <div class="container">
       <div v-if="id==-1">
         <h2> Vous être à présent dans l'onglet "mon calendrier " #{{id}} </h2> <!-- If the id equals to -1, we want get de default calendar of th user -->
-        <!-- {{ displayMySweetCalendar(true)}} -->
+        {{ askToRenderCalendar()}} 
       </div>
 
       <div v-if="calendar.length == 0"> <!-- If there isn't calendars. -->
@@ -91,7 +91,8 @@
     data() {
       return { 
         calendar: [],
-        injectionID_Test : "Pawned"
+        injectionID_Test : "Pawned",
+        isDisplaying : false 
         }
     },setup() {
       const route = useRoute()
@@ -101,14 +102,23 @@
       };
     },
     methods: {
+      askToRenderCalendar(){
+        console.log("omg look at my spam !!");
+        if(!this.isDisplaying){ // Avoid the spam method. If the method is already in use, we don't start it.
+          this.displayMySweetCalendar(true);
+          this.isDisplaying = true;
+        }
+      },
       displayMySweetCalendar(isDefaultCalendar) {
         var data = {
           calendarId : this.id,
           }
 
+        console.log(isDefaultCalendar);
+
         //if isDefaultCalendar equals true, it's because the user want to display its default calendar !!
         //Get its calendar and continue de proced.
-        if(isDefaultCalendar){
+        if(this.id == -1){
           this.id = 0;
 
           var ui =  JSON.parse(localStorage.getItem("userInformations"));
@@ -139,7 +149,8 @@
           }
         }
 
-        //get the full calendar
+        setTimeout(() => {
+                //get the full calendar
         let apiURL = 'http://localhost:4000/calendar/get-full-calendar';
         axios.post(apiURL, data).then((res) => {
 
@@ -171,10 +182,14 @@
             }
           }
         }*/
+          this.isDisplaying = false;
 
         }).catch(error => {
             console.log(error);
         });
+        }, 
+        300);
+
       },toggleIsClicked : function(event) {
         console.log(event);
         console.log("content : " + event.toElement.outerText);
