@@ -92,7 +92,8 @@
       return { 
         calendar: [],
         injectionID_Test : "Pawned",
-        isDisplaying : false 
+        isDisplaying : false,
+        lastId : 0
         }
     },setup() {
       const route = useRoute()
@@ -103,11 +104,15 @@
     },
     methods: {
       askToRenderCalendar(){
-        console.log("omg look at my spam !!");
-        if(!this.isDisplaying){ // Avoid the spam method. If the method is already in use, we don't start it.
-          this.displayMySweetCalendar(true);
-          this.isDisplaying = true;
+        if(this.id != this.lastId){
+          console.log("omg look at my spam !!");
+          if(!this.isDisplaying){ // Avoid the spam method. If the method is already in use, we don't start it.
+            this.displayMySweetCalendar(true);
+            this.isDisplaying = true;
+          }
+          this.lastId = this.id;
         }
+
       },
       displayMySweetCalendar(isDefaultCalendar) {
         var data = {
