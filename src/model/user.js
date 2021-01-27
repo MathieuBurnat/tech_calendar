@@ -12,7 +12,7 @@ let userSchema = new Schema({
     type: String
   },
   defaultCalendar: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId, ref: "calendars"
   }
 }, {
   collection: 'users'

@@ -6,13 +6,13 @@ let weekSchema = new Schema({
     type: String
   },
   trimester: {
-    type: mongoose.Schema.Types.ObjectId, ref: "weeks"
+    type: mongoose.Schema.Types.ObjectId, ref: "trimeters"
   },
   weekType: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId, ref: "weekTypes"
   },
   module: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId, ref: "modules"
   },
 },{
   collection: 'weeks'
