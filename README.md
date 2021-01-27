@@ -55,6 +55,7 @@ npm i
 ```
 
 Finally, open two terminals in the project's path :
+
 **Run Vue 3**
 ```
 npm run serve
