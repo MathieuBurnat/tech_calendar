@@ -92,7 +92,6 @@
       return { 
         calendar: [],
         injectionID_Test : "Pawned",
-        isDisplaying : false,
         lastId : 0
         }
     },setup() {
@@ -105,11 +104,7 @@
     methods: {
       askToRenderCalendar(){
         if(this.id != this.lastId){
-          console.log("omg look at my spam !!");
-          if(!this.isDisplaying){ // Avoid the spam method. If the method is already in use, we don't start it.
-            this.displayMySweetCalendar(true);
-            this.isDisplaying = true;
-          }
+          this.displayMySweetCalendar(true);
           this.lastId = this.id;
         }
 
@@ -155,7 +150,7 @@
         }
 
         setTimeout(() => {
-                //get the full calendar
+        //get the full calendar
         let apiURL = 'http://localhost:4000/calendar/get-full-calendar';
         axios.post(apiURL, data).then((res) => {
 
@@ -187,13 +182,12 @@
             }
           }
         }*/
-          this.isDisplaying = false;
 
         }).catch(error => {
             console.log(error);
         });
         }, 
-        300);
+        100);
 
       },toggleIsClicked : function(event) {
         console.log(event);
