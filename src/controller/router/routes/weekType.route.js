@@ -16,20 +16,13 @@ weekTypeRoute.route('/').get((req, res) => {
  })
 
 weekTypeRoute.route('/create-weekType').post((req, res, next) => {
-    weekTypeModel.find({name : req.body.name}, function (err, docs) {
-      if (docs.length){ //The email is already taken... too bad.
-          console.log("This email is already taken :c");
-      }else{ //Fine. we can save user's datas
-          weekTypeModel.create(req.body, (error, data) => {
-        if (error) {
-          return next(error);
-        } else {
-          res.json(data);
-          console.log("weekType created :D");
-        }
-      })
-      }
-    });
+  weekTypeModel.create(req.body, (error, data) => {
+    if (error) {
+      return res.send({ message: error  });
+    } else {
+      return res.send({ message: "Le type de cette semaine à correctement été créé !"  });
+    }
+  })
 });
 
 weekTypeRoute.route('/edit-weekType/:id').get((req, res) => {

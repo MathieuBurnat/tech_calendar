@@ -20,7 +20,10 @@
   </body>
 </template>
 
+
 <style>
+@import '/assets/styles/main.css';
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -29,7 +32,7 @@ body {
 .topnav {
   position: relative;
   overflow: hidden;
-  background-color: #716e77;
+  background-color: var(--header-front);
 }
 
 .topnav a {
@@ -47,7 +50,7 @@ body {
 }
 
 .topnav a.active {
-  background-color: #ecd6c7;
+  background-color: var(--header-active);
   color: white;
 }
 

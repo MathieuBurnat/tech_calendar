@@ -1,28 +1,37 @@
 <template>
   <Header/>
-    <h1>Bienvenue ! </h1>
-    <p>Avant de pouvoir bénéficier des services de l'application et de façon à conserver vos calendriers de façon sécurisée, vous devez vous connecter. </p>
-
-    <h2> Se connecter </h2>
-
+  
     <form @submit.prevent="login">
-            <label>Adresse mail</label>
-            <input type="text" class="form-control" v-model="user.email" required>
+      <div class="container">
+        <h2> Bienvenue ! </h2>
+        <p> Avant de pouvoir bénéficier des services de l'application et ainsi, avoir accès à vos calendriers de façon simple et sécurisée, vous devez vous connecter.</p>
 
-            <label>Mot de passe</label>
-            <input type="password" class="form-control" v-model="user.password" required>
+        <h1>Se connecter </h1>
+        <hr>
 
-            <button class="btn btn-danger btn-block">Se connecter</button>
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Entrer une adresse mail"  class="form-control" v-model="user.email" required>
 
-            ou <router-link class="active" to="/register">s'enregistrer</router-link>.
+        <label for="psw"><b>Mot de passe</b></label>
+        <input type="password" placeholder="Entrer un mot de passe" class="form-control" v-model="user.password" required>
+        <hr>
+
+        <button class="button">Se connecter</button>
+      </div>
+      
+      <div class="notes container">
+        Vous n'avez pas de compte ? <router-link class="active" to="/register">Enregistrez-vous</router-link> !
+      </div>
+
+      <p class="error"> {{errorMessage}}</p>
     </form>
-    <p class="error"> {{errorMessage}}</p>
   <!--Footer/-->
 </template>
 
 <script>
 import Header from './Header.vue'
 import axios from "axios";
+import '@/assets/styles/form.css';
 
 export default {
   components: {
@@ -67,9 +76,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.error{
-  color: #E91E63;
-}
-</style>

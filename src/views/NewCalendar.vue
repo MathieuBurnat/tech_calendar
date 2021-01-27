@@ -2,14 +2,17 @@
 
 <template>
   <Header/>
+  <div class="container">
+
     <h2> Nouveau calendrier </h2>
 
     <form @submit.prevent="createCalendar">
-            <label>Calendrier</label>
-            <input type="text" class="form-control" v-model="calendarName" required>
+      <label for="name"><b>Nom</b></label>
+      <input type="text" placeholder="Entrer le nom de votre calendrier"  class="form-control" v-model="calendarName" required>
 
-            <br/><button class="btn btn-danger btn-block">Créer</button>
+      <button class="button">Créer</button>
     </form>
+  </div>
   <!--Footer/-->
 </template>
 
@@ -17,6 +20,7 @@
 <script>
 import Header from './Header.vue'
 import axios from "axios";
+import '@/assets/styles/form.css';
 
 export default {
   components: {

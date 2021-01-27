@@ -38,8 +38,8 @@ userRoute.route('/').get((req, res) => {
           console.log("User created :D");
         }
       })
-      }
-    });
+    }
+  });
 });
 
 // Login 
@@ -131,6 +131,14 @@ userRoute.post("/set-default-calendar", async (req, response) => {
   } catch (error) {
       response.status(500).send(error);
   }
+});
+
+ userRoute.route('/get-fdci').post((req, res, next) => {
+    userModel.findOne({_id: mongoose.Types.ObjectId(req.body.userId)}, function (err, docs) {
+
+      var defaultCalendar = docs.defaultCalendar;
+      return res.send({ defaultCalendar, message: "User's found"});
+  });
 });
 
 //Create token (it's possible to return it to store)
