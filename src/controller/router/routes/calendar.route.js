@@ -55,7 +55,7 @@ calendarRoute.route('/').get((req, res) => {
 
         setTimeout(() => {   //That's the ugliest thing i ever made.
           //console.log(" = Here's the holy calendar = ");
-          //console.log(holyCalendar);
+          console.log(holyCalendar);
           
           return res.send({ message, holyCalendar });
         }, 
