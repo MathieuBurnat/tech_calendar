@@ -70,7 +70,7 @@ calendarRoute.route('/').get((req, res) => {
   function addYears(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 
       var yearsList = [];
-      //if a years is found.
+      //if a year is found.
       if (typeof years !== "undefined"){ 
         for (i = 0; i < years.length; i++) {
           var trimestersList = [];

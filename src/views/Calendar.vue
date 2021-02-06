@@ -166,7 +166,7 @@
         //console.log("Beep Bop Beep, I'm gonna crazy. Oh by the way you have a new message : " + res.data.message);
 
         this.calendar = res.data.holyCalendar;
-        //console.log(this.calendar);
+        console.log(this.calendar);
 
         // --- Test section 
         //console.log("[" + this.calendar.name + "]"); //The name of the calendar
