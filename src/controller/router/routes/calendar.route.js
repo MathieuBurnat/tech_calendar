@@ -38,14 +38,24 @@ calendarRoute.route('/').get((req, res) => {
  })
 
   calendarRoute.route('/get-full-calendar').post((req, res) => {
+
     //Find the correct calendar with its id.
     calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
-    var holyCalendar = { name : "", author : "", yearsList : []};
-    var message = "";
-      
+
       //if on calendar is found
       if (typeof docs !== "undefined"){ 
+        
+        //call the calendar's getter. (Async method)
+        AsyncCalendarGetter(docs, res, function(calendar){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
+          message = "Works ! "
 
+          return res.send({ message, calendar });
+        });
+
+
+
+        
+        /*
         holyCalendar.name = docs.name;
         holyCalendar.author = docs.author;
 
@@ -59,13 +69,33 @@ calendarRoute.route('/').get((req, res) => {
           
           return res.send({ message, holyCalendar });
         }, 
-        800);
+        800);*/
       }else{
+
         mesage = "Any calendar has been found :c"
-        return res.send({ message, holyCalendar });
+        return res.send({ message });
       }
     });
   })
+
+async function AsyncCalendarGetter(docs, res, callback) {
+  const calendar = await getCalendar(docs);
+  
+  console.log(calendar);
+  callback(calendar);
+}
+
+function getCalendar(docs){
+  return new Promise(resolve => {
+    var calendar = { 
+      name : "test", 
+      author : "Holy - Mathieu", 
+      yearsList : []
+    };
+    resolve(calendar);
+  });
+}
+
 
   function addYears_old(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 

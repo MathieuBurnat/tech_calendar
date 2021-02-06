@@ -163,12 +163,13 @@
         let apiURL = 'http://localhost:4000/calendar/get-full-calendar';
         axios.post(apiURL, data).then((res) => {
 
+        // --- Test section 
         //console.log("Beep Bop Beep, I'm gonna crazy. Oh by the way you have a new message : " + res.data.message);
+        console.log(res.data.message);
 
-        this.calendar = res.data.holyCalendar;
+        this.calendar = res.data.calendar;
         console.log(this.calendar);
 
-        // --- Test section 
         //console.log("[" + this.calendar.name + "]"); //The name of the calendar
 
         //Here is the logic to get calendar's datas
