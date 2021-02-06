@@ -50,25 +50,7 @@ calendarRoute.route('/').get((req, res) => {
           message = "Works !";
           return res.send({ message, calendar });
         });
-
-
-
         
-        /*
-        holyCalendar.name = docs.name;
-        holyCalendar.author = docs.author;
-
-        addYears_old(docs.id, function(yearsList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
-          holyCalendar.yearsList = yearsList; //hmm ? i thing that we should push the year over there
-        });
-
-        setTimeout(() => {   //That's the ugliest thing i ever made.
-          //console.log(" = Here's the holy calendar = ");
-          console.log(holyCalendar);
-          
-          return res.send({ message, holyCalendar });
-        }, 
-        800);*/
       }else{
 
         mesage = "Any calendar has been found :c"
@@ -90,7 +72,7 @@ async function getCalendar(docs){
     var calendar = { 
       name : docs.name, 
       author : docs.author, //Here we could take the real author's name
-      yearsList : [] //get years list 
+      yearsList : [] //get years list  
     };
     resolve(calendar);
   });
