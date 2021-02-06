@@ -85,17 +85,16 @@ async function AsyncCalendarGetter(docs, res, callback) {
   callback(calendar);
 }
 
-function getCalendar(docs){
+async function getCalendar(docs){
   return new Promise(resolve => {
     var calendar = { 
       name : docs.name, 
-      author : docs.author, 
-      yearsList : []
+      author : docs.author, //Here we could take the real author's name
+      yearsList : [] //get years list 
     };
     resolve(calendar);
   });
 }
-
 
   function addYears_old(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 
