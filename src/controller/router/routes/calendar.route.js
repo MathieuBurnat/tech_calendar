@@ -46,9 +46,8 @@ calendarRoute.route('/').get((req, res) => {
       if (typeof docs !== "undefined"){ 
         
         //call the calendar's getter. (Async method)
-        AsyncCalendarGetter(docs, res, function(calendar){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
-          message = "Works ! "
-
+        AsyncCalendarGetter(docs, res, function(calendar){
+          message = "Works !";
           return res.send({ message, calendar });
         });
 
@@ -80,16 +79,17 @@ calendarRoute.route('/').get((req, res) => {
 
 async function AsyncCalendarGetter(docs, res, callback) {
   const calendar = await getCalendar(docs);
-  
+
   console.log(calendar);
+
   callback(calendar);
 }
 
 function getCalendar(docs){
   return new Promise(resolve => {
     var calendar = { 
-      name : "test", 
-      author : "Holy - Mathieu", 
+      name : docs.name, 
+      author : docs.author, 
       yearsList : []
     };
     resolve(calendar);
