@@ -49,7 +49,7 @@ calendarRoute.route('/').get((req, res) => {
         holyCalendar.name = docs.name;
         holyCalendar.author = docs.author;
 
-        addYears(docs.id, function(yearsList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
+        addYears_old(docs.id, function(yearsList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
           holyCalendar.yearsList = yearsList; //hmm ? i thing that we should push the year over there
         });
 
@@ -67,7 +67,7 @@ calendarRoute.route('/').get((req, res) => {
     });
   })
 
-  function addYears(id, callback){
+  function addYears_old(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 
       var yearsList = [];
       //if a year is found.
@@ -77,7 +77,7 @@ calendarRoute.route('/').get((req, res) => {
           var sd = years[i].startingDate;
           var debugName = ("[" + years[i]._id  + "]>" + i + " Year")
 
-          addTrimesters(years[i]._id, function(newTrimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
+          addTrimesters_old(years[i]._id, function(newTrimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
           year = {
             name : debugName,
             startingDate: sd,
@@ -91,7 +91,7 @@ calendarRoute.route('/').get((req, res) => {
     });
   }
  
-  function addTrimesters(id, callback){
+  function addTrimesters_old(id, callback){
     trimesterModel.find({year : id}, function (err, trimesters) { 
       var trimestersList = [];
       //if a trimesters is found.
@@ -100,7 +100,7 @@ calendarRoute.route('/').get((req, res) => {
           var debugName = ("[" + trimesters[i]._id  + "]>" + i + " Trimester")
 
             //console.log("Before the while : " + debugName);
-          addweeks(trimesters[i]._id, function(newWeeksList){ 
+          addweeks_old(trimesters[i]._id, function(newWeeksList){ 
             //console.log("After the while : " + debugName);
           
             trimester = {
@@ -115,7 +115,7 @@ calendarRoute.route('/').get((req, res) => {
     });
   }
 
-  function addweeks(id, callback){
+  function addweeks_old(id, callback){
     weekModel.find({trimester : id}, function (err, weeks) { 
       var weeksList = [];
       if (typeof weeks !== "undefined"){ 
@@ -127,7 +127,7 @@ calendarRoute.route('/').get((req, res) => {
 
           //console.log("before addwt " + weekId);
 
-          addWeekType(weeks[i].weekType, weekId, function(newWeekType){ 
+          addWeekType_old(weeks[i].weekType, weekId, function(newWeekType){ 
             week = {
               name : debugName,
               id : weekId,
@@ -145,7 +145,7 @@ calendarRoute.route('/').get((req, res) => {
     });
   }
 
-  function addWeekType(id, weekId, callback){
+  function addWeekType_old(id, weekId, callback){
     weekTypesModel.findOne({_id: mongoose.Types.ObjectId(id)}, function (err, weekType) { 
       if (typeof weekType !== "undefined"){ 
         weekType = {
@@ -157,7 +157,7 @@ calendarRoute.route('/').get((req, res) => {
     });
   }
 
-  function addModule(id){ //I put the name wmodule because module is already taken by mongoose !
+  function addModule_notUsed(id){ //I put the name wmodule because module is already taken by mongoose !
     modulesModel.find({_id : id}, function (err, wmodule) { 
       if (typeof wmodule !== "undefined"){ 
         wmodule = {
