@@ -18,7 +18,7 @@ let weekModel = require('../../../model/week');
 let weekTypeModel = require('../../../model/weekType');
 
 // week model
-let modulesModel = require('../../../model/modules');
+let modulesModel = require('../../../model/module');
 
 
 //config 

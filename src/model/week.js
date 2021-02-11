@@ -5,13 +5,19 @@ let weekSchema = new Schema({
   content: {
     type: String
   },
-  trimester: {
-    type: mongoose.Schema.Types.ObjectId, ref: "trimeters"
+  date: {
+    type: String
+  },
+  isTheNewTrimester: {
+    type: Boolean
+  },
+  calendar: {
+    type: mongoose.Schema.Types.ObjectId, ref: "calendars"
   },
   weekType: {
     type: mongoose.Schema.Types.ObjectId, ref: "weekTypes"
   },
-  module: {
+  modules: {
     type: mongoose.Schema.Types.ObjectId, ref: "modules"
   },
 },{
