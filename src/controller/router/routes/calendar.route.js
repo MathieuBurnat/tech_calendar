@@ -127,17 +127,6 @@ async function getYears(calendar_id){
         resolve(yearsList);
       }
     });
-    
-    //for each years
-        //set datas like the starting date and the debug name
-
-        //get trimesters
-        //const trimesters = await getTrimesters(year_id); //the madness start again !
-        
-        //set trimesters into the year
-    //end of the for
-          
-   
   });
 }
 
