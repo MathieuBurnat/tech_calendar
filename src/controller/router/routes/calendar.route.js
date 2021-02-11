@@ -69,14 +69,56 @@ async function AsyncCalendarGetter(docs, res, callback) {
 
 async function getCalendar(docs){
   return new Promise(resolve => {
+    
     var calendar = { 
       name : docs.name, 
       author : docs.author, //Here we could take the real author's name
-      yearsList : [] //get years list  
     };
-    resolve(calendar);
+
+    AsyncGetYears(docs.id, function(years){
+
+      calendar.yearsList = years;
+
+      resolve(calendar);
+
+    });
+
+
   });
 }
+
+async function AsyncGetYears(calendar_id, callback) {
+  const years = await getYears(calendar_id);
+
+  console.log(years);
+
+  callback(years);
+}
+
+async function getYears(calendar_id){
+  return new Promise(resolve => {
+
+    years = { 
+      debugId: calendar_id,
+      name: "my-year", 
+      sd : "23"
+      }
+
+      //search for years that are assigned to the calendar
+
+      //for each years
+          //set datas like the starting date and the debug name
+
+          //get trimesters
+          //const trimesters = await getTrimesters(year_id); //the madness start again !
+          
+          //set trimesters into the year
+      //end of the for
+          
+    resolve(years);
+  });
+}
+
 
   function addYears_old(id, callback){
     yearModel.find({calendar : id}, function (err, years) { 
