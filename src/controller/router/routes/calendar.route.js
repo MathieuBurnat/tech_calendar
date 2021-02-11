@@ -14,8 +14,8 @@ let trimesterModel = require('../../../model/trimester');
 // week model
 let weekModel = require('../../../model/week');
 
-// weekTypes model
-let weekTypesModel = require('../../../model/weekTypes');
+// weekType model
+let weekTypeModel = require('../../../model/weekType');
 
 // week model
 let modulesModel = require('../../../model/modules');
@@ -116,11 +116,11 @@ async function getYears(calendar_id){
           var trimestersList = [];
           var sd = years[i].startingDate;
           var debugName = ("[" + years[i]._id  + "]>" + i + " Year")
-          const trimesters = await getTrimesters(2);
+          //const trimesters = await getTrimesters(2);
           year = {
             name : debugName,
             startingDate: sd,
-            trimestersList : trimesters,//newTrimestersList,
+            trimestersList : {},//newTrimestersList,
           }
           yearsList.push(year);
         }
@@ -139,7 +139,7 @@ async function getTrimesters(year_id) {
           //set datas like debug name
 
           //get weeks
-          const weeks = await getWeeks(trimester_id); //...
+          //const weeks = await getWeeks(trimester_id); //...
           
           //set weeks into the trimester
       //end of the for
@@ -228,7 +228,7 @@ async function getTrimesters(year_id) {
   }
 
   function addWeekType_old(id, weekId, callback){
-    weekTypesModel.findOne({_id: mongoose.Types.ObjectId(id)}, function (err, weekType) { 
+    weekTypeModel.findOne({_id: mongoose.Types.ObjectId(id)}, function (err, weekType) { 
       if (typeof weekType !== "undefined"){ 
         weekType = {
           name : weekType.name,
@@ -287,7 +287,7 @@ function createWeekType(){
     color : "#f1e7e7"
   }
 
-  weekTypesModel.create(weekType, (error, data) => {
+  weekTypeModel.create(weekType, (error, data) => {
     if (error) {
       return next(error);
     } else {
