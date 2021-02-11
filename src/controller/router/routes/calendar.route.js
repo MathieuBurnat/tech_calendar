@@ -116,17 +116,35 @@ async function getYears(calendar_id){
           var trimestersList = [];
           var sd = years[i].startingDate;
           var debugName = ("[" + years[i]._id  + "]>" + i + " Year")
-
+          const trimesters = await getTrimesters(2);
           year = {
             name : debugName,
             startingDate: sd,
-            trimestersList : {}//newTrimestersList,
+            trimestersList : trimesters,//newTrimestersList,
           }
           yearsList.push(year);
         }
         resolve(yearsList);
       }
     });
+  });
+}
+
+async function getTrimesters(year_id) {
+  return new Promise(resolve => {
+
+      //search for trimesters that are assigned to the year
+
+      //for each trimesters
+          //set datas like debug name
+
+          //get weeks
+          const weeks = await getWeeks(trimester_id); //...
+          
+          //set weeks into the trimester
+      //end of the for
+          
+    resolve(years);
   });
 }
 
