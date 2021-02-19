@@ -20,9 +20,8 @@ const monthsPack = require('../../../model/monthsPack');
 
 
 //config 
-var yearsCount = 2;
 var monthsPackCount = 4;
-var weeksCount = 11;
+var weeksCount = 52 / monthsPackCount;
 var wt_id = 23;
 
 calendarRoute.route('/').get((req, res) => {
@@ -74,7 +73,6 @@ async function getCalendar(calendar_id){
   return new Promise(resolve => {
     calendarModel.findOne({_id: mongoose.Types.ObjectId(calendar_id)}, function (err, docs) { 
       if (typeof docs !== "undefined"){ 
-        console.log("everything's  fine");
         const calendar = {
           name : docs.name,
           author : "Author-Name"
@@ -89,7 +87,6 @@ async function getMonthsPack(monthsPack_id){
   return new Promise(resolve => {
     monthsPackModel.findOne({_id: mongoose.Types.ObjectId(monthsPack_id)}, function (err, docs) { 
       if (typeof docs !== "undefined"){ 
-        console.log("everything's  fine");
         const monthsPack = {
           start_date : docs.start_date,
           end_date : docs.end_date
@@ -114,26 +111,47 @@ calendarRoute.route('/create-calendar').post((req, res, next) => {
 
     calendar_id = data._id;
 
-    fillCalendar(calendar_id);
+    fillCalendar(calendar_id, (getMonday(new Date()))); 
 
     res.send({ message: "The calendar is created !", isCreated, calendar_id });
     }
   })
 });
 
-function fillCalendar(calendar_id){
+function fillCalendar(calendar_id, st_date){
+  const end_date = new Date();
+  const start_date = st_date;
+
   for (let i = 0; i < monthsPackCount; i++) {
-    creatMonthsPack(calendar_id);
+    //Uses the start_date (it begin at the monday)
+    //Create the end_date while adding the number of weeks to end the monthsPack
+
+    end_date.setDate(start_date.getDate() + (7 * weeksCount));
+
+    createMonthsPack(calendar_id, start_date, end_date);
+    
+    //Reset the new start_date
+    start_date.setDate(end_date.getDate());
   }
 }
 
-function creatMonthsPack(calendar_id){
-  var today = new Date();
+function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
+
+function createMonthsPack(calendar_id, sd, ed){
 
   mp = {
-    start_date : today.getDate() + '-' + today.getMonth() + 1 +'-'+today.getFullYear(),
-    end_date : today.getDate() + '-' + today.getMonth() + 1 +'-'+today.getFullYear(),
+    start_date : sd,
+    end_date : ed,
   }
+  console.log("-------[ What ]---------");
+  console.log("Start_Date : " + sd.getDate() + '-' + sd.getMonth() + 1 +'-'+sd.getFullYear());  
+  console.log("End_Date : " + ed.getDate() + '-' + ed.getMonth() + 1 +'-'+ed.getFullYear());
+  console.log("----------------");
 
   monthsPack.create(mp, (error, data) => {
     if (error) {
@@ -148,11 +166,9 @@ function creatMonthsPack(calendar_id){
 } 
 
 function createWeek(calendar_id, monthsPack_id){
-  var today = new Date();
 
   week = {
     content : "Default",
-    date : today.getDate() + '-' + today.getMonth() + 1 +'-'+today.getFullYear(),
     monthsPack : monthsPack_id,
     calendar : calendar_id
     //Futre :
