@@ -21,7 +21,7 @@
         <h1>- [ * * * {{ weeks[0].calendar.name }} * * * ] - </h1>
         <table>
           <tr v-for="(week, index) in weeks" :key="week">
-            <td class="case" @click="toggleIsClicked" :id="index"> {{week.content}} </td>
+            <td @click="toggleIsClicked" :id="index"> {{week.content}} </td>
           </tr>
         </table>
     </div>
@@ -30,8 +30,15 @@
 </template>
 
 <style>
-  .case{
-    border: 1px solid #ccc;
+
+  table {
+    border-collapse: collapse;
+    width: 40%;
+    padding: 8px;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
   }
@@ -46,7 +53,7 @@
   }
 
   .test{
-    background-color: cyan;
+    background-color: #b9e2f57d;
   }
 
   .right{
