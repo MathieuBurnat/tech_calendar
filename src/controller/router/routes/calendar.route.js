@@ -60,19 +60,28 @@ async function GetWeeks(docs, res, callback){
   weeks = [];
 
   for (i = 0; i < docs.length; i++) {
-    
     week = {
       content : docs[i].content,
-      calendar : "my-calendar-name :D",
+      calendar : await getCalendar(docs[i].calendar),
     }
-
-    console.log("[ week generated ]");
-    console.log(week);
-
     weeks.push(week);
   }
-
   callback(weeks);
+}
+
+async function getCalendar(calendar_id){
+  return new Promise(resolve => {
+    calendarModel.findOne({_id: mongoose.Types.ObjectId(calendar_id)}, function (err, docs) { 
+      if (typeof docs !== "undefined"){ 
+        console.log("everything's  fine");
+        const calendar = {
+          name : docs.name,
+          author : "Author-Name"
+        }
+        resolve(calendar);
+      }
+    });
+  });
 }
 
 //Old function to remove
@@ -89,7 +98,6 @@ calendarRoute.route('/get-full-calendar-old').post((req, res) => {
         message = "Works !";
         return res.send({ message, calendar });
       });
-      
     }else{
 
       mesage = "Any calendar has been found :c"
@@ -108,7 +116,7 @@ async function AsyncCalendarGetter(docs, res, callback) {
 }
 
 //Old function to remove
-async function getCalendar(docs){
+async function getCalendar_old(docs){
   return new Promise(resolve => {
     
     var calendar = { 
