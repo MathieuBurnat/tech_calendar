@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let monthsPackSchema = new Schema({
-  name: {
+  start_date: {
     type: String
   },
-  color: {
+  end_date: {
     type: String
   },
 }, {

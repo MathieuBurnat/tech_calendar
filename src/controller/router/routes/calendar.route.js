@@ -16,6 +16,7 @@ let weekTypeModel = require('../../../model/weekType');
 
 // week model
 let modulesModel = require('../../../model/module');
+const monthsPack = require('../../../model/monthsPack');
 
 
 //config 
@@ -288,10 +289,23 @@ function fillCalendar(calendar_id){
 }
 
 function creatMonthsPack(calendar_id){
-  for (let i = 0; i < weeksCount; i++) {
-  {
-    createWeek(calendar_id, monthsPack_id)
+  var today = new Date();
+
+  mp = {
+    start_date : today.getDate() + '-' + today.getMonth() + 1 +'-'+today.getFullYear(),
+    end_date : today.getDate() + '-' + today.getMonth() + 1 +'-'+today.getFullYear(),
   }
+
+  monthsPack.create(mp, (error, data) => {
+    if (error) {
+      return next(error);
+    }else{
+      for (let i = 0; i < weeksCount; i++) 
+      {
+        createWeek(calendar_id, data._id);
+      }
+    }
+  })
 } 
 
 function createWeek(calendar_id, monthsPack_id){

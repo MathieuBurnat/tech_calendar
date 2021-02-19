@@ -5,9 +5,6 @@ let weekSchema = new Schema({
   content: {
     type: String
   },
-  date: {
-    type: String
-  },
   calendar: {
     type: mongoose.Schema.Types.ObjectId, ref: "calendars"
   },
