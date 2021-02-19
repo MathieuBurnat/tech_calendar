@@ -260,7 +260,6 @@ function addModule_notUsed(id){ //I put the name wmodule because module is alrea
   });
 }
 
-//Refactoring to do
 calendarRoute.route('/create-calendar').post((req, res, next) => {
   var isCreated = false;
   var calendar_id = 0;
@@ -325,87 +324,6 @@ function createWeek(calendar_id, monthsPack_id){
     if (error) {
       return next(error);
     } 
-  })
-}
-
-//Old function
-function createWeekType(){ 
-  weekType = {
-    name : "default",
-    color : "#f1e7e7"
-  }
-
-  weekTypeModel.create(weekType, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      //console.log("inside->matrix> wt_id : " + data._id);
-      wt_id = data._id;
-    }
-  })
-}
-
-//Old function to remove
-function createYear_old(calendar_id){ //Old !!
-  //console.log("createY> wt_id" + wt_id);
-
-  var today = new Date();
-  newYear = {
-    startingDate : today.getDate() + '-' + today.getMonth() + 1 +'-'+today.getFullYear(),
-    calendar : calendar_id
-  }
-
-  yearModel.create(newYear, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-
-  //console.log("srly ?> wt_id" + wt_id);
-  //console.log("srly ?> tre" + trimestersCount);
-      
-
-      for (let i = 0; i < trimestersCount; i++) 
-        createTrimester(data._id); // createTrimester -> createWeeks
-    }
-  })
-}
-
-//Old function to remove
-function createTrimester_old(id) //Old !!
-{
-  var newTrimester = {
-    year: id
-  }
-
-  trimesterModel.create(newTrimester, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      //////console.log("Trimester created :D");
-
-      for (let i = 0; i < weeksCount; i++) {
-        createWeek(data._id);
-      }
-    }
-  })
-}
-
-//Old function to remove
-function createWeek_old(calendar_id){
-  var newWeek = {
-    calendar: calendar_id,
-    content : "my week's content",
-    weekType: wt_id,
-  }
-
-
-  weekModel.create(newWeek, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      //console.log("Assigned as : " + data._id);
-      //console.log("wt_id : " + wt_id);
-    }
   })
 }
 
