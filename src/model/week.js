@@ -8,17 +8,17 @@ let weekSchema = new Schema({
   date: {
     type: String
   },
-  isTheNewTrimester: {
-    type: Boolean
-  },
   calendar: {
     type: mongoose.Schema.Types.ObjectId, ref: "calendars"
   },
-  weekType: {
-    type: mongoose.Schema.Types.ObjectId, ref: "weekTypes"
+  monthsPack: {
+    type: mongoose.Schema.Types.ObjectId, ref: "monthsPack"
   },
   modules: {
     type: mongoose.Schema.Types.ObjectId, ref: "modules"
+  },
+  weekType: {
+    type: mongoose.Schema.Types.ObjectId, ref: "weekTypes"
   },
 },{
   collection: 'weeks'
