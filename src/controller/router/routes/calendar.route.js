@@ -63,6 +63,7 @@ async function GetWeeks(docs, res, callback){
     week = {
       content : docs[i].content,
       calendar : await getCalendar(docs[i].calendar),
+      monthsPack : await getMonthsPack(docs[i].monthsPack),
     }
     weeks.push(week);
   }
@@ -79,6 +80,21 @@ async function getCalendar(calendar_id){
           author : "Author-Name"
         }
         resolve(calendar);
+      }
+    });
+  });
+}
+
+async function getMonthsPack(monthsPack_id){
+  return new Promise(resolve => {
+    monthsPackModel.findOne({_id: mongoose.Types.ObjectId(monthsPack_id)}, function (err, docs) { 
+      if (typeof docs !== "undefined"){ 
+        console.log("everything's  fine");
+        const monthsPack = {
+          start_date : docs.start_date,
+          end_date : docs.end_date
+        }
+        resolve(monthsPack);
       }
     });
   });
