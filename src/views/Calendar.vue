@@ -20,14 +20,13 @@
       <div v-else> 
         <h1>- [ * * * {{ weeks[0].calendar.name }} * * * ] - </h1>
         <div class="row">
-          <div class="column" v-for="week in weeks" :key="week">
-            <div class="week case"> {{week.content}} </div>
+          <div class="column" v-for="(week, index) in weeks" :key="week">
+            <div class="week case" @click="toggleIsClicked" :id="index"> {{week.content}} </div>
           </div>
         </div>
     </div>
   </div>
   <p class="error"> {{message}} </p>
-  <!--div @click="toggleIsClicked" :id="injectionID_Test" > Hi, this is a test >:c </div-->
 </template>
 
 <style>
@@ -85,7 +84,6 @@
     data() {
       return { 
         weeks: [],
-        injectionID_Test : "Pawned",
         lastId : 0,
         message : ""
         }
@@ -198,10 +196,7 @@
         console.log("content : " + event.toElement.outerText);
         console.log("id : " + event.toElement.id);
 
-        //Datas injection  test
-        //Change data -> event.toElement.outerText = "poney";
-        //Set text-color -> document.getElementById(event.toElement.id).style.backgroundcolor="pink";
-        //document.getElementById(event.toElement.id).classList.add("test")
+        document.getElementById(event.toElement.id).classList.add("test")
       }
     }
   }
