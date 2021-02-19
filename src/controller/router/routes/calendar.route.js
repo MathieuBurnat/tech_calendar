@@ -35,7 +35,6 @@ calendarRoute.route('/').get((req, res) => {
    })
  })
 
-
 //Old function to remove
 calendarRoute.route('/get-full-calendar').post((req, res) => {
 
