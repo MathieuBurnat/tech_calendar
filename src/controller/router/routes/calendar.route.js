@@ -23,7 +23,7 @@ let modulesModel = require('../../../model/module');
 
 //config 
 var yearsCount = 2;
-var trimestersCount = 4;
+var monthsPack = 4;
 var weeksCount = 11;
 var wt_id = 23;
 
@@ -280,21 +280,34 @@ calendarRoute.route('/create-calendar').post((req, res, next) => {
     //fillCalendar(calendar_id);
 
     res.send({ message: "The calendar is created !", isCreated, calendar_id });
-  }
+    }
   })
 });
 
 function fillCalendar(calendar_id){
-  //Dev option
-  //Create a weeType to default and return its is
-  createWeekType();
-
-  //future count : yearsCount*trimestersCount*yearsCount
-  //for (let i = 0; i < 3; i++) //Multiply the week with the year's count and the trimester's count 
-    createWeek(calendar_id);
+  //Each monthsPackCount
+  //->create monthsPack(calendar_id)
 }
 
-function createWeekType(){ //Dev function
+function monthsPack(calendar_id){
+  //Each weeks
+  //-> create weeks(calendar_id, monthsPack_id)
+} 
+
+function createWeek(calendar_id, monthsPack_id){
+  //Create the week
+  //-> Content
+  //-> date
+  //-> fk_calendar
+  //-> fk_monthsPack
+
+  //Futre :
+  //->create and asign modules
+  //->create and asign weekType
+}
+
+//Old function
+function createWeekType(){ 
   weekType = {
     name : "default",
     color : "#f1e7e7"
@@ -310,7 +323,8 @@ function createWeekType(){ //Dev function
   })
 }
 
-function createYear(calendar_id){ //Old !!
+//Old function to remove
+function createYear_old(calendar_id){ //Old !!
   //console.log("createY> wt_id" + wt_id);
 
   var today = new Date();
@@ -334,7 +348,8 @@ function createYear(calendar_id){ //Old !!
   })
 }
 
-function createTrimester(id) //Old !!
+//Old function to remove
+function createTrimester_old(id) //Old !!
 {
   var newTrimester = {
     year: id
@@ -353,7 +368,8 @@ function createTrimester(id) //Old !!
   })
 }
 
-function createWeek(calendar_id){
+//Old function to remove
+function createWeek_old(calendar_id){
   var newWeek = {
     calendar: calendar_id,
     content : "my week's content",
