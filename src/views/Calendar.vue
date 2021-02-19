@@ -13,14 +13,14 @@
         {{ askToRenderCalendar()}} 
       </div>
 
-      <div v-if="calendar.length == 0"> <!-- If there isn't calendars. -->
+      <div v-if="weeks.length == 0"> <!-- If there isn't weekss. -->
         <h2> Chargement du calendrier... </h2>
         <p> {{ displayMySweetCalendar(false) }}</p>
       </div>
       <div v-else> 
-        <h1>- [ * * * {{ calendar.name }} * * * ] - </h1>
+        <h1>- [ * * * {{ weeks[0].calendar.name }} * * * ] - </h1>
         <div class="row">
-          <div class="column" v-for="(year, index) in calendar.yearsList" :key="year">
+          <div class="column" v-for="(year, index) in weeks.yearsList" :key="year">
             <div v-if="(index + 1) == 1" class="year case">  {{ index + 1 }} ère </div> <!-- Une french, we use "ère" to speak about the first year -->
             <div v-if="(index + 1) != 1" class="year case"> {{ index + 1 }} ème </div>  <!-- It's an exception because to the next years, we use the setence "ème" -->
 
@@ -90,7 +90,7 @@
     },
     data() {
       return { 
-        calendar: [],
+        weeks: [],
         injectionID_Test : "Pawned",
         lastId : 0,
         message : ""
@@ -167,7 +167,7 @@
         //console.log("Beep Bop Beep, I'm gonna crazy. Oh by the way you have a new message : " + res.data.message);
         console.log(res.data.message);
 
-        this.calendar = res.data.weeks;
+        this.weeks = res.data.weeks;
         console.log(res.data.weeks);
 
         //console.log("[" + this.calendar.name + "]"); //The name of the calendar
