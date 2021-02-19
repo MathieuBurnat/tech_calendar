@@ -8,8 +8,8 @@ let calendarModel = require('../../../model/calendar');
 // year model
 let yearModel = require('../../../model/year');
 
-// trimester model
-let trimesterModel = require('../../../model/trimester');
+// monthsPack model
+let trimesterModel = require('../../../model/monthsPack');
 
 // week model
 let weekModel = require('../../../model/week');
@@ -37,28 +37,31 @@ calendarRoute.route('/').get((req, res) => {
    })
  })
 
-  calendarRoute.route('/get-full-calendar').post((req, res) => {
 
-    //Find the correct calendar with its id.
-    calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
+//Old function to remove
+calendarRoute.route('/get-full-calendar').post((req, res) => {
 
-      //if on calendar is found
-      if (typeof docs !== "undefined"){ 
-        
-        //call the calendar's getter. (Async method)
-        AsyncCalendarGetter(docs, res, function(calendar){
-          message = "Works !";
-          return res.send({ message, calendar });
-        });
-        
-      }else{
+  //Find the correct calendar with its id.
+  calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
 
-        mesage = "Any calendar has been found :c"
-        return res.send({ message });
-      }
-    });
-  })
+    //if on calendar is found
+    if (typeof docs !== "undefined"){ 
+      
+      //call the calendar's getter. (Async method)
+      AsyncCalendarGetter(docs, res, function(calendar){
+        message = "Works !";
+        return res.send({ message, calendar });
+      });
+      
+    }else{
 
+      mesage = "Any calendar has been found :c"
+      return res.send({ message });
+    }
+  });
+})
+
+//Old function to remove
 async function AsyncCalendarGetter(docs, res, callback) {
   const calendar = await getCalendar(docs);
 
@@ -67,6 +70,7 @@ async function AsyncCalendarGetter(docs, res, callback) {
   callback(calendar);
 }
 
+//Old function to remove
 async function getCalendar(docs){
   return new Promise(resolve => {
     
@@ -87,6 +91,7 @@ async function getCalendar(docs){
   });
 }
 
+//Old function to remove
 async function AsyncGetYears(calendar_id, callback) {
   const years = await getYears(calendar_id);
 
@@ -95,6 +100,7 @@ async function AsyncGetYears(calendar_id, callback) {
   callback(years);
 }
 
+//Old function to remove
 async function getYears(calendar_id){
   return new Promise(resolve => {
 
@@ -130,6 +136,7 @@ async function getYears(calendar_id){
   });
 }
 
+//Old function to remove
 async function getTrimesters(year_id) {
   return new Promise(resolve => {
 
@@ -148,128 +155,133 @@ async function getTrimesters(year_id) {
   });
 }
 
+//Old function to remove
+function addYears_old(id, callback){
+  yearModel.find({calendar : id}, function (err, years) { 
+    var yearsList = [];
+    //if a year is found.
+    if (typeof years !== "undefined"){ 
+      for (i = 0; i < years.length; i++) {
+        var trimestersList = [];
+        var sd = years[i].startingDate;
+        var debugName = ("[" + years[i]._id  + "]>" + i + " Year")
 
-  function addYears_old(id, callback){
-    yearModel.find({calendar : id}, function (err, years) { 
-      var yearsList = [];
-      //if a year is found.
-      if (typeof years !== "undefined"){ 
-        for (i = 0; i < years.length; i++) {
-          var trimestersList = [];
-          var sd = years[i].startingDate;
-          var debugName = ("[" + years[i]._id  + "]>" + i + " Year")
-
-          addTrimesters_old(years[i]._id, function(newTrimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
-          year = {
-            name : debugName,
-            startingDate: sd,
-            trimestersList : newTrimestersList,
-          }
-          yearsList.push(year);
-          });
+        addTrimesters_old(years[i]._id, function(newTrimestersList){ //Here we use a recursive method to get our years then trimesters then weeks then [....]
+        year = {
+          name : debugName,
+          startingDate: sd,
+          trimestersList : newTrimestersList,
         }
-        callback(yearsList);
+        yearsList.push(year);
+        });
       }
-    });
-  }
- 
-  function addTrimesters_old(id, callback){
-    trimesterModel.find({year : id}, function (err, trimesters) { 
-      var trimestersList = [];
-      //if a trimesters is found.
-      if (typeof trimesters !== "undefined"){ 
-        for (i = 0; i < trimesters.length; i++) {
-          var debugName = ("[" + trimesters[i]._id  + "]>" + i + " Trimester")
-
-            //console.log("Before the while : " + debugName);
-          addweeks_old(trimesters[i]._id, function(newWeeksList){ 
-            //console.log("After the while : " + debugName);
-          
-            trimester = {
-              name : debugName,
-              weeksList : newWeeksList // Yeah... The madness start... Again !
-            }
-            trimestersList.push(trimester);
-          });
-        }
-        callback(trimestersList);
-      }
-    });
-  }
-
-  function addweeks_old(id, callback){
-    weekModel.find({trimester : id}, function (err, weeks) { 
-      var weeksList = [];
-      if (typeof weeks !== "undefined"){ 
-        for (i = 0; i < weeks.length; i++) {
-          
-          var debugName = ("[" +  weeks[i]._id  + "]>" + i + " Week");
-          var weekId = weeks[i]._id;
-          var content = weeks[i].content;
-
-          //console.log("before addwt " + weekId);
-
-          addWeekType_old(weeks[i].weekType, weekId, function(newWeekType){ 
-            week = {
-              name : debugName,
-              id : weekId,
-              content : content,
-              weekType : newWeekType, 
-              module: "",
-            }
-            //console.log("inside addwt " + weekId);
-
-            weeksList.push(week);
-          });
-        }
-        callback(weeksList);
-      }
-    });
-  }
-
-  function addWeekType_old(id, weekId, callback){
-    weekTypeModel.findOne({_id: mongoose.Types.ObjectId(id)}, function (err, weekType) { 
-      if (typeof weekType !== "undefined"){ 
-        weekType = {
-          name : weekType.name,
-          color : weekType.color,
-        }
-        callback(weekType);
-      }
-    });
-  }
-
-  function addModule_notUsed(id){ //I put the name wmodule because module is already taken by mongoose !
-    modulesModel.find({_id : id}, function (err, wmodule) { 
-      if (typeof wmodule !== "undefined"){ 
-        wmodule = {
-          name : wmodule.name,
-          color : wmodule.color,
-        }
-        return wmodule;
-      }
-    });
-  }
-
-  calendarRoute.route('/create-calendar').post((req, res, next) => {
-    var isCreated = false;
-    var calendar_id = 0;
-
-    calendar = calendarModel.create(req.body, (error, data) => {
-      if (error) {
-      res.send({ message: "The calendar is not created !", isCreated });
-
-      return next(error)
-    } else {
-      isCreated = true;
-
-      calendar_id = data._id;
-
-      fillCalendar(calendar_id);
-
-      res.send({ message: "The calendar is created !", isCreated, calendar_id });
+      callback(yearsList);
     }
-    })
+  });
+}
+ 
+//Old function to remove
+function addTrimesters_old(id, callback){
+  trimesterModel.find({year : id}, function (err, trimesters) { 
+    var trimestersList = [];
+    //if a trimesters is found.
+    if (typeof trimesters !== "undefined"){ 
+      for (i = 0; i < trimesters.length; i++) {
+        var debugName = ("[" + trimesters[i]._id  + "]>" + i + " Trimester")
+
+          //console.log("Before the while : " + debugName);
+        addweeks_old(trimesters[i]._id, function(newWeeksList){ 
+          //console.log("After the while : " + debugName);
+        
+          trimester = {
+            name : debugName,
+            weeksList : newWeeksList // Yeah... The madness start... Again !
+          }
+          trimestersList.push(trimester);
+        });
+      }
+      callback(trimestersList);
+    }
+  });
+}
+
+//Old function to remove
+function addweeks_old(id, callback){
+  weekModel.find({trimester : id}, function (err, weeks) { 
+    var weeksList = [];
+    if (typeof weeks !== "undefined"){ 
+      for (i = 0; i < weeks.length; i++) {
+        
+        var debugName = ("[" +  weeks[i]._id  + "]>" + i + " Week");
+        var weekId = weeks[i]._id;
+        var content = weeks[i].content;
+
+        //console.log("before addwt " + weekId);
+
+        addWeekType_old(weeks[i].weekType, weekId, function(newWeekType){ 
+          week = {
+            name : debugName,
+            id : weekId,
+            content : content,
+            weekType : newWeekType, 
+            module: "",
+          }
+          //console.log("inside addwt " + weekId);
+
+          weeksList.push(week);
+        });
+      }
+      callback(weeksList);
+    }
+  });
+}
+
+//Old function to remove
+function addWeekType_old(id, weekId, callback){
+  weekTypeModel.findOne({_id: mongoose.Types.ObjectId(id)}, function (err, weekType) { 
+    if (typeof weekType !== "undefined"){ 
+      weekType = {
+        name : weekType.name,
+        color : weekType.color,
+      }
+      callback(weekType);
+    }
+  });
+}
+
+//Old function to remove
+function addModule_notUsed(id){ //I put the name wmodule because module is already taken by mongoose !
+  modulesModel.find({_id : id}, function (err, wmodule) { 
+    if (typeof wmodule !== "undefined"){ 
+      wmodule = {
+        name : wmodule.name,
+        color : wmodule.color,
+      }
+      return wmodule;
+    }
+  });
+}
+
+//Refactoring to do
+calendarRoute.route('/create-calendar').post((req, res, next) => {
+  var isCreated = false;
+  var calendar_id = 0;
+
+  calendar = calendarModel.create(req.body, (error, data) => {
+    if (error) {
+    res.send({ message: "The calendar is not created !", isCreated });
+
+    return next(error)
+  } else {
+    isCreated = true;
+
+    calendar_id = data._id;
+
+    //fillCalendar(calendar_id);
+
+    res.send({ message: "The calendar is created !", isCreated, calendar_id });
+  }
+  })
 });
 
 function fillCalendar(calendar_id){
@@ -277,11 +289,12 @@ function fillCalendar(calendar_id){
   //Create a weeType to default and return its is
   createWeekType();
 
-  for (let i = 0; i < yearsCount; i++)
-    createYear(calendar_id); //createYear -> createTrimester -> createWeeks
+  //future count : yearsCount*trimestersCount*yearsCount
+  //for (let i = 0; i < 3; i++) //Multiply the week with the year's count and the trimester's count 
+    createWeek(calendar_id);
 }
 
-function createWeekType(){
+function createWeekType(){ //Dev function
   weekType = {
     name : "default",
     color : "#f1e7e7"
@@ -297,7 +310,7 @@ function createWeekType(){
   })
 }
 
-function createYear(calendar_id){
+function createYear(calendar_id){ //Old !!
   //console.log("createY> wt_id" + wt_id);
 
   var today = new Date();
@@ -321,7 +334,7 @@ function createYear(calendar_id){
   })
 }
 
-function createTrimester(id)
+function createTrimester(id) //Old !!
 {
   var newTrimester = {
     year: id
@@ -340,9 +353,9 @@ function createTrimester(id)
   })
 }
 
-function createWeek(id){
+function createWeek(calendar_id){
   var newWeek = {
-    trimester: id,
+    calendar: calendar_id,
     content : "my week's content",
     weekType: wt_id,
   }
