@@ -19,11 +19,11 @@
       </div>
       <div v-else> 
         <h1>- [ * * * {{ weeks[0].calendar.name }} * * * ] - </h1>
-        <div class="row">
-          <div class="column" v-for="(week, index) in weeks" :key="week">
-            <div class="week case" @click="toggleIsClicked" :id="index"> {{week.content}} </div>
-          </div>
-        </div>
+        <table>
+          <tr v-for="(week, index) in weeks" :key="week">
+            <td class="case" @click="toggleIsClicked" :id="index"> {{week.content}} </td>
+          </tr>
+        </table>
     </div>
   </div>
   <p class="error"> {{message}} </p>
@@ -32,34 +32,17 @@
 <style>
   .case{
     border: 1px solid #ccc;
+    text-align: left;
+    padding: 8px;
   }
 
-  .blanckCase{
-    padding: 9px 0;
-  }
-
-  .year{
+  .title{
     font-weight: bold;
   }
 
   .trimester{
     background-color: pink;
     padding: 2px;
-  }
-
-  .week{
-
-  }
-
-  .row {
-    display: flex;
-    flex-flow: row wrap;
-    width: 60%;
-    padding: 10px;
-  }
-
-  .column {
-    flex: 1 1 50%;
   }
 
   .test{
@@ -171,7 +154,7 @@ setTimeout(() => {
         console.log("content : " + event.toElement.outerText);
         console.log("id : " + event.toElement.id);
 
-        document.getElementById(event.toElement.id).classList.add("test")
+        //document.getElementById(event.toElement.id).classList.add("test")
       }
     }
   }
