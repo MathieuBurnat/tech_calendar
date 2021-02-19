@@ -5,11 +5,8 @@ var mongoose = require('mongoose');
 // calendar model
 let calendarModel = require('../../../model/calendar');
 
-// year model
-let yearModel = require('../../../model/year');
-
 // monthsPack model
-let trimesterModel = require('../../../model/monthsPack');
+let monthsPackModel = require('../../../model/monthsPack');
 
 // week model
 let weekModel = require('../../../model/week');
@@ -23,7 +20,7 @@ let modulesModel = require('../../../model/module');
 
 //config 
 var yearsCount = 2;
-var monthsPack = 4;
+var monthsPackCount = 4;
 var weeksCount = 11;
 var wt_id = 23;
 
@@ -277,7 +274,7 @@ calendarRoute.route('/create-calendar').post((req, res, next) => {
 
     calendar_id = data._id;
 
-    //fillCalendar(calendar_id);
+    fillCalendar(calendar_id);
 
     res.send({ message: "The calendar is created !", isCreated, calendar_id });
     }
@@ -285,25 +282,36 @@ calendarRoute.route('/create-calendar').post((req, res, next) => {
 });
 
 function fillCalendar(calendar_id){
-  //Each monthsPackCount
-  //->create monthsPack(calendar_id)
+  for (let i = 0; i < monthsPackCount; i++) {
+    creatMonthsPack(calendar_id);
+  }
 }
 
-function monthsPack(calendar_id){
-  //Each weeks
-  //-> create weeks(calendar_id, monthsPack_id)
+function creatMonthsPack(calendar_id){
+  for (let i = 0; i < weeksCount; i++) {
+  {
+    createWeek(calendar_id, monthsPack_id)
+  }
 } 
 
 function createWeek(calendar_id, monthsPack_id){
-  //Create the week
-  //-> Content
-  //-> date
-  //-> fk_calendar
-  //-> fk_monthsPack
+  var today = new Date();
 
-  //Futre :
-  //->create and asign modules
-  //->create and asign weekType
+  week = {
+    content : "Default",
+    date : today.getDate() + '-' + today.getMonth() + 1 +'-'+today.getFullYear(),
+    monthsPack : monthsPack_id,
+    calendar : calendar_id
+    //Futre :
+    //->create and asign modules
+    //->create and asign weekType
+  }
+
+  weekModel.create(week, (error, data) => {
+    if (error) {
+      return next(error);
+    } 
+  })
 }
 
 //Old function
