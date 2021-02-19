@@ -167,8 +167,8 @@
         //console.log("Beep Bop Beep, I'm gonna crazy. Oh by the way you have a new message : " + res.data.message);
         console.log(res.data.message);
 
-        this.calendar = res.data.calendar;
-        console.log(this.calendar);
+        this.calendar = res.data.weeks;
+        console.log(res.data.weeks);
 
         //console.log("[" + this.calendar.name + "]"); //The name of the calendar
 

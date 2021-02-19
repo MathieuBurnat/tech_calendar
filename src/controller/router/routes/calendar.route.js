@@ -35,11 +35,51 @@ calendarRoute.route('/').get((req, res) => {
    })
  })
 
+
+ calendarRoute.route('/get-full-calendar').post((req, res) => {
+
+  //Find all weeks into the calendar.
+  weekModel.find({calendar : req.body.calendarId}, function (err, docs) {
+
+    //if on calendar is found
+    if (typeof docs !== "undefined"){ 
+      
+      //Get weeks with full content 
+      GetWeeks(docs, res, function(weeks){
+        message = "Works !";
+        return res.send({ message, weeks});
+      });
+    }else{
+      mesage = "Any calendar has been found :c"
+      return res.send({ message });
+    }
+  });
+})
+
+async function GetWeeks(docs, res, callback){
+  weeks = [];
+
+  for (i = 0; i < docs.length; i++) {
+    
+    week = {
+      content : docs[i].content,
+      calendar : "my-calendar-name :D",
+    }
+
+    console.log("[ week generated ]");
+    console.log(week);
+
+    weeks.push(week);
+  }
+
+  callback(weeks);
+}
+
 //Old function to remove
-calendarRoute.route('/get-full-calendar').post((req, res) => {
+calendarRoute.route('/get-full-calendar-old').post((req, res) => {
 
   //Find the correct calendar with its id.
-  calendarModel.findOne({_id : req.body.calendarId}, function (err, docs) {
+  calendarModel.find({_id : req.body.calendarId}, function (err, docs) {
 
     //if on calendar is found
     if (typeof docs !== "undefined"){ 
